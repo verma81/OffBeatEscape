@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { UserCredentials, UserInterface } from './login.model';
+import { LoginModel, UserCredentials} from './login.model';
 import { LogInService } from './login.service';
 import { SocialAuthService } from 'angularx-social-login';
 import { FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
+import { TokenService } from '../commonservices/TokenService';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
     private loginService: LogInService,
     private router: Router,
     private spinner: NgxSpinnerService,
-    private authService: SocialAuthService) {
+    private authService: SocialAuthService,
+    private tokenService: TokenService) {
     }
 
   ngOnInit(): void {
@@ -33,15 +35,13 @@ export class LoginComponent implements OnInit {
   }
 
   onLoginClick(): void {
-    console.log(this.credentials.username);
-    console.log(this.credentials.password);
-    this.loginService.validateLogin().subscribe((data: UserInterface) => {
+    this.loginService.validateLogin(this.credentials).subscribe((data: LoginModel) => {
       if (data) {
         console.log(data);
         this.spinner.show();
         setTimeout(() => {
           this.spinner.hide();
-          localStorage.setItem('logged_in_noramlly', '100');
+          this.tokenService.setJWTTokenInLocalStorage(data);
           this.router.navigate(['/dashboard']);
         }, 3000);
       }
