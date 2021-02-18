@@ -27,7 +27,7 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, 'client/dist/client')));
 
 /**
- * -------------- ROUTES ----------------
+ * -------------- ROUTES ---------------
  */
 
 // Imports all of the routes from ./routes/index.js
