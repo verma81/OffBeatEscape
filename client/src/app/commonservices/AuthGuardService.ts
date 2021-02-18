@@ -13,8 +13,6 @@ export class AuthGuardService implements CanActivate {
     if (this.tokenService.isLoggedIn() && localStorage.getItem('jwt-token')){
         return true;
     } else {
-      localStorage.removeItem('token');
-      localStorage.removeItem('expires');
       this.router.navigate(['/login']);
       return false;
     }
