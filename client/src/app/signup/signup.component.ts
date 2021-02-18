@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { TokenService } from '../commonservices/TokenService';
 import { UserCredentials } from '../login/login.model';
+import { SignUpService } from './signup.service';
+import { SignUpResponseModel } from './signupresponse.model';
 
 @Component({
   selector: 'app-signup',
@@ -11,7 +14,12 @@ import { UserCredentials } from '../login/login.model';
 export class SignupComponent implements OnInit {
   passwordMatchError: boolean = false;
 
-  constructor(private router: Router, private spinner: NgxSpinnerService) { }
+  constructor(
+    private router: Router,
+    private spinner: NgxSpinnerService, 
+    private signUpService: SignUpService,
+    private tokenService: TokenService
+  ) { }
 
   credentials: UserCredentials = {
     password: '',
@@ -27,21 +35,20 @@ export class SignupComponent implements OnInit {
   }
 
   onSignUpClick(): void {
-
+    this.signUpService.registerUser(this.credentials).subscribe((data: SignUpResponseModel) => {
+      if (data) {
+        console.log(data);
+        this.spinner.show();
+        setTimeout(() => {
+          this.spinner.hide();
+          this.tokenService.setJWTTokenInLocalStorage(data);
+        }, 3000);
+      }
+    });
   }
 
   goToLogin(): void {
     this.router.navigate(['/login']);
-  }
-
-  validateConfirmPassword(): void {
-    console.log("inside validate paswrod");
-    if (this.credentials.password === this.credentials.confirmPassword) {
-      console.log("user can register now");
-    } else {
-      console.log("logic working")
-      this.passwordMatchError = true;
-    } 
   }
 
 }
