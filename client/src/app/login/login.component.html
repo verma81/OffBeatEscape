@@ -1,0 +1,47 @@
+<div class="Login_Page">
+    <div class=Login_Wrapper>
+        <div class="Login_Box">
+            <div class="Login_Header">
+            </div>
+            <div class="Login_Body">
+                <form #loginForm>
+                    <div class="Login_Body__User_Avatar">
+                        <img src="../../assets/user.png" alt="Avatar" class="avatar">
+                    </div>
+                    <div class="Login_Body__Email_Wrapper">
+                        <mat-form-field appearance="standard" [style.width.%]="100">
+                            <mat-label>Enter your email</mat-label>
+                            <input matInput placeholder="sid@gmail.com" [(ngModel)]="credentials.username" #username="ngModel" name="username" id="username" required email>
+                            <mat-error *ngIf="(username.invalid && (username.dirty || username.touched) && (username.errors.required))">Please enter email</mat-error>
+                            <mat-error *ngIf="(username.invalid && (username.dirty || username.touched) && (username.errors.email))">Please enter valid email</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="Login_Body__Password_Wrapper">
+                        <mat-form-field appearance="standard" [style.width.%]="100">
+                            <mat-label>Enter Password</mat-label>
+                            <input matInput type="password" [(ngModel)]="credentials.password" #password="ngModel" name="password" id="exampleInputPassword1" required>
+                            <mat-error *ngIf="(password.invalid && (password.dirty || password.touched) && password.errors.required)">Please enter password</mat-error>
+                        </mat-form-field>  
+                    </div>
+                    <div class="Login_Body_Submit_Button_Wrapper">
+                        <button mat-raised-button [disabled]='username.invalid || password.invalid' (click)="onLoginClick()">Submit</button>
+                        <div (click)="goToSignUp()">
+                            <mat-hint>New here? Signup..</mat-hint>
+                        </div>
+                    </div>
+                    <div class="Login_Body__Social_Buttons_Wrapper">
+                        <span>
+                            <i class="fa fa-facebook-square fa-3x" aria-hidden="true"> </i>
+                        </span>
+                        <span (click)="signInWithGoogle()">
+                            <i class="fa fa-google fa-3x" aria-hidden="true"> </i>
+                        </span>
+                    </div>  
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<ngx-spinner type="ball-clip-rotate-pulse">
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
