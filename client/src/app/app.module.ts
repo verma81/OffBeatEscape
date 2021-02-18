@@ -14,7 +14,6 @@ import { MyHttpInterceptorService } from './commonservices/MyHttpInterceptorServ
 import { MatSliderModule } from '@angular/material/slider';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { routing } from './app.routes';
 import { LogInService } from './login/login.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -25,7 +24,8 @@ import { SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider, Facebo
 import { SignupComponent } from './signup/signup.component';
 import { PasswordValidatorDirective } from './signup/passwordvalidator.directive';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import {MatDividerModule} from '@angular/material/divider';
+import { MatDividerModule } from '@angular/material/divider';
+import { TokenService } from './commonservices/TokenService';
 
 
 @NgModule({
@@ -38,7 +38,6 @@ import {MatDividerModule} from '@angular/material/divider';
   ],
   imports: [
     BrowserModule,
-    routing,
     AppRoutingModule,
     BrowserAnimationsModule,
     NgxSpinnerModule,
@@ -58,6 +57,7 @@ import {MatDividerModule} from '@angular/material/divider';
   providers: [
     LogInService,
     AuthGuardService,
+    TokenService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: MyHttpInterceptorService,

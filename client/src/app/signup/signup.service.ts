@@ -2,16 +2,17 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
-import { LoginModel,UserCredentials } from './login.model';
+import { SignUpResponseModel } from './signupresponse.model';
+import { UserCredentials } from '../login/login.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class LogInService {
+export class SignUpService {
     constructor(private http: HttpClient) { }
 
-  validateLogin(userCredentials: UserCredentials): Observable<LoginModel> {
-      return this.http.post<LoginModel>(`http://localhost:3000/users/login`, userCredentials).pipe(
+    registerUser(clientCredentials: UserCredentials): Observable<SignUpResponseModel> {
+      return this.http.post<SignUpResponseModel>(`http://localhost:3000/users/register`, clientCredentials).pipe(
       map((res: any) => {
         console.log(res);
         return res;
