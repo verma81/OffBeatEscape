@@ -11,9 +11,9 @@
                     <div class="Login_Body__Email_Wrapper">
                         <mat-form-field appearance="standard" [style.width.%]="100">
                             <mat-label>Enter your email</mat-label>
-                            <input matInput placeholder="sid@gmail.com" [(ngModel)]="credentials.username" #username="ngModel" name="username" id="username" required email>
+                            <input matInput placeholder="sid@gmail.com" [(ngModel)]="credentials.username" #username="ngModel" name="username" id="username" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
                             <mat-error *ngIf="(username.invalid && (username.dirty || username.touched) && (username.errors.required))">Please enter email</mat-error>
-                            <mat-error *ngIf="(username.invalid && (username.dirty || username.touched) && (username.errors.email))">Please enter valid email</mat-error>
+                            <mat-error *ngIf="(username.invalid && (username.dirty || username.touched) && (username.errors.pattern))">Please enter valid email</mat-error>
                         </mat-form-field>
                     </div>
                     <div class="Login_Body__Password_Wrapper">
