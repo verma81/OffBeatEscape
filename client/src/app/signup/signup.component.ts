@@ -13,6 +13,7 @@ import { SignUpResponseModel } from './signupresponse.model';
 })
 export class SignupComponent implements OnInit {
   passwordMatchError: boolean = false;
+  signedUpSuccessfully: boolean = false;
 
   constructor(
     private router: Router,
@@ -41,6 +42,7 @@ export class SignupComponent implements OnInit {
         this.spinner.show();
         setTimeout(() => {
           this.spinner.hide();
+          this.signedUpSuccessfully = true;
           this.tokenService.setJWTTokenInLocalStorage(data);
         }, 3000);
       }
