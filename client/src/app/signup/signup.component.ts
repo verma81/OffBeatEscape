@@ -44,6 +44,7 @@ export class SignupComponent implements OnInit {
           this.spinner.hide();
           this.signedUpSuccessfully = true;
           this.tokenService.setJWTTokenInLocalStorage(data);
+          this.tokenService.setJWTTokenInCookie(data);
         }, 3000);
       }
     });

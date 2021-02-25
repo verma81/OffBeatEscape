@@ -1,7 +1,7 @@
 export interface LoginModel {
     success: boolean;
     token: string;
-    expiresIn: string; 
+    expiresIn: string;
 }
 
 export interface UserCredentials {

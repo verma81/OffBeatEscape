@@ -13,6 +13,10 @@ export class TokenService {
         localStorage.setItem('jwt-token', responseObj.token);
     }
 
+    setJWTTokenInCookie (responseObj: any): void {
+        document.cookie = 'jwt-token=' + responseObj.token + ';expires=' + moment(new Date()).add(1, 'minutes').toDate();
+    }
+
     isLoggedIn(): boolean {
         let isLoggedIn = false;
         if(moment(new Date()).isBefore(this.tokenExpiryTime)) {
