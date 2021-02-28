@@ -19,20 +19,21 @@
                     <div class="Signup_Body__Password_Wrapper">
                         <mat-form-field appearance="standard" [style.width.%]="100">
                             <mat-label>Enter Password</mat-label>
-                            <input matInput type="password" [(ngModel)]="credentials.password" #password="ngModel" name="password" id="password" required>
+                            <input matInput type="password" minlength="8" [(ngModel)]="credentials.password" #password="ngModel" name="password" id="password" required>
                             <mat-error *ngIf="(password.invalid && (password.dirty || password.touched) && password.errors.required)">Please enter password</mat-error>
-                        </mat-form-field> 
+                            <mat-error *ngIf="(password.invalid && (password.dirty || password.touched) && password.errors.minlength && !password.errors.required)">Min 8 length password required</mat-error>
+                        </mat-form-field>
                     </div>
                     <div class="Signup_Body__Password_Wrapper">
                         <mat-form-field appearance="standard" [style.width.%]="100">
                             <mat-label>Confirm Password</mat-label>
                             <input matInput type="password" [(ngModel)]="credentials.confirmPassword" #confirmPassword="ngModel" name="confirmpassword" id="confirmpassword" appPasswordvalidator="password" required>
-                            <mat-error *ngIf="(confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched) && confirmPassword.errors.required)">Please enter password</mat-error>    
+                            <mat-error *ngIf="(confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched) && confirmPassword.errors.required)">Please enter password</mat-error>
                             <mat-error *ngIf="confirmPassword.hasError('passwordMatchError') && !confirmPassword.errors.required">Passwords do not match</mat-error>
-                        </mat-form-field> 
+                        </mat-form-field>
                     </div>
                     <div class="Signup_Body_Submit_Button_Wrapper">
-                        <button mat-raised-button [disabled]="username.invalid || password.invalid || confirmPassword.invalid" (click)="onSignUpClick()">Submit</button>
+                        <button mat-raised-button [disabled]="username.invalid || password.invalid || confirmPassword.invalid || password.value != confirmPassword.value" (click)="onSignUpClick()">Submit</button>
                         <div (click)="goToLogin()">
                             <mat-hint>Already have an account? Login..</mat-hint>
                         </div>
@@ -47,7 +48,7 @@
                         <span (click)="signInWithGoogle()">
                             <i class="fa fa-google fa-3x" aria-hidden="true"> </i>
                         </span>
-                    </div>  
+                    </div>
                 </form>
             </div>
         </div>

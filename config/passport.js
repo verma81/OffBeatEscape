@@ -22,7 +22,7 @@ module.exports = function (passport) {
         });
       })
     );
-  
+
     passport.use(
       new GoogleStrategy(
         {
@@ -36,22 +36,24 @@ module.exports = function (passport) {
             if (err) {
               return done(err, null);
             }
-  
+
             if (!doc) {
               const newUser = new User({
                 googleId: profile.id,
                 username: profile.name.givenName,
               });
-  
+
               await newUser.save();
               done(null, newUser);
             }
-            done(null, doc);
+            else {
+              done(null, doc);
+            }
           });
         }
       )
     );
-  
+
     passport.use(
       new FacebookStrategy(
         {
@@ -64,13 +66,13 @@ module.exports = function (passport) {
             if (err) {
               return done(err, null);
             }
-  
+
             if (!doc) {
               const newUser = new User({
                 facebookId: profile.id,
                 username: profile.displayName,
               });
-  
+
               await newUser.save();
               done(null, newUser);
             }
@@ -79,7 +81,7 @@ module.exports = function (passport) {
         }
       )
     );
-  
+
     passport.serializeUser((user, done) => {
       // done(null, user.id);
       return done(null, user._id);
@@ -92,15 +94,14 @@ module.exports = function (passport) {
     //     done(err, userInformation);
     //   });
     // });
-  
+
     passport.deserializeUser((id, done) => {
       User.findById(id, (err, doc) => {
         return done(null, doc); // return goes to the client and binds to the req.user property
       });
     });
-  
+
     passport.deserializeUser((user, done) => {
       return done(null, user);
     });
   };
-  

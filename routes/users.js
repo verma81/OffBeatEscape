@@ -32,7 +32,7 @@ router.post("/register", (req, res) => {
       });
       await newUser.save();
       res.status(200).json({ success: true, success: "user created" });
-      res.send("User Created");
+      //res.send("User Created");
     }
   });
 });
