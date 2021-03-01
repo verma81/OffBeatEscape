@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { LoginModel, UserCredentials} from './login.model';
 import { LogInService } from './login.service';
-import { SocialAuthService } from 'angularx-social-login';
 import { TokenService } from '../commonservices/TokenService';
 
 @Component({
@@ -22,7 +21,6 @@ export class LoginComponent implements OnInit {
     private loginService: LogInService,
     private router: Router,
     private spinner: NgxSpinnerService,
-    private authService: SocialAuthService,
     private tokenService: TokenService) {
     }
 
@@ -61,7 +59,7 @@ export class LoginComponent implements OnInit {
   }
 
   signOut(): void {
-    this.authService.signOut();
+    
   }
 
   goToSignUp(): void {
