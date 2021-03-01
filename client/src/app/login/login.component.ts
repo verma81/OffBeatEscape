@@ -38,8 +38,6 @@ export class LoginComponent implements OnInit {
         this.spinner.show();
         setTimeout(() => {
           this.spinner.hide();
-          this.tokenService.setJWTTokenInLocalStorage(data);
-          this.tokenService.setJWTTokenInCookie(data);
           this.router.navigate(['/dashboard']);
         }, 3000);
       }

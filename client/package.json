@@ -42,7 +42,7 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
-    "moment": "^2.29.1",
+    "ngx-cookie-service": "^11.0.2",
     "ngx-spinner": "10.0.1",
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { DashBoardService } from './dashboard.service';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -9,7 +11,11 @@ import { DashBoardService } from './dashboard.service';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private router: Router, private dashboardService: DashBoardService) { }
+  constructor(
+    private router: Router,
+    private dashboardService: DashBoardService,
+    private cookieService: CookieService
+    ) { }
 
   ngOnInit(): void {
     localStorage.removeItem('logged_in_noramlly');
@@ -19,6 +25,7 @@ export class DashboardComponent implements OnInit {
     this.dashboardService.logoutUser().subscribe( data => {
       console.log(data);
     });
+    this.cookieService.delete('connect.sid');
     this.router.navigate(['/login']);
   }
 

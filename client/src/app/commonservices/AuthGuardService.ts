@@ -10,7 +10,7 @@ export class AuthGuardService implements CanActivate {
   ) {}
 
   canActivate(){
-    if (this.tokenService.isLoggedIn() && localStorage.getItem('jwt-token')){
+    if (this.tokenService.isLoggedIn()){
         return true;
     } else {
       this.router.navigate(['/login']);

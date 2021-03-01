@@ -25,6 +25,7 @@ import { PasswordValidatorDirective } from './signup/passwordvalidator.directive
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatDividerModule } from '@angular/material/divider';
 import { TokenService } from './commonservices/TokenService';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @NgModule({
@@ -56,6 +57,7 @@ import { TokenService } from './commonservices/TokenService';
     LogInService,
     AuthGuardService,
     TokenService,
+    CookieService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: MyHttpInterceptorService,
