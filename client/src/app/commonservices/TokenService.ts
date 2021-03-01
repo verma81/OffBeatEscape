@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { truncate, truncateSync } from 'fs';
 import { CookieService } from 'ngx-cookie-service';
 
 /** Pass untouched request through to the next request handler. */
