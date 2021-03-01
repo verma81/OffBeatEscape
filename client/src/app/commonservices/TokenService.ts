@@ -7,9 +7,17 @@ export class TokenService {
 
     constructor(private cookieService: CookieService) {}
     
+    getCookie(name: string): boolean {
+        let cookieExists = false;
+        if(document.cookie.indexOf('connect.sid') >= -1) {
+            cookieExists = true;
+        }
+        return cookieExists;
+    }
+
     isLoggedIn(): boolean {
-        let isLoggedIn = true;
-        if(this.cookieService.check('connect.sid')) {
+        let isLoggedIn = false;
+        if(this.getCookie('connect.sid')) {
             isLoggedIn = true;
         } else {
             isLoggedIn = false;
