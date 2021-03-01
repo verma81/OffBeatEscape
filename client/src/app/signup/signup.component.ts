@@ -54,4 +54,16 @@ export class SignupComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  signInWithFB(): void {
+    this.signUpService.validateLoginFB(this.credentials).subscribe(data => {
+      console.log(data);
+    })
+  }
+
+  signInWithGoogle(): void {
+    this.signUpService.validateLoginGoogle(this.credentials).subscribe(data => {
+      console.log(data);
+    })
+  }
+
 }

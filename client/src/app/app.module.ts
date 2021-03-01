@@ -20,7 +20,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 import { SignupComponent } from './signup/signup.component';
 import { PasswordValidatorDirective } from './signup/passwordvalidator.directive';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -50,7 +49,6 @@ import { TokenService } from './commonservices/TokenService';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    SocialLoginModule,
     FlexLayoutModule,
     MatDividerModule
   ],
@@ -62,24 +60,6 @@ import { TokenService } from './commonservices/TokenService';
       provide: HTTP_INTERCEPTORS,
       useClass: MyHttpInterceptorService,
       multi: true
-    },
-    {
-      provide: 'SocialAuthServiceConfig',
-      useValue: {
-        autoLogin: false,
-        providers: [
-          {
-            id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider(
-              '577237498781-1586bahtmr5eg4kc8rkgor7rokvgbnc2.apps.googleusercontent.com'
-            )
-          },
-          {
-            id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('clientId')
-          }
-        ]
-      } as SocialAuthServiceConfig,
     }
   ],
   bootstrap: [AppComponent]

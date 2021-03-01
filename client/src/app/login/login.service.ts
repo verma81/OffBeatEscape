@@ -11,7 +11,27 @@ export class LogInService {
     constructor(private http: HttpClient) { }
 
   validateLogin(userCredentials: UserCredentials): Observable<LoginModel> {
-      return this.http.post<LoginModel>(`http://localhost:3000/users/login`, userCredentials).pipe(
+    return this.http.post<LoginModel>(`http://localhost:3000/users/login`, userCredentials).pipe(
+      map((res: any) => {
+        console.log(res);
+        return res;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  validateLoginFB(userCredentials: UserCredentials) {
+    return this.http.get(`http://localhost:3000/auth/facebook`).pipe(
+      map((res: any) => {
+        console.log(res);
+        return res;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  validateLoginGoogle(userCredentials: UserCredentials) {
+    return this.http.get(`http://localhost:3000/auth/google`).pipe(
       map((res: any) => {
         console.log(res);
         return res;

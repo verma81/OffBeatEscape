@@ -4,7 +4,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { LoginModel, UserCredentials} from './login.model';
 import { LogInService } from './login.service';
 import { SocialAuthService } from 'angularx-social-login';
-import { FacebookLoginProvider, GoogleLoginProvider } from 'angularx-social-login';
 import { TokenService } from '../commonservices/TokenService';
 
 @Component({
@@ -50,11 +49,15 @@ export class LoginComponent implements OnInit {
   }
 
   signInWithFB(): void {
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    this.loginService.validateLoginFB(this.credentials).subscribe(data => {
+      console.log(data);
+    })
   }
 
   signInWithGoogle(): void {
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    this.loginService.validateLoginGoogle(this.credentials).subscribe(data => {
+      console.log(data);
+    })
   }
 
   signOut(): void {
