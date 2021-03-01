@@ -29,8 +29,7 @@
                             <input matInput type="password" [(ngModel)]="credentials.confirmPassword" #confirmPassword="ngModel" name="confirmpassword" id="confirmpassword" appPasswordvalidator="password" required>
                             <mat-error *ngIf="(confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched) && confirmPassword.errors.required)">Please enter password</mat-error>    
                             <mat-error *ngIf="confirmPassword.hasError('passwordMatchError') && !confirmPassword.errors.required">Passwords do not match</mat-error>
-                        </mat-form-field>
-                        <span *ngIf="passwordMatchError">Passwords do not match</span>  
+                        </mat-form-field> 
                     </div>
                     <div class="Signup_Body_Submit_Button_Wrapper">
                         <button mat-raised-button [disabled]="username.invalid || password.invalid || confirmPassword.invalid" (click)="onSignUpClick()">Submit</button>

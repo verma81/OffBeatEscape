@@ -12,7 +12,7 @@ export class TokenService {
     */
     getAuthenticationCookie(name: string): boolean {
         let cookieExists = false;
-        if (document.cookie.indexOf(name) > -1) {
+        if (document.cookie.indexOf(name) >= -1) {
             cookieExists = true;
         }
         return cookieExists;
