@@ -11,7 +11,7 @@ export class DashBoardService {
     constructor(private http: HttpClient) { }
 
   logoutUser(){
-    return this.http.get(`http://localhost:3000/logout`).pipe(
+    return this.http.get(`http://localhost:3000/logout`, { withCredentials: true }).pipe(
       map((res: any) => {
         console.log(res);
         return res;

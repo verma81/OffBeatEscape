@@ -12,7 +12,7 @@ export class SignUpService {
     constructor(private http: HttpClient) { }
 
     registerUser(clientCredentials: UserCredentials): Observable<SignUpResponseModel> {
-      return this.http.post<SignUpResponseModel>(`http://localhost:3000/users/register`, clientCredentials).pipe(
+      return this.http.post<SignUpResponseModel>(`http://localhost:3000/users/register`, clientCredentials, {withCredentials: true}).pipe(
       map((res: any) => {
         console.log(res);
         return res;
@@ -22,7 +22,7 @@ export class SignUpService {
   }
 
   validateLoginFB(userCredentials: UserCredentials) {
-    return this.http.get(`http://localhost:3000/auth/facebook`).pipe(
+    return this.http.get(`http://localhost:3000/auth/facebook`, {withCredentials: true}).pipe(
       map((res: any) => {
         console.log(res);
         return res;
@@ -32,7 +32,7 @@ export class SignUpService {
   }
 
   validateLoginGoogle(userCredentials: UserCredentials) {
-    return this.http.get(`http://localhost:3000/auth/google`).pipe(
+    return this.http.get(`http://localhost:3000/auth/google`, {withCredentials: true}).pipe(
       map((res: any) => {
         console.log(res);
         return res;

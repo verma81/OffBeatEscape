@@ -11,7 +11,7 @@ export class LogInService {
     constructor(private http: HttpClient) { }
 
   validateLogin(userCredentials: UserCredentials): Observable<LoginModel> {
-    return this.http.post<LoginModel>(`http://localhost:3000/users/login`, userCredentials).pipe(
+    return this.http.post<LoginModel>(`http://localhost:3000/users/login`, userCredentials, {withCredentials: true}).pipe(
       map((res: any) => {
         console.log(res);
         return res;
@@ -21,7 +21,7 @@ export class LogInService {
   }
 
   validateLoginFB(userCredentials: UserCredentials) {
-    return this.http.get(`http://localhost:3000/auth/facebook`).pipe(
+    return this.http.get(`http://localhost:3000/auth/facebook`, {withCredentials: true}).pipe(
       map((res: any) => {
         console.log(res);
         return res;
@@ -31,7 +31,7 @@ export class LogInService {
   }
 
   validateLoginGoogle(userCredentials: UserCredentials) {
-    return this.http.get(`http://localhost:3000/auth/google`).pipe(
+    return this.http.get(`http://localhost:3000/auth/google`, {withCredentials: true}).pipe(
       map((res: any) => {
         console.log(res);
         return res;
