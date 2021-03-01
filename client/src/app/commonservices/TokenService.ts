@@ -9,7 +9,7 @@ export class TokenService {
     
     getCookie(name: string): boolean {
         let cookieExists = false;
-        if(document.cookie.indexOf('connect.sid') >= -1) {
+        if(document.cookie.indexOf(name) >= -1) {
             cookieExists = true;
         }
         return cookieExists;
