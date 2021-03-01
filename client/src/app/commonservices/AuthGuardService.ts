@@ -4,12 +4,17 @@ import { TokenService } from './TokenService';
 
 @Injectable()
 export class AuthGuardService implements CanActivate {
+
   constructor(
-      private router: Router,
-      private tokenService: TokenService
+    private router: Router,
+    private tokenService: TokenService
   ) {}
 
-  canActivate(){
+  /**
+   * @memberof AuthGuardService
+   * Will not allow unauthorized user to access components
+   */
+  canActivate(): boolean {
     if (this.tokenService.isLoggedIn()){
         return true;
     } else {

@@ -6,10 +6,14 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class MyHttpInterceptorService implements HttpInterceptor {
 
+  /**
+   * @memberof MyHttpInterceptorService
+   * Used for intercepting API calls
+   */
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // Clone the request and set the new header in one step.
     const authReq = req.clone({
-        withCredentials: true, 
+        withCredentials: true,
     });
     return next.handle(authReq);
   }

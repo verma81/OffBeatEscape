@@ -8,8 +8,14 @@ import { LoginModel, UserCredentials } from './login.model';
   providedIn: 'root',
 })
 export class LogInService {
-    constructor(private http: HttpClient) { }
 
+  constructor(private http: HttpClient) { }
+
+  /**
+   * @memberof LogInService
+   * @param userCredentials
+   * Used to call login API
+   */
   validateLogin(userCredentials: UserCredentials): Observable<LoginModel> {
     return this.http.post<LoginModel>(`http://localhost:3000/users/login`, userCredentials, {withCredentials: true}).pipe(
       map((res: any) => {
@@ -20,7 +26,11 @@ export class LogInService {
     );
   }
 
-  validateLoginFB(userCredentials: UserCredentials) {
+  /**
+   * @memberof LogInService
+   * Used to login with facebook
+   */
+  validateLoginFB() {
     return this.http.get(`http://localhost:3000/auth/facebook`, {withCredentials: true}).pipe(
       map((res: any) => {
         console.log(res);
@@ -30,7 +40,11 @@ export class LogInService {
     );
   }
 
-  validateLoginGoogle(userCredentials: UserCredentials) {
+  /**
+   * @memberof LogInService
+   * Used to login with google
+   */
+  validateLoginGoogle() {
     return this.http.get(`http://localhost:3000/auth/google`, {withCredentials: true}).pipe(
       map((res: any) => {
         console.log(res);
@@ -40,6 +54,10 @@ export class LogInService {
     );
   }
 
+  /**
+   * @memberof LogInService
+   * Error handler for API calls
+   */
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.

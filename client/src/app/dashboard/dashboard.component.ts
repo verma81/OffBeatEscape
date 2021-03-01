@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
+import { TokenService } from '../commonservices/TokenService';
 import { DashBoardService } from './dashboard.service';
 
 
@@ -14,18 +14,20 @@ export class DashboardComponent implements OnInit {
   constructor(
     private router: Router,
     private dashboardService: DashBoardService,
-    private cookieService: CookieService
+    private tokenService: TokenService
     ) { }
 
-  ngOnInit(): void {
-    localStorage.removeItem('logged_in_noramlly');
-  }
+  ngOnInit(): void { }
 
+  /**
+   * @memberof DashboardComponent
+   * Logs out the current user and deletes authentication token
+   */
   logout(): void {
     this.dashboardService.logoutUser().subscribe( data => {
       console.log(data);
     });
-    this.cookieService.delete('connect.sid');
+    this.tokenService.deleteAuthenticationCookie('connect.sid');
     this.router.navigate(['/login']);
   }
 

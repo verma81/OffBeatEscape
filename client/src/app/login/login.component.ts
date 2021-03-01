@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { LoginModel, UserCredentials} from './login.model';
 import { LogInService } from './login.service';
-import { TokenService } from '../commonservices/TokenService';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +11,10 @@ import { TokenService } from '../commonservices/TokenService';
 })
 export class LoginComponent implements OnInit {
 
+  /**
+  * @memberof LoginComponent
+  * Used for storing user credentials
+  */
   credentials: UserCredentials = {
     password: '',
     username: ''
@@ -20,9 +23,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private loginService: LogInService,
     private router: Router,
-    private spinner: NgxSpinnerService,
-    private tokenService: TokenService) {
-    }
+    private spinner: NgxSpinnerService
+    ) { }
 
   ngOnInit(): void {
     this.spinner.show();
@@ -31,6 +33,10 @@ export class LoginComponent implements OnInit {
     }, 1000);
   }
 
+  /**
+   * @memberof LoginComponent
+   * validates a user with his/her credentials
+   */
   onLoginClick(): void {
     this.loginService.validateLogin(this.credentials).subscribe((data: LoginModel) => {
       if (data) {
@@ -44,22 +50,30 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  /**
+   * @memberof LoginComponent
+   * log in with facebook
+   */
   signInWithFB(): void {
-    this.loginService.validateLoginFB(this.credentials).subscribe(data => {
+    this.loginService.validateLoginFB().subscribe(data => {
       console.log(data);
-    })
+    });
   }
 
+  /**
+   * @memberof LoginComponent
+   * log in with google
+   */
   signInWithGoogle(): void {
-    this.loginService.validateLoginGoogle(this.credentials).subscribe(data => {
+    this.loginService.validateLoginGoogle().subscribe(data => {
       console.log(data);
-    })
+    });
   }
 
-  signOut(): void {
-    
-  }
-
+  /**
+   * @memberof LoginComponent
+   * go to sign up page
+   */
   goToSignUp(): void {
     this.router.navigate(['/signup']);
   }
