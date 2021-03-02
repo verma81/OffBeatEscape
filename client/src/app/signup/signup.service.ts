@@ -10,9 +10,13 @@ import { UserCredentials } from '../login/login.model';
 })
 export class SignUpService {
     constructor(private http: HttpClient) { }
-
+    /**
+     * @memberof SignUpService
+     * used for registering a user
+     * @param clientCredentials
+     */
     registerUser(clientCredentials: UserCredentials): Observable<SignUpResponseModel> {
-      return this.http.post<SignUpResponseModel>(`http://localhost:3000/users/register`, clientCredentials).pipe(
+      return this.http.post<SignUpResponseModel>(`http://localhost:3000/users/register`, clientCredentials, {withCredentials: true}).pipe(
       map((res: any) => {
         console.log(res);
         return res;
@@ -21,6 +25,38 @@ export class SignUpService {
     );
   }
 
+  /**
+   * @memberof SignUpService
+   * used for logging in with facebook
+   */
+  validateLoginFB() {
+    return this.http.get(`http://localhost:3000/auth/facebook`, {withCredentials: true}).pipe(
+      map((res: any) => {
+        console.log(res);
+        return res;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  /**
+   * @memberof SignUpService
+   * used for logging in with google
+   */
+  validateLoginGoogle() {
+    return this.http.get(`http://localhost:3000/auth/google`, {withCredentials: true}).pipe(
+      map((res: any) => {
+        console.log(res);
+        return res;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  /**
+   * @memberof LogInService
+   * Error handler for API calls
+   */
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.

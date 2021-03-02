@@ -1,36 +1,42 @@
 import { Injectable } from '@angular/core';
-import * as moment from 'moment';
 
 /** Pass untouched request through to the next request handler. */
 @Injectable()
 export class TokenService {
 
-    tokenExpiryTime: any;
+    constructor() {}
 
-    setJWTTokenInLocalStorage(responseObj: any): void {
-        const expiresIn = moment(new Date()).add(1, 'minutes');
-        this.tokenExpiryTime = expiresIn;
-        localStorage.setItem('jwt-token', responseObj.token);
+    /**
+    * @memberof TokenService
+    * Checks if authentication session cookie is present or not
+    */
+    getAuthenticationCookie(name: string): boolean {
+        let cookieExists = false;
+        if (document.cookie.indexOf(name) >= -1) {
+            cookieExists = true;
+        }
+        return cookieExists;
     }
 
-    setJWTTokenInCookie (responseObj: any): void {
-        document.cookie = 'jwt-token=' + responseObj.token + ';expires=' + moment(new Date()).add(1, 'minutes').toDate();
+    /**
+    * @memberof TokenService
+    * Deletes authentication cookie
+    */
+    deleteAuthenticationCookie(name: string): void {
+        document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     }
 
+    /**
+    * @memberof TokenService
+    * Checks if current user is authenticated to access resources of project
+    */
     isLoggedIn(): boolean {
         let isLoggedIn = false;
-        if(moment(new Date()).isBefore(this.tokenExpiryTime)) {
-           isLoggedIn = true; 
+        if (this.getAuthenticationCookie('connect.sid')) {
+            isLoggedIn = true;
+        } else {
+            isLoggedIn = false;
         }
         return isLoggedIn;
     }
-
-    isLoggedOut() {
-        return !this.isLoggedIn();
-    }
-
-    logout(): void {
-        localStorage.removeItem('jwt-token');
-    }
-
 }
