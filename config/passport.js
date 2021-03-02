@@ -1,35 +1,106 @@
-const JwtStrategy = require('passport-jwt').Strategy
-const ExtractJwt = require('passport-jwt').ExtractJwt;
-const fs = require('fs');
-const path = require('path');
-const User = require('mongoose').model('User');
+const bcrypt = require("bcryptjs");
+const localStrategy = require("passport-local").Strategy;
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const FacebookStrategy = require("passport-facebook").Strategy;
 
-const pathToKey = path.join(__dirname, '..', 'id_rsa_pub.pem');
-const PUB_KEY = fs.readFileSync(pathToKey, 'utf8');
+const User = require("../models/user");
 
-//Jwt request options
-const options = {
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: PUB_KEY,
-  algorithms: ['RS256']
-};
-
-module.exports = (passport) => {
-    passport.use(new JwtStrategy(options, function(jwt_payload, done) {
-
-        console.log(jwt_payload);
-        
-        User.findOne({_id: jwt_payload.sub}, function(err, user) {
-            if (err) {
-                return done(err, false);
-            }
-            if (user) {
-                return done(null, user);
+module.exports = function (passport) {
+    passport.use(
+      new localStrategy((username, password, done) => {
+        User.findOne({ username: username }, (err, user) => {
+          if (err) throw err;
+          if (!user) return done(null, false);
+          bcrypt.compare(password, user.password, (err, result) => {
+            if (err) throw err;
+            if (result === true) {
+              return done(null, user);
             } else {
-                return done(null, false);
+              return done(null, false);
             }
-            
+          });
         });
-        
-    }));
-}
+      })
+    );
+  
+    passport.use(
+      new GoogleStrategy(
+        {
+          clientID:
+            "584588754768-c0kfbeom6mamborrkr5auk3flcdbmq4n.apps.googleusercontent.com",
+          clientSecret: "I3NnwZbnKwHDpuu7pSP2OkyI",
+          callbackURL: "/auth/google/callback",
+        },
+        function (accessToken, refreshToken, profile, done) {
+          User.findOne({ googleId: profile.id }, async (err, doc) => {
+            if (err) {
+              return done(err, null);
+            }
+  
+            if (!doc) {
+              const newUser = new User({
+                googleId: profile.id,
+                username: profile.name.givenName,
+              });
+  
+              await newUser.save();
+              done(null, newUser);
+            }
+            done(null, doc);
+          });
+        }
+      )
+    );
+  
+    passport.use(
+      new FacebookStrategy(
+        {
+          clientID: "350801712700644",
+          clientSecret: "eb7e3fe874cf1da9488e91c2f3e07f42",
+          callbackURL: "/auth/facebook/callback",
+        },
+        function (accessToken, refreshToken, profile, done) {
+          User.findOne({ facebookId: profile.id }, async (err, doc) => {
+            if (err) {
+              return done(err, null);
+            }
+  
+            if (!doc) {
+              const newUser = new User({
+                facebookId: profile.id,
+                username: profile.displayName,
+              });
+  
+              await newUser.save();
+              done(null, newUser);
+            }
+            done(null, doc);
+          });
+        }
+      )
+    );
+  
+    passport.serializeUser((user, done) => {
+      // done(null, user.id);
+      return done(null, user._id);
+    });
+    // passport.deserializeUser((id, done) => {
+    //   User.findOne({ _id: id }, (err, user) => {
+    //     const userInformation = {
+    //       username: user.username,
+    //     };
+    //     done(err, userInformation);
+    //   });
+    // });
+  
+    passport.deserializeUser((id, done) => {
+      User.findById(id, (err, doc) => {
+        return done(null, doc); // return goes to the client and binds to the req.user property
+      });
+    });
+  
+    passport.deserializeUser((user, done) => {
+      return done(null, user);
+    });
+  };
+  
