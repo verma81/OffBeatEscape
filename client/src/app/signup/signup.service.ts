@@ -54,7 +54,7 @@ export class SignUpService {
   }
 
   /**
-   * @memberof LogInService
+   * @memberof SignUpService
    * Error handler for API calls
    */
   private handleError(error: HttpErrorResponse) {
