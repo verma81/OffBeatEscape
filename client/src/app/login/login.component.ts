@@ -55,9 +55,11 @@ export class LoginComponent implements OnInit {
    * log in with facebook
    */
   signInWithFB(): void {
-    this.loginService.validateLoginFB().subscribe(data => {
-      console.log(data);
-    });
+    // this.loginService.validateLoginFB().subscribe(data => {
+    //   console.log(data);
+    // });
+    window.open("http://localhost:3000/auth/facebook", "_self");
+
   }
 
   /**
@@ -65,9 +67,10 @@ export class LoginComponent implements OnInit {
    * log in with google
    */
   signInWithGoogle(): void {
-    this.loginService.validateLoginGoogle().subscribe(data => {
-      console.log(data);
-    });
+    window.open("http://localhost:3000/auth/google", "_self");
+    // this.loginService.validateLoginGoogle().subscribe(data => {
+    //   console.log(data);
+    // });
   }
 
   /**

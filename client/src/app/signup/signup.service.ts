@@ -44,9 +44,9 @@ export class SignUpService {
    * used for logging in with google
    */
   validateLoginGoogle() {
-    return this.http.get(`http://localhost:3000/auth/google`, {withCredentials: true}).pipe(
+    return this.http.get(`http://localhost:3000/getuser`, {withCredentials: true}).pipe(
       map((res: any) => {
-        console.log(res);
+        console.log('loged in user ',res);
         return res;
       }),
       catchError(this.handleError)
