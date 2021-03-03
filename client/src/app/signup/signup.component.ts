@@ -76,9 +76,10 @@ export class SignupComponent implements OnInit {
    * sign in with Facebook
    */
   signInWithFB(): void {
-    this.signUpService.validateLoginFB().subscribe(data => {
-      console.log(data);
-    });
+    window.open("http://localhost:3000/auth/facebook", "_self");
+    // this.signUpService.validateLoginFB().subscribe(data => {
+    //   console.log(data);
+    // });
   }
 
   /**
@@ -86,9 +87,10 @@ export class SignupComponent implements OnInit {
    * sign in with Google
    */
   signInWithGoogle(): void {
-    this.signUpService.validateLoginGoogle().subscribe(data => {
-      console.log(data);
-    });
+    window.open("http://localhost:3000/auth/google", "_self");
+    // this.signUpService.validateLoginGoogle().subscribe(data => {
+    //   console.log(data);
+    // });
   }
 
 }

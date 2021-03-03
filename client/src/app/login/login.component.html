@@ -19,7 +19,8 @@
                     <div class="Login_Body__Password_Wrapper">
                         <mat-form-field appearance="standard" [style.width.%]="100">
                             <mat-label>Enter Password</mat-label>
-                            <input matInput type="password" [(ngModel)]="credentials.password" #password="ngModel" name="password" id="exampleInputPassword1" required>
+                            <input matInput type="password" minlength="8" [(ngModel)]="credentials.password" #password="ngModel" name="password" id="exampleInputPassword1" required>
+                            <mat-error *ngIf="(password.invalid && (password.dirty || password.touched) && password.errors.minlength)">Please enter password with atleast 8 characters</mat-error>
                             <mat-error *ngIf="(password.invalid && (password.dirty || password.touched) && password.errors.required)">Please enter password</mat-error>
                         </mat-form-field>  
                     </div>
