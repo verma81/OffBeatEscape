@@ -6,11 +6,14 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class MyHttpInterceptorService implements HttpInterceptor {
 
+  /**
+   * @memberof MyHttpInterceptorService
+   * Used for intercepting API calls
+   */
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const jwtToken = JSON.stringify(localStorage.getItem('jwt-token'));
     // Clone the request and set the new header in one step.
     const authReq = req.clone({
-        headers: req.headers.set('Authorization', jwtToken)
+        withCredentials: true,
     });
     return next.handle(authReq);
   }
