@@ -28,6 +28,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SignupComponent } from './signup/signup.component';
+import { PostHeadingComponent } from './post-heading/post-heading.component';
 
 /**
  * Services
@@ -41,7 +42,7 @@ import { PasswordValidatorDirective } from './signup/passwordvalidator.directive
 */
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FlexLayoutModule } from '@angular/flex-layout';
-
+import { ParticlesModule } from 'angular-particle';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     LoginComponent,
     DashboardComponent,
     SignupComponent,
-    PasswordValidatorDirective
+    PasswordValidatorDirective,
+    PostHeadingComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +68,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatFormFieldModule,
     MatInputModule,
     FlexLayoutModule,
-    MatDividerModule
+    MatDividerModule,
+    ParticlesModule
   ],
   providers: [
     LogInService,
