@@ -1,0 +1,55 @@
+.example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+}
+
+.Post_Heading_Box {
+    width: 60%;
+    height: 100%;
+    margin: 0 auto;
+    .Post_Heading_Content {
+        .Post_Heading_Post {
+            padding: 1em;
+            mat-card {
+                margin: 0 auto;
+                box-shadow: none !important;
+                font-family: charter, Georgia, Cambria, "Times New Roman", Times, serif; 
+                img {
+                    width: 100%;
+                    height: 620px;
+                    background-size: cover;
+                }
+                mat-card-content {
+                    margin-top: 0.5em;
+                    font-size: 21px;
+                    line-height: 32px;
+                    font-weight: 400;
+                }
+            }
+            .Post_Heading_Actions {
+                margin-top: 1em;
+                .Post_Heading_Actions_Panel {
+                    background-color: #ffffff;
+                    border-radius: 0.2em;
+                    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                    .Add_Comment_Section {
+                        width: 50%;
+                        padding: 1em;
+                    }
+                    .Submit_Comment_Section {
+                        div {
+                            margin: 0 auto;
+                            padding-top: 2.3em;
+                        }
+                    }
+                    .Save_Comment_Section {
+                        div {
+                            padding-top: 2.3em;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }  
+    }
+}
