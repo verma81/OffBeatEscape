@@ -1,10 +1,21 @@
 
 <div class="Dashboard_Wrapper" fxLayoutAlign="space-between">
+  
+     
     <div fxLayout="row" fxFlex="75" class="Dashboard_Wrapper_Posts_Wrapper">
+       
+            
         <div fxLayout="column">
             <div class="Dashboard_Wrapper_Posts_Wrapper_TopPosts_Wrapper">
+                <div class="Dashboard_Wrapper_Posts_Wrapper_TopPosts_Individual_Post_Text">
+                    <br>
+                    <div style="font-size: 2.5em; color:green; text-align: justify;">OFFBEAT ESCAPE</div>
+                    <br>
+                </div>
                 <div class="Dashboard_Wrapper_Posts_Wrapper_TopPosts_Header">
-                    <i class="fa fa-fire fa-2x" aria-hidden="true"></i><span style="font-size: 1.0em;">Trending Posts</span>
+                  <marquee behavior="alternate" scrollamount="12">
+                    <i class="fa fa-fire fa-2x" aria-hidden="true"><span style="font-size: 0.9em; color:green;">Offbeat Trendz</span></i>
+                  </marquee>
                 </div>
                 <div class="Dashboard_Wrapper_Posts_Wrapper_TopPosts">
                     <div class="Dashboard_Wrapper_Posts_Wrapper_TopPosts_Individual_Post">
@@ -145,8 +156,8 @@
             </div>
         </div>
     </div>
-    <mat-divider [vertical]="true"></mat-divider>
-    <div fxLayout="row" fxFlex="25" class="Dashboard_Wrapper_Friends_Reading_List_Wrapper">
+    <mat-divider [vertical]="false"></mat-divider>
+    <div fxLayout="column" fxFlex="10" class="Dashboard_Wrapper_Friends_Reading_List_Wrapper">
         <button mat-raised-button (click)="logout()">Logout</button>
     </div>
 </div>
