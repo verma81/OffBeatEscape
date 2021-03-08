@@ -1,78 +1,40 @@
-const mongoose = require('mongoose');
-const router = require('express').Router();   
-const User = mongoose.model('User');
-const passport = require('passport');
-const utils = require('../lib/utils');
+const mongoose = require("mongoose");
+const router = require("express").Router();
+const passport = require("passport");
+const User = require("../models/user");
+const bcrypt = require("bcryptjs");
 
-//validate an existing user
-router.post('/login', function(req,res, next){
 
-    User.findOne({ username: req.body.username })
-        .then((user) => {
-
-            if (!user) {
-                res.status(401).json({ success: false, msg: "could not find user" });
-            }
-            
-            const isValid = utils.validPassword(req.body.password, user.hash, user.salt);
-            
-            if (isValid) {
-
-                const tokenObject = utils.issueJWT(user);
-
-                res.status(200).json({ success: true, token: tokenObject.token, expiresIn: tokenObject.expires });
-
-            } else {
-
-                res.status(401).json({ success: false, msg: "you entered the wrong password" });
-
-            }
-
-        })
-        .catch((err) => {
-            next(err);
-        });
-
-});
-
-//register a new user
-
-router.post('/register', function(req,res,next){
-   
-    const saltHash = utils.genPassword(req.body.password);
-    
-    const salt = saltHash.salt;
-    const hash = saltHash.hash;
-
-    const newUser = new User({
-        username: req.body.username,
-        hash: hash,
-        salt: salt
-    });
-
-    try {
-    
-        newUser.save()
-            .then((user) => {
-                
-                const jwt = utils.issueJWT(user);
-
-                res.json({ success: true, user: user, token: jwt.token, expiresIn: jwt.expires });
-            });
-
-    } catch (err) {
-        
-        res.json({ success: false, msg: err });
-    
+router.post("/login", (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) throw err;
+    if (!user) res.send("No User Exists");
+    else {
+      req.logIn(user, (err) => {
+        if (err) throw err;
+        res.status(200).json({ success: true, data: res.data });
+        // res.send("Successfully Authenticated");
+        console.log(req.user);
+      });
     }
-
-
+  })(req, res, next);
 });
+router.post("/register", (req, res) => {
+  User.findOne({ username: req.body.username }, async (err, doc) => {
+    if (err) throw err;
+    if (doc) res.send("User Already Exists");
+    if (!doc) {
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
-//jwt auth route check
-router.get('/protected', passport.authenticate('jwt',{session: false}), (req,res,next)=>{
-    res.status(200).json({ success: true, msg: "successfully authecliennticated to this route!"});
-
-})
+      const newUser = new User({
+        username: req.body.username,
+        password: hashedPassword,
+      });
+      await newUser.save();
+      res.status(200).json({ success: true, success: "user created" });
+      res.send("User Created");
+    }
+  });
+});
 
 module.exports = router;

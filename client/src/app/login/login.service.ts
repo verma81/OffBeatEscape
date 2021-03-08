@@ -2,16 +2,22 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
-import { LoginModel,UserCredentials } from './login.model';
+import { LoginModel, UserCredentials } from './login.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LogInService {
-    constructor(private http: HttpClient) { }
 
+  constructor(private http: HttpClient) { }
+
+  /**
+   * @memberof LogInService
+   * @param userCredentials
+   * Used to call login API
+   */
   validateLogin(userCredentials: UserCredentials): Observable<LoginModel> {
-      return this.http.post<LoginModel>(`http://localhost:3000/users/login`, userCredentials).pipe(
+    return this.http.post<LoginModel>(`http://localhost:3000/users/login`, userCredentials, {withCredentials: true}).pipe(
       map((res: any) => {
         console.log(res);
         return res;
@@ -20,6 +26,38 @@ export class LogInService {
     );
   }
 
+  /**
+   * @memberof LogInService
+   * Used to login with facebook
+   */
+  validateLoginFB() {
+    return this.http.get(`http://localhost:3000/auth/facebook`, {withCredentials: true}).pipe(
+      map((res: any) => {
+        console.log(res);
+        return res;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  /**
+   * @memberof LogInService
+   * Used to login with google
+   */
+  validateLoginGoogle() {
+    return this.http.get(`http://localhost:3000/auth/google`, {withCredentials: true}).pipe(
+      map((res: any) => {
+        console.log(res);
+        return res;
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  /**
+   * @memberof LogInService
+   * Error handler for API calls
+   */
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.

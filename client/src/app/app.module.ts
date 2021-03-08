@@ -1,32 +1,48 @@
-import { NgModule } from '@angular/core';
+/**
+ * Angular modules
+ */
 import { BrowserModule } from '@angular/platform-browser';
-
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LoginComponent } from './login/login.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-
-import { AuthGuardService } from './commonservices/AuthGuardService';
+import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MyHttpInterceptorService } from './commonservices/MyHttpInterceptorService';
-import { MatSliderModule } from '@angular/material/slider';
+import { AuthGuardService } from './commonservices/AuthGuardService';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { LogInService } from './login/login.service';
+
+/**
+ * Angular Material Modules
+ */
+import { MatSliderModule } from '@angular/material/slider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
-import { NgxSpinnerModule } from 'ngx-spinner';
-import { SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
-import { SignupComponent } from './signup/signup.component';
-import { PasswordValidatorDirective } from './signup/passwordvalidator.directive';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatDividerModule } from '@angular/material/divider';
-import { TokenService } from './commonservices/TokenService';
 
+/**
+ * Components
+ */
+import { AppComponent } from './app.component';
+import { LoginComponent } from './login/login.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { SignupComponent } from './signup/signup.component';
+import { PostHeadingComponent } from './post-heading/post-heading.component';
+
+/**
+ * Services
+ */
+import { TokenService } from './commonservices/TokenService';
+import { LogInService } from './login/login.service';
+import { PasswordValidatorDirective } from './signup/passwordvalidator.directive';
+
+/**
+ * 3rd party modules
+*/
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { ParticlesModule } from 'angular-particle';
 
 @NgModule({
   declarations: [
@@ -34,7 +50,8 @@ import { TokenService } from './commonservices/TokenService';
     LoginComponent,
     DashboardComponent,
     SignupComponent,
-    PasswordValidatorDirective
+    PasswordValidatorDirective,
+    PostHeadingComponent
   ],
   imports: [
     BrowserModule,
@@ -50,9 +67,9 @@ import { TokenService } from './commonservices/TokenService';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    SocialLoginModule,
     FlexLayoutModule,
-    MatDividerModule
+    MatDividerModule,
+    ParticlesModule
   ],
   providers: [
     LogInService,
@@ -62,24 +79,6 @@ import { TokenService } from './commonservices/TokenService';
       provide: HTTP_INTERCEPTORS,
       useClass: MyHttpInterceptorService,
       multi: true
-    },
-    {
-      provide: 'SocialAuthServiceConfig',
-      useValue: {
-        autoLogin: false,
-        providers: [
-          {
-            id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider(
-              '577237498781-1586bahtmr5eg4kc8rkgor7rokvgbnc2.apps.googleusercontent.com'
-            )
-          },
-          {
-            id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('clientId')
-          }
-        ]
-      } as SocialAuthServiceConfig,
     }
   ],
   bootstrap: [AppComponent]

@@ -20,7 +20,7 @@ export class PasswordValidatorDirective implements Validator {
     const password = c.root.get(this.PasswordControl);
     const confirmPassword = c;
 
-    if (confirmPassword.value === null) {
+    if (!password || !confirmPassword) {
       return null;
     }
 
