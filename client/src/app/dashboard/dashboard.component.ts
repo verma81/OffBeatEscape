@@ -39,5 +39,7 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-
+  handlePage(e: any): void {
+    console.log("call API" + e);
+  }
 }

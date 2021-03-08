@@ -1,0 +1,25 @@
+<div class="Header">
+    <div class="Navbar">
+        <div fxDirection="row" fxFlex="100" class="Navbar_Content">
+            <mat-toolbar color="primary">
+                <div fxDirection="row" fxFlex="80" class="Navbar_Branding">
+                    <span class="Navbar_Application_Title">Offbeat Escape</span>
+                </div>
+                <div fxDirection="row" fxFlex="20" class="Logout_Button">
+                    <span [matMenuTriggerFor]="clickMenu" #clickMenuTrigger="matMenuTrigger" class="Navbar_Image_Wrapper">
+                        <img class="Navbar_Logo" src="../../assets/user.png">
+                    </span>
+                    <span (click)="logoutFromApplication()" class="Log_Off">
+                        <i class="fa fa-power-off fa-2x" aria-hidden="true"></i>
+                    </span>
+                </div>
+            </mat-toolbar>
+        </div>
+    </div>
+</div>
+
+<mat-menu #clickMenu="matMenu">
+    <button mat-menu-item>Settings</button>
+    <button mat-menu-item>Add Posts</button>
+    <button mat-menu-item>Edit Posts</button>
+</mat-menu>
