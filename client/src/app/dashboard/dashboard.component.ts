@@ -39,5 +39,8 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  showFriendsList():void {
+    this.router.navigate(['/friendslist']);
+  }
 
 }
