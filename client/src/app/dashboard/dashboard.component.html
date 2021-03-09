@@ -1,7 +1,7 @@
-
+<app-header></app-header>
 <div class="Dashboard_Wrapper" fxLayoutAlign="space-between">
     <div fxLayout="row" fxFlex="75" class="Dashboard_Wrapper_Posts_Wrapper">
-        <div fxLayout="column">
+        <div>
             <div class="Dashboard_Wrapper_Posts_Wrapper_TopPosts_Wrapper">
                 <div class="Dashboard_Wrapper_Posts_Wrapper_TopPosts_Header">
                     <i class="fa fa-fire fa-2x" aria-hidden="true"></i><span style="font-size: 1.0em;">Trending Posts</span>
@@ -142,6 +142,9 @@
                         </div>
                       </mat-card>
                 </div>
+            </div>
+            <div class="Dashboard_Paginator">
+                <mat-paginator [length]="100" (page)="handlePage($event)" [pageSize]="5" [pageSizeOptions]="[5]"></mat-paginator>
             </div>
         </div>
     </div>
@@ -298,5 +301,6 @@
                 </div>
             </div>
         </div>
+        
     </div>
 </div>

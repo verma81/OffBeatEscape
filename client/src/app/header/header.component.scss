@@ -1,0 +1,47 @@
+
+.Navbar {
+    .Navbar_Branding {
+        .Navbar_Image_Wrapper {
+            width: 10%;
+            height: 100%;
+            .Navbar_Logo {
+                vertical-align: middle;
+                max-height: 50px;
+                max-width: 50px;
+                overflow: hidden;
+                object-fit: contain;
+            }
+        }
+        .Navbar_Application_Title {
+            margin-left: 0.75em;
+            vertical-align: middle;
+            font-size: 1.5em;
+            font-weight: 400;
+        }
+    }
+    
+    .Logout_Button {
+        .Navbar_Image_Wrapper {
+            vertical-align: middle;
+            width: 10%;
+            height: 100%;
+            .Navbar_Logo {
+                vertical-align: middle;
+                max-height: 50px;
+                max-width: 50px;
+                overflow: hidden;
+                object-fit: contain;
+            }
+        }
+        .Navbar_Notification_Icon {
+            vertical-align: middle;
+            margin: 10px;
+        }
+        .Log_Off {
+            vertical-align: middle;
+            margin-left: 3em;
+            cursor: pointer;
+            width: 40%;
+        }
+    }
+}

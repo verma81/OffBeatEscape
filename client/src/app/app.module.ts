@@ -20,6 +20,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatBadgeModule } from '@angular/material/badge';
 
 /**
  * Components
@@ -44,6 +48,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ParticlesModule } from 'angular-particle';
 import { FriendslistComponent } from './friendslist/friendslist.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +58,8 @@ import { FriendslistComponent } from './friendslist/friendslist.component';
     SignupComponent,
     PasswordValidatorDirective,
     PostHeadingComponent,
-    FriendslistComponent
+    FriendslistComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +77,11 @@ import { FriendslistComponent } from './friendslist/friendslist.component';
     MatInputModule,
     FlexLayoutModule,
     MatDividerModule,
-    ParticlesModule
+    ParticlesModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatPaginatorModule,
+    MatBadgeModule
   ],
   providers: [
     LogInService,
