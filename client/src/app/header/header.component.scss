@@ -17,12 +17,10 @@
             vertical-align: middle;
             font-size: 1.5em;
             font-weight: 400;
-            opacity: 0.9;
         }
     }
     
     .Logout_Button {
-        opacity: 0.9;
         .Navbar_Image_Wrapper {
             vertical-align: middle;
             width: 10%;
@@ -35,10 +33,15 @@
                 object-fit: contain;
             }
         }
+        .Navbar_Notification_Icon {
+            vertical-align: middle;
+            margin: 10px;
+        }
         .Log_Off {
             vertical-align: middle;
-            margin-left: 1em;
+            margin-left: 3em;
             cursor: pointer;
+            width: 40%;
         }
     }
 }

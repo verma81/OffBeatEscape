@@ -23,6 +23,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatBadgeModule } from '@angular/material/badge';
 
 /**
  * Components
@@ -77,7 +78,8 @@ import { HeaderComponent } from './header/header.component';
     ParticlesModule,
     MatToolbarModule,
     MatMenuModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatBadgeModule
   ],
   providers: [
     LogInService,

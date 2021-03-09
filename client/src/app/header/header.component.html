@@ -3,14 +3,19 @@
         <div fxDirection="row" fxFlex="100" class="Navbar_Content">
             <mat-toolbar color="primary">
                 <div fxDirection="row" fxFlex="80" class="Navbar_Branding">
-                    <span class="Navbar_Application_Title">Offbeat Escape</span>
+                    <span class="Navbar_Application_Title">OFFBEAT ESCAPE</span>
                 </div>
                 <div fxDirection="row" fxFlex="20" class="Logout_Button">
                     <span [matMenuTriggerFor]="clickMenu" #clickMenuTrigger="matMenuTrigger" class="Navbar_Image_Wrapper">
-                        <img class="Navbar_Logo" src="../../assets/user.png">
+                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                    </span>
+                    <span matBadge="1" matBadgeSize="medium" matBadgeColor="warn" class="Navbar_Notification_Icon">
+                        <i class="fa fa-bell-o" aria-hidden="true"></i>
                     </span>
                     <span (click)="logoutFromApplication()" class="Log_Off">
-                        <i class="fa fa-power-off fa-2x" aria-hidden="true"></i>
+                        <span>
+                            <i class="fa fa-power-off fa-2x" aria-hidden="true"></i>
+                        </span>     
                     </span>
                 </div>
             </mat-toolbar>
