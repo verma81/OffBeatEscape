@@ -47,6 +47,7 @@ import { PasswordValidatorDirective } from './signup/passwordvalidator.directive
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ParticlesModule } from 'angular-particle';
+import { FriendslistComponent } from './friendslist/friendslist.component';
 import { HeaderComponent } from './header/header.component';
 
 @NgModule({
@@ -57,6 +58,7 @@ import { HeaderComponent } from './header/header.component';
     SignupComponent,
     PasswordValidatorDirective,
     PostHeadingComponent,
+    FriendslistComponent,
     HeaderComponent
   ],
   imports: [
