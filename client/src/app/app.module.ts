@@ -20,6 +20,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatBadgeModule } from '@angular/material/badge';
 
 /**
  * Components
@@ -43,6 +47,7 @@ import { PasswordValidatorDirective } from './signup/passwordvalidator.directive
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ParticlesModule } from 'angular-particle';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +56,8 @@ import { ParticlesModule } from 'angular-particle';
     DashboardComponent,
     SignupComponent,
     PasswordValidatorDirective,
-    PostHeadingComponent
+    PostHeadingComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +75,11 @@ import { ParticlesModule } from 'angular-particle';
     MatInputModule,
     FlexLayoutModule,
     MatDividerModule,
-    ParticlesModule
+    ParticlesModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatPaginatorModule,
+    MatBadgeModule
   ],
   providers: [
     LogInService,
