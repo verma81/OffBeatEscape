@@ -15,9 +15,17 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  
+
   logoutFromApplication(): void {
     this.router.navigate(['/login']);
+  }
+
+  goToAddPost(): void {
+    this.router.navigate(['/addpost']);
+  }
+
+  goToMyPosts(): void {
+    this.router.navigate(['/myposts'])
   }
 
 }

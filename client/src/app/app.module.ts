@@ -49,6 +49,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ParticlesModule } from 'angular-particle';
 import { FriendslistComponent } from './friendslist/friendslist.component';
 import { HeaderComponent } from './header/header.component';
+import { AddpostComponent } from './addpost/addpost.component';
+import { PostidService } from './commonservices/postid.service';
+import { MypostsComponent } from './myposts/myposts.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +62,9 @@ import { HeaderComponent } from './header/header.component';
     PasswordValidatorDirective,
     PostHeadingComponent,
     FriendslistComponent,
-    HeaderComponent
+    HeaderComponent,
+    AddpostComponent,
+    MypostsComponent
   ],
   imports: [
     BrowserModule,
@@ -87,6 +92,7 @@ import { HeaderComponent } from './header/header.component';
     LogInService,
     AuthGuardService,
     TokenService,
+    PostidService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: MyHttpInterceptorService,
