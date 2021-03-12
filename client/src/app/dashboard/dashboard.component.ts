@@ -20,12 +20,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  googleUserCheck(): void {
-    this.userService.validateLoginGoogle().subscribe(data => {
-      console.log(data);
-    })
-  }
-
   showFriendsList():void {
     this.router.navigate(['/friendslist']);
   }

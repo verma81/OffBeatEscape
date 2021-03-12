@@ -10,16 +10,6 @@ import { Observable, throwError } from 'rxjs';
 export class DashBoardService {
     constructor(private http: HttpClient) { }
 
-    // getUser(): Observable<any> {
-    //     return this.http.get(`http://localhost:3000/getuser`, { withCredentials: true }).pipe(
-    //         map((res: any) => {
-    //         console.log(res);
-    //         return res;
-    //     }),
-    //     catchError(this.handleError)
-    //     );
-    // }
-
     /**
      * @memberof DashBoardService
      * Error handler for API calls

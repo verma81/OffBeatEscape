@@ -27,34 +27,6 @@ export class SignUpService {
 
   /**
    * @memberof SignUpService
-   * used for logging in with facebook
-   */
-  validateLoginFB() {
-    return this.http.get(`http://localhost:3000/auth/facebook`, {withCredentials: true}).pipe(
-      map((res: any) => {
-        console.log(res);
-        return res;
-      }),
-      catchError(this.handleError)
-    );
-  }
-
-  /**
-   * @memberof SignUpService
-   * used for logging in with google
-   */
-  validateLoginGoogle() {
-    return this.http.get(`http://localhost:3000/getuser`, {withCredentials: true}).pipe(
-      map((res: any) => {
-        console.log('loged in user ',res);
-        return res;
-      }),
-      catchError(this.handleError)
-    );
-  }
-
-  /**
-   * @memberof SignUpService
    * Error handler for API calls
    */
   private handleError(error: HttpErrorResponse) {
