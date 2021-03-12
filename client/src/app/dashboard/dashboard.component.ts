@@ -32,6 +32,13 @@ export class DashboardComponent implements OnInit {
     this.tokenService.deleteAuthenticationCookie('connect.sid');
     this.router.navigate(['/login']);
   }
+  getUser(): void {
+    this.dashboardService.getUser().subscribe( data => {
+      console.log(data);
+    });
+    // this.tokenService.deleteAuthenticationCookie('connect.sid');
+    // this.router.navigate(['/login']);
+  }
 
   googleUserCheck(): void {
     this.userService.validateLoginGoogle().subscribe(data => {

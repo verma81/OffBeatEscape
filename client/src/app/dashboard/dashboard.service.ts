@@ -23,6 +23,15 @@ export class DashBoardService {
         catchError(this.handleError)
         );
     }
+    getUser(){
+      return this.http.get(`http://localhost:3000/getuser`, { withCredentials: true }).pipe(
+          map((res: any) => {
+          console.log(res);
+          return res;
+      }),
+      catchError(this.handleError)
+      );
+  }
 
     /**
      * @memberof DashBoardService
