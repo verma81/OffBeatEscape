@@ -8,7 +8,7 @@ import { LoginModel, UserCredentials } from './login.model';
   providedIn: 'root',
 })
 export class LogInService {
-
+username = ''
   constructor(private http: HttpClient) { }
 
   /**
@@ -20,6 +20,7 @@ export class LogInService {
     return this.http.post<LoginModel>(`http://localhost:3000/users/login`, userCredentials, {withCredentials: true}).pipe(
       map((res: any) => {
         console.log(res);
+        this.username = userCredentials.username
         return res;
       }),
       catchError(this.handleError)

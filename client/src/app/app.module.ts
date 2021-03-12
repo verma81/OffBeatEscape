@@ -20,6 +20,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatBadgeModule } from '@angular/material/badge';
 
 /**
  * Components
@@ -43,6 +47,11 @@ import { PasswordValidatorDirective } from './signup/passwordvalidator.directive
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ParticlesModule } from 'angular-particle';
+import { FriendslistComponent } from './friendslist/friendslist.component';
+import { HeaderComponent } from './header/header.component';
+import { AddpostComponent } from './addpost/addpost.component';
+import { PostidService } from './commonservices/postid.service';
+import { MypostsComponent } from './myposts/myposts.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +60,11 @@ import { ParticlesModule } from 'angular-particle';
     DashboardComponent,
     SignupComponent,
     PasswordValidatorDirective,
-    PostHeadingComponent
+    PostHeadingComponent,
+    FriendslistComponent,
+    HeaderComponent,
+    AddpostComponent,
+    MypostsComponent
   ],
   imports: [
     BrowserModule,
@@ -69,12 +82,17 @@ import { ParticlesModule } from 'angular-particle';
     MatInputModule,
     FlexLayoutModule,
     MatDividerModule,
-    ParticlesModule
+    ParticlesModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatPaginatorModule,
+    MatBadgeModule
   ],
   providers: [
     LogInService,
     AuthGuardService,
     TokenService,
+    PostidService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: MyHttpInterceptorService,

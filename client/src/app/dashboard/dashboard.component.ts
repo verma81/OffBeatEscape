@@ -39,5 +39,11 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  showFriendsList():void {
+    this.router.navigate(['/friendslist']);
+  }
 
+  handlePage(e: any): void {
+    console.log("call API" + e);
+  }
 }
