@@ -60,7 +60,10 @@
         }
         .Dashboard_Add_Friends_Wrapper {
             width: 100%;
-            padding: 1em;
+            h1 {
+                padding: 0.5em;
+                margin: 0;
+            }
             .Friends_Image_Wrapper {
                 img {
                     width: 30px;
@@ -89,10 +92,15 @@
                 cursor: pointer;
                 text-decoration: underline;
                 font-size: 0.75em;
+                padding: 0.5em;
             }
         }
         .Dashboard_Reading_Lists_Wrapper {
-            padding: 1em;
+            width: 100%;
+            h1 {
+                padding: 0.5em;
+                margin: 0;
+            }
             .Reading_List {
                 font-size: 1em;
                 font-weight: bold;

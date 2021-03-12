@@ -28,4 +28,8 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/myposts'])
   }
 
+  routeToDashboard(): void {
+    this.router.navigate(['/dashboard'])
+  }
+
 }
