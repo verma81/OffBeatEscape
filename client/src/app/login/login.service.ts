@@ -55,6 +55,16 @@ username = ''
     );
   }
 
+  getUser(): Observable<any> {
+    return this.http.get(`http://localhost:3000/getuser`, { withCredentials: true }).pipe(
+        map((res: any) => {
+        console.log(res);
+        return res;
+    }),
+    catchError(this.handleError)
+    );
+  }
+
   /**
    * @memberof LogInService
    * Error handler for API calls
