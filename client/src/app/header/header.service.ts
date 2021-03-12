@@ -6,15 +6,25 @@ import { Observable, throwError } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
+export class HeaderService {
 
-export class DashBoardService {
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {}
+
+    logOutUser(): Observable<any> {
+        return this.http.get(`http://localhost:3000/logout`).pipe(
+            map((res: any) => {
+            console.log(res);
+            return res;
+        }),
+        catchError(this.handleError)
+        );
+    }
 
     /**
      * @memberof DashBoardService
      * Error handler for API calls
     */
-    private handleError(error: HttpErrorResponse) {
+     private handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
         // A client-side or network error occurred. Handle it accordingly.
         console.error('An error occurred:', error.error.message);

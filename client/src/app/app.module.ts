@@ -37,7 +37,6 @@ import { PostHeadingComponent } from './post-heading/post-heading.component';
 /**
  * Services
  */
-import { TokenService } from './commonservices/TokenService';
 import { LogInService } from './login/login.service';
 import { PasswordValidatorDirective } from './signup/passwordvalidator.directive';
 
@@ -91,7 +90,6 @@ import { MypostsComponent } from './myposts/myposts.component';
   providers: [
     LogInService,
     AuthGuardService,
-    TokenService,
     PostidService,
     {
       provide: HTTP_INTERCEPTORS,
