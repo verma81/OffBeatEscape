@@ -1,9 +1,9 @@
 <div class="Header">
     <div class="Navbar">
         <div fxDirection="row" fxFlex="100" class="Navbar_Content">
-            <mat-toolbar color="primary">
+            <mat-toolbar class="Navbar_Toolbar">
                 <div fxDirection="row" fxFlex="80" class="Navbar_Branding">
-                    <span class="Navbar_Application_Title">OFFBEAT ESCAPE</span>
+                    <span (click)="routeToDashboard()" class="Navbar_Application_Title">OFFBEAT ESCAPE</span>
                 </div>
                 <div fxDirection="row" fxFlex="20" class="Logout_Button">
                     <span [matMenuTriggerFor]="clickMenu" #clickMenuTrigger="matMenuTrigger" class="Navbar_Image_Wrapper">
@@ -14,7 +14,7 @@
                     </span>
                     <span (click)="logoutFromApplication()" class="Log_Off">
                         <span>
-                            <i class="fa fa-power-off fa-2x" aria-hidden="true"></i>
+                            Logout
                         </span>
                     </span>
                 </div>
