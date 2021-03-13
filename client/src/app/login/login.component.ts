@@ -99,6 +99,7 @@ export class LoginComponent implements OnInit {
   onLoginClick(): void {
     this.loginService.validateLogin(this.credentials).subscribe((data: LoginModel) => {
       if (data) {
+        //this.getUser();
         console.log(data);
         this.spinner.show();
         setTimeout(() => {
@@ -139,5 +140,13 @@ export class LoginComponent implements OnInit {
   goToSignUp(): void {
     this.router.navigate(['/signup']);
   }
+
+  // getUser(): void {
+  //   console.log(JSON.parse(JSON.stringify(localStorage.getItem("authenticated_user"))));
+  //   this.loginService.getUser().subscribe(data => {
+  //     localStorage.setItem("authenticated_user", JSON.stringify(data));
+  //     console.log(data);
+  //   });
+  // }
 
 }

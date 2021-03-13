@@ -3,6 +3,9 @@
     background-size: cover;
 }
 
+.commentBox{
+  padding: 1em;
+}
 .Post_Heading_Box {
     width: 60%;
     height: 100%;
@@ -13,7 +16,7 @@
             mat-card {
                 margin: 0 auto;
                 box-shadow: none !important;
-                font-family: charter, Georgia, Cambria, "Times New Roman", Times, serif; 
+                font-family: charter, Georgia, Cambria, "Times New Roman", Times, serif;
                 img {
                     width: 100%;
                     height: 620px;
@@ -50,6 +53,10 @@
                     }
                 }
             }
-        }  
+        }
     }
+}
+
+.icons {
+  padding-left: 1em;
 }

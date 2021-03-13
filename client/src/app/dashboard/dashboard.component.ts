@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TokenService } from '../commonservices/TokenService';
+import { AuthGuardService } from '../commonservices/AuthGuardService';
 import { SignUpService } from '../signup/signup.service';
 import { DashBoardService } from './dashboard.service';
 
@@ -15,29 +15,16 @@ export class DashboardComponent implements OnInit {
   constructor(
     private router: Router,
     private dashboardService: DashBoardService,
-    private tokenService: TokenService,
-    private userService : SignUpService,
+    private userService : SignUpService
     ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
-  /**
-   * @memberof DashboardComponent
-   * Logs out the current user and deletes authentication token
-   */
-  logout(): void {
-    this.dashboardService.logoutUser().subscribe( data => {
-      console.log(data);
-    });
-    this.tokenService.deleteAuthenticationCookie('connect.sid');
-    this.router.navigate(['/login']);
+  showFriendsList():void {
+    this.router.navigate(['/friendslist']);
   }
 
-  googleUserCheck(): void {
-    this.userService.validateLoginGoogle().subscribe(data => {
-      console.log(data);
-    })
+  handlePage(e: any): void {
+    console.log("call API" + e);
   }
-
-
 }
