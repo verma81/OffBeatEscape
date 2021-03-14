@@ -84,7 +84,7 @@ router.patch('/addComment/:id', async(req,res) => {
 //     }
 // })
 
-router.get('/getMyPosts', async (req, res) => {                                        //getting all posts
+router.get('/getMyPosts', async (req, res) => {                             //getting posts of logged in user
     try {
         const posts = await Post.find({"owner":req.user.username})
         res.send(posts)
