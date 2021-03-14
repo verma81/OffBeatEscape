@@ -3,7 +3,7 @@ const express = require('express')
 const Post = require('../models/post')
 const router = new express.Router()          //all the required apis
 const passport = require('passport');
-const multer = require('multer')        
+const multer = require('multer')
 const uuid = require('uuid/v4')
 
 const aws = require("aws-sdk");
@@ -23,7 +23,7 @@ const fileFilter = (req, file, cb) => {
         cb(new Error('Invalid Mime Type, only JPEG and PNG'), false);
     }
 }
- 
+
 const upload = multer({
   fileFilter,
   storage: multerS3({
@@ -38,34 +38,26 @@ const upload = multer({
     }
   })
 });
- 
+
 const singleUpload = upload.single('image')
 
 
 
 router.post('/addPost',singleUpload, async (req, res) => {            //adding a new post
     const post = new Post()
-    if(!req.file){
-        post.title = req.body.title, 
-        post.description  =  req.body.description
-        try{
-            await post.save()
-            res.status(201).send({post})
-        }catch(e){
-            res.status(400).send(e)
-        }
-    }else{
-        post.title = req.body.title, 
-        post.description  =  req.body.description
+    post.owner = req.user.username
+    post.title = req.body.title,
+    post.description  =  req.body.description
+    if(req.file){
         post.postImageUrl = req.file.location
-        try{
-            await post.save()
-            res.status(201).send({post})
-        }catch(e){
-            res.status(400).send(e)
-        }
     }
-    
+
+    try{
+        await post.save()
+        res.status(201).send({post})
+    }catch(e){
+        res.status(400).send(e)
+    }
 })
 
 router.patch('/addComment/:id', async(req,res) => {
@@ -92,9 +84,9 @@ router.patch('/addComment/:id', async(req,res) => {
 //     }
 // })
 
-router.get('/getAllPosts', async (req, res) => {                                        //getting all posts
+router.get('/getMyPosts', async (req, res) => {                                        //getting all posts
     try {
-        const posts = await Post.find({})
+        const posts = await Post.find({"owner":req.user.username})
         res.send(posts)
     } catch (e) {
         res.status(500).send()
