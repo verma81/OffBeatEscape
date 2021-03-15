@@ -8,6 +8,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  img {
+    cursor: pointer;
+  }
   .Individual_Post{
     padding: 0.5em;
     width: 70%;

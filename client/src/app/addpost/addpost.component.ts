@@ -4,6 +4,7 @@ import { AddPostService } from './addpost.service';
 import { Post } from './addpost.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 class ImageSnippet {
   constructor(public src: string, public file: File) {}
@@ -23,7 +24,8 @@ export class AddpostComponent implements OnInit {
     // private toastr: ToastrService,
     private router: Router,
     private addPostService: AddPostService,
-    private http: HttpClient
+    private http: HttpClient,
+    private spinner: NgxSpinnerService
   ) {
     this.post = new Post();
   }
@@ -31,38 +33,23 @@ export class AddpostComponent implements OnInit {
   ngOnInit(): void {}
 
   addPost() {
-    // if(this.post.title && this.post.description){
-    //   this.addPostService.addPost(this.post).subscribe(res =>{
-    //     console.log('response is ', res)
-    //     this.router.navigate(['/myposts'])
-    //     if(this.selectedFile){
-    //       this.addImage(this.selectedFile.file).subscribe(
-    //         (res) => {
-    //           console.log(res)
-    //         },
-    //         (err) => {
-    //           console.log(err)
-    //         }
-    //       )
-    //     }
-    // });
-    // } else {
-    //   alert('Title and Description required');
-    // }
     if (this.post.title && this.post.description) {
       if(!this.selectedFile){
         const formData = new FormData();
         console.log(this.post.title);
         formData.append('description', this.post.description);
         formData.append('title', this.post.title);
+        this.spinner.show();
         return this.http
         .post('http://localhost:3000/post/addPost', formData)
         .subscribe(
           (res) => {
             console.log(res);
+            this.spinner.hide();
             this.router.navigate(['/myposts'])
           },
           (err) => {
+            this.spinner.hide();
             console.log(err);
           }
         );
