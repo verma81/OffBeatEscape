@@ -52,6 +52,7 @@ import { HeaderComponent } from './header/header.component';
 import { AddpostComponent } from './addpost/addpost.component';
 import { PostidService } from './commonservices/postid.service';
 import { MypostsComponent } from './myposts/myposts.component';
+import { EditpostComponent } from './editpost/editpost.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { MypostsComponent } from './myposts/myposts.component';
     FriendslistComponent,
     HeaderComponent,
     AddpostComponent,
-    MypostsComponent
+    MypostsComponent,
+    EditpostComponent
   ],
   imports: [
     BrowserModule,
