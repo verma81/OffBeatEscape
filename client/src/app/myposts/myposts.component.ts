@@ -24,7 +24,7 @@ export class MypostsComponent implements OnInit {
     //   return false;
     // }
 
-    this.http.get('http://localhost:3000/post/getAllPosts').subscribe((data) => {
+    this.http.get('http://localhost:3000/post/getMyPosts').subscribe((data) => {
       if(data){
         this.posts = Object.values(data)
         console.log(this.posts)
