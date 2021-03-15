@@ -1,8 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Post } from '../addpost/addpost.model';
-import { PostidService } from '../commonservices/postid.service';
 
 
 @Component({
@@ -14,16 +12,10 @@ export class MypostsComponent implements OnInit {
   public posts : any = [];
   constructor(
     private http: HttpClient,
-    private router: Router,
-    private postId : PostidService
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-
-    // this.router.routeReuseStrategy.shouldReuseRoute = () => {
-    //   return false;
-    // }
-
     this.http.get('http://localhost:3000/post/getMyPosts').subscribe((data) => {
       if(data){
         this.posts = Object.values(data)
@@ -48,15 +40,12 @@ export class MypostsComponent implements OnInit {
   }
 
   editPost(event: any, _id: any){
-    console.log(_id)
-    this.postId.postId = _id
     this.router.navigate(['/editpost'])
   }
 
   showPost(event: any, _id: any){
-    console.log(_id)
-    this.postId.postId = _id
-    this.router.navigate(['/postHeadingTitle'])
+    const loggedInUser = JSON.parse(this.getLoggedInUser());
+    this.router.navigate(['/postHeadingTitle', loggedInUser._id, _id]);
   }
 
   updatePostsArray(allPosts: any): void {
@@ -67,6 +56,10 @@ export class MypostsComponent implements OnInit {
       });
     }
     allPosts.splice(postToDeleteIndex, 1);
+  }
+
+  getLoggedInUser(): any {
+    return JSON.parse(JSON.stringify(localStorage.getItem('currentUser')));
   }
 
 }

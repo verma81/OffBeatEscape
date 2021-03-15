@@ -14,7 +14,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
-  {path: 'postHeadingTitle', component: PostHeadingComponent, canActivate: [AuthGuard]},
+  {path: 'postHeadingTitle/:uid/:pid', component: PostHeadingComponent, canActivate: [AuthGuard]},
   {path: 'friendslist', component: FriendslistComponent, canActivate: [AuthGuard]},
   {path: 'addpost', component: AddpostComponent, canActivate: [AuthGuard]},
   {path: 'myposts',component: MypostsComponent, canActivate: [AuthGuard]},
