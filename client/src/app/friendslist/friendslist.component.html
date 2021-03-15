@@ -1,64 +1,26 @@
+<app-header></app-header>
 <div class="Friends_List_Wrapper">
     <div class="Friends_List">
-        <div class="Friend_Wrapper">
+        <div class="Search_Bar_Wrapper">
+          <div class="Search_Bar">
+            <mat-form-field class="example-full-width" [style.width.%]="100" appearance="outline">
+              <mat-label>Search Friends</mat-label>
+              <input matInput [(ngModel)]="friendName">
+              <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="Friend_Wrapper" *ngFor="let friend of friendsList | friendList: friendName">
             <mat-card class="example-card">
-                <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+              <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
                 <mat-card-content>
-                    <mat-card-title>Shiba Inu</mat-card-title>
-                    <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+                  <mat-card-title>{{friend.friendName}}</mat-card-title>
+                  <mat-card-subtitle>{{friend.friendName}}</mat-card-subtitle>
                 </mat-card-content>
                 <mat-card-actions>
                   <button mat-button>Add Friend</button>
                 </mat-card-actions>
-              </mat-card>
-        </div>
-        <div class="Friend_Wrapper">
-            <mat-card class="example-card">
-                <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-                <mat-card-content>
-                    <mat-card-title>Shiba Inu</mat-card-title>
-                    <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-                </mat-card-content>
-                <mat-card-actions>
-                  <button mat-button>Add Friend</button>
-                </mat-card-actions>
-              </mat-card>
-        </div>
-        <div class="Friend_Wrapper">
-            <mat-card class="example-card">
-                <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-                <mat-card-content>
-                    <mat-card-title>Shiba Inu</mat-card-title>
-                    <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-                </mat-card-content>
-                <mat-card-actions>
-                  <button mat-button>Add Friend</button>
-                </mat-card-actions>
-              </mat-card>
-        </div>
-        <div class="Friend_Wrapper">
-            <mat-card class="example-card">
-                <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-                <mat-card-content>
-                    <mat-card-title>Shiba Inu</mat-card-title>
-                    <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-                </mat-card-content>
-                <mat-card-actions>
-                  <button mat-button>Add Friend</button>
-                </mat-card-actions>
-              </mat-card>
-        </div>
-        <div class="Friend_Wrapper">
-            <mat-card class="example-card">
-                <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-                <mat-card-content>
-                    <mat-card-title>Shiba Inu</mat-card-title>
-                    <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-                </mat-card-content>
-                <mat-card-actions>
-                  <button mat-button>Add Friend</button>
-                </mat-card-actions>
-              </mat-card>
-        </div>
+            </mat-card>
+        </div> 
     </div>
 </div>
