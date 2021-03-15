@@ -24,7 +24,7 @@ export class MypostsComponent implements OnInit {
     //   return false;
     // }
 
-    this.http.get('http://localhost:3000/post/getAllPosts').subscribe((data) => {
+    this.http.get('http://localhost:3000/post/getMyPosts').subscribe((data) => {
       if(data){
         this.posts = Object.values(data)
         console.log(this.posts)
@@ -35,7 +35,8 @@ export class MypostsComponent implements OnInit {
   }
 
   deletePost(event: any, _id: any) {
-    console.log(_id)
+    this.updatePostsArray(this.posts);
+    console.log(this.posts);
     this.http.delete("http://localhost:3000/post/posts/" + _id).subscribe((data) => {
       if(data){
         console.log(data)
@@ -56,6 +57,16 @@ export class MypostsComponent implements OnInit {
     console.log(_id)
     this.postId.postId = _id
     this.router.navigate(['/postHeadingTitle'])
+  }
+
+  updatePostsArray(allPosts: any): void {
+    let postToDeleteIndex;
+    for(let i = 0 ; i < allPosts.length; i++) {
+      postToDeleteIndex = allPosts.findIndex((post: { _id: any; }) => {
+        post._id = allPosts[i]._id
+      });
+    }
+    allPosts.splice(postToDeleteIndex, 1);
   }
 
 }

@@ -1,5 +1,8 @@
-
 .Navbar {
+    .Navbar_Toolbar {
+        background: black !important;
+        color: white !important; 
+    }
     .Navbar_Branding {
         .Navbar_Image_Wrapper {
             width: 10%;
@@ -17,6 +20,7 @@
             vertical-align: middle;
             font-size: 1.5em;
             font-weight: 400;
+            cursor: pointer;
         }
     }
     
@@ -43,5 +47,26 @@
             cursor: pointer;
             width: 40%;
         }
+    }
+}
+
+.Friend_Requests_Notification {
+    .example-card {
+        box-shadow: none;
+        border-bottom: 0.5px solid rgb(238, 238, 238);
+        .Notifications_Title {
+            font-weight: 500;
+            font-size: 1.5em;
+            margin-bottom: 0.8em;      
+        }
+    }
+}
+
+//Angular Material overides
+
+::ng-deep .mat-menu-panel.Notifications_Menu .mat-menu-content {
+    padding: 0;
+    .mat-button-base {
+        padding: 0;
     }
 }

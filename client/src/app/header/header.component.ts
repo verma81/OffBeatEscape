@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { HeaderService } from './header.service';
 
 @Component({
   selector: 'app-header',
@@ -10,13 +11,16 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
   constructor(
-    private router: Router
+    private router: Router,
+    private headerService: HeaderService
   ) { }
 
   ngOnInit(): void {
   }
 
   logoutFromApplication(): void {
+    this.headerService.logOutUser().subscribe(data => {});
+    localStorage.removeItem("authenticated_user");
     this.router.navigate(['/login']);
   }
 
@@ -26,6 +30,10 @@ export class HeaderComponent implements OnInit {
 
   goToMyPosts(): void {
     this.router.navigate(['/myposts'])
+  }
+
+  routeToDashboard(): void {
+    this.router.navigate(['/dashboard'])
   }
 
 }
