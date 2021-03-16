@@ -31,8 +31,8 @@ export class EditpostComponent implements OnInit {
     this.http.get('http://localhost:3000/post/posts/' + this.postId.postId).subscribe((data) => {
       if(data){
         console.log(Object.values(data))
-        this.post.title = Object.values(data)[2]
-        this.post.description = Object.values(data)[3]
+        this.post.title = Object.values(data)[4]
+        this.post.description = Object.values(data)[5]
         console.log(this.post)
       } else {
         console.log('No post to display')

@@ -54,6 +54,7 @@ import { AddpostComponent } from './addpost/addpost.component';
 import { PostidService } from './commonservices/postid.service';
 import { MypostsComponent } from './myposts/myposts.component';
 import { EditpostComponent } from './editpost/editpost.component';
+import { SavepostService } from './commonservices/savepost.service';
 
 
 @NgModule({
@@ -98,6 +99,7 @@ import { EditpostComponent } from './editpost/editpost.component';
     LogInService,
     AuthGuardService,
     PostidService,
+    SavepostService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: MyHttpInterceptorService,

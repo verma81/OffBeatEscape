@@ -20,7 +20,6 @@ username = ''
     return this.http.post<LoginModel>(`http://localhost:3000/users/login`, userCredentials, {withCredentials: true}).pipe(
       map((res: any) => {
         console.log(res);
-        this.username = userCredentials.username
         return res;
       }),
       catchError(this.handleError)
@@ -31,6 +30,8 @@ username = ''
     return this.http.get(`http://localhost:3000/getuser`, { withCredentials: true }).pipe(
         map((res: any) => {
         console.log(res);
+        this.username = res['username']
+        console.log(this.username)
         return res;
     }),
     catchError(this.handleError)

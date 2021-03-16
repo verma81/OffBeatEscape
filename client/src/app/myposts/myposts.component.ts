@@ -20,10 +20,6 @@ export class MypostsComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // this.router.routeReuseStrategy.shouldReuseRoute = () => {
-    //   return false;
-    // }
-
     this.http.get('http://localhost:3000/post/getMyPosts').subscribe((data) => {
       if(data){
         this.posts = Object.values(data)

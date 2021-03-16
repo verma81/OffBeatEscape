@@ -37,4 +37,18 @@ router.post("/register", (req, res) => {
   });
 });
 
+router.patch('/savePost/:username', async (req, res) => {
+  const user = await User.findOneAndUpdate({username: req.body.username, new: true, runValidators: true})
+  console.log(user)
+  console.log('username is' + req.body.username)
+  // var saved = {"postId": req.body.postId}
+  user.savedPosts.push(req.body.postId)
+  try{
+    await user.save()
+    res.status(201).send({user})
+  }catch(e){
+      res.status(400).send(e)
+  }
+})
+
 module.exports = router;

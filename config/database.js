@@ -13,7 +13,8 @@ const prodConnection = process.env.DB_STRING_PROD;
 if (process.env.NODE_ENV === 'production') {
     mongoose.connect(prodConnection, {
         useNewUrlParser: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
+        useFindAndModify: false
     });
 
     mongoose.connection.on('connected', () => {
@@ -22,7 +23,8 @@ if (process.env.NODE_ENV === 'production') {
 } else {
     mongoose.connect(devConnection, {
         useNewUrlParser: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
+        useFindAndModify: false
     });
 
     mongoose.connection.on('connected', () => {
