@@ -11,7 +11,10 @@
   img {
     cursor: pointer;
   }
-  .Individual_Post{
+  .Individual_Post {
+    .Individual_Post_Title {
+      cursor: pointer;
+    }
     padding: 0.5em;
     width: 70%;
     border: 1px solid rgb(216, 216, 216);
