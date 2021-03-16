@@ -1,0 +1,48 @@
+<app-header></app-header>
+<div class="Login_Page">
+  <div class=Login_Wrapper>
+    <div class="Login_Header" >
+      <h1 class="mb-5" style="text-align: center">Edit Post</h1>
+    </div>
+      <div class="Login_Box">
+        <div class="Login_Header">
+        </div>
+        <div class="Login_Body">
+            <form #loginForm>
+                <div class="Login_Body__Email_Wrapper">
+                    <mat-form-field appearance="standard" [style.width.%]="100">
+                    <mat-label>Title</mat-label>
+                      <textarea name="title" [(ngModel)]="post.title" class = "text_area" matInput required>{{post.title}}</textarea>
+                    </mat-form-field>
+                </div>
+              <div class="Login_Body__Email_Wrapper">
+                <mat-form-field appearance="standard" [style.width.%]="100">
+                  <mat-label>Description</mat-label>
+                  <textarea name="description" [(ngModel)]="post.description" class = 'text_area' matInput required>{{post.description}}</textarea>
+                </mat-form-field>
+              </div>
+              <div class="Login_Body__Email_Wrapper">
+                <!-- <button name="image" id="imagepicker" accept = 'image/' mat-button color="primary">Add images</button> -->
+                <input
+                  type="file"
+                  name="image"
+                  id="imagepicker"
+                  accept="image/*"
+                  multiple="{false}"
+                  class="form-control-file"
+                />
+              </div>
+           </form>
+        </div>
+      </div>
+
+      <div class="Login_Body__Email_Wrapper" style="text-align: center; margin-top: 20px;">
+        <button mat-raised-button (click)="editPost($event)">Submit</button>
+      </div>
+
+  </div>
+</div>
+<ngx-spinner type="ball-clip-rotate-pulse">
+<p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+

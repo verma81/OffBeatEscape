@@ -8,7 +8,7 @@ import { LoginModel, UserCredentials } from './login.model';
   providedIn: 'root',
 })
 export class LogInService {
-
+  
   constructor(private http: HttpClient) { }
 
   /**
@@ -26,31 +26,13 @@ export class LogInService {
     );
   }
 
-  /**
-   * @memberof LogInService
-   * Used to login with facebook
-   */
-  validateLoginFB() {
-    return this.http.get(`http://localhost:3000/auth/facebook`, {withCredentials: true}).pipe(
-      map((res: any) => {
+  getUser(): Observable<any> {
+    return this.http.get(`http://localhost:3000/getuser`, { withCredentials: true }).pipe(
+        map((res: any) => {
         console.log(res);
         return res;
-      }),
-      catchError(this.handleError)
-    );
-  }
-
-  /**
-   * @memberof LogInService
-   * Used to login with google
-   */
-  validateLoginGoogle() {
-    return this.http.get(`http://localhost:3000/auth/google`, {withCredentials: true}).pipe(
-      map((res: any) => {
-        console.log(res);
-        return res;
-      }),
-      catchError(this.handleError)
+    }),
+    catchError(this.handleError)
     );
   }
 

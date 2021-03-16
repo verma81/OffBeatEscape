@@ -54,6 +54,63 @@
             }
         }
     }
+    .Dashboard_Wrapper_Friends_Reading_List_Wrapper {
+        div {
+            width: 100%;
+        }
+        .Dashboard_Add_Friends_Wrapper {
+            width: 100%;
+            h1 {
+                padding: 0.5em;
+                margin: 0;
+            }
+            .Friends_Image_Wrapper {
+                img {
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    vertical-align: middle;
+                }
+            }
+            .Friend_Wrapper {
+                font-size: 1em;
+                font-weight: bold;
+                padding: 0.75em 0.75em 0.75em 0.75em;
+                span {
+                    padding: 0.5em;
+                }
+                .Friends_Add_Friend {
+                    padding: 0;
+                    margin-right: 10px;
+                }
+                .Friend_Name {
+                    width: 40%;
+                    padding-top: 5px;
+                }
+            }
+            .Friends_List_See_More {
+                cursor: pointer;
+                text-decoration: underline;
+                font-size: 0.75em;
+                padding: 0.5em;
+            }
+        }
+        .Dashboard_Reading_Lists_Wrapper {
+            width: 100%;
+            h1 {
+                padding: 0.5em;
+                margin: 0;
+            }
+            .Reading_List {
+                font-size: 1em;
+                font-weight: bold;
+                padding: 0.75em 0.75em 0.75em 0.75em; 
+                span {
+                    padding: 0.5em;
+                }
+            }
+        }
+    }
 }
 
 .example-card {

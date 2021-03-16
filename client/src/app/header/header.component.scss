@@ -1,0 +1,72 @@
+.Navbar {
+    .Navbar_Toolbar {
+        background: black !important;
+        color: white !important; 
+    }
+    .Navbar_Branding {
+        .Navbar_Image_Wrapper {
+            width: 10%;
+            height: 100%;
+            .Navbar_Logo {
+                vertical-align: middle;
+                max-height: 50px;
+                max-width: 50px;
+                overflow: hidden;
+                object-fit: contain;
+            }
+        }
+        .Navbar_Application_Title {
+            margin-left: 0.75em;
+            vertical-align: middle;
+            font-size: 1.5em;
+            font-weight: 400;
+            cursor: pointer;
+        }
+    }
+    
+    .Logout_Button {
+        .Navbar_Image_Wrapper {
+            vertical-align: middle;
+            width: 10%;
+            height: 100%;
+            .Navbar_Logo {
+                vertical-align: middle;
+                max-height: 50px;
+                max-width: 50px;
+                overflow: hidden;
+                object-fit: contain;
+            }
+        }
+        .Navbar_Notification_Icon {
+            vertical-align: middle;
+            margin: 10px;
+        }
+        .Log_Off {
+            vertical-align: middle;
+            margin-left: 3em;
+            cursor: pointer;
+            width: 40%;
+        }
+    }
+}
+
+.Friend_Requests_Notification {
+    .example-card {
+        box-shadow: none;
+        border-bottom: 0.5px solid rgb(238, 238, 238);
+        .Notifications_Title {
+            font-weight: 500;
+            font-size: 1.5em;
+            margin-bottom: 0.8em;      
+        }
+    }
+}
+
+//Angular Material overides
+
+::ng-deep .mat-menu-panel.Notifications_Menu .mat-menu-content {
+    padding: 0;
+    .mat-button-base {
+        padding: 0;
+    }
+}

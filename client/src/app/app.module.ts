@@ -20,6 +20,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatIconModule } from '@angular/material/icon';
 
 /**
  * Components
@@ -28,20 +33,26 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SignupComponent } from './signup/signup.component';
+import { PostHeadingComponent } from './post-heading/post-heading.component';
+import { HeaderComponent } from './header/header.component';
+import { AddpostComponent } from './addpost/addpost.component';
+import { MypostsComponent } from './myposts/myposts.component';
+import { FriendslistComponent } from './friendslist/friendslist.component';
+import { EditpostComponent } from './editpost/editpost.component';
 
 /**
  * Services
  */
-import { TokenService } from './commonservices/TokenService';
 import { LogInService } from './login/login.service';
 import { PasswordValidatorDirective } from './signup/passwordvalidator.directive';
+import { FriendListPipe } from './friendslist/friendlist.pipe';
 
 /**
  * 3rd party modules
 */
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FlexLayoutModule } from '@angular/flex-layout';
-
+import { ParticlesModule } from 'angular-particle';
 
 @NgModule({
   declarations: [
@@ -49,7 +60,14 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     LoginComponent,
     DashboardComponent,
     SignupComponent,
-    PasswordValidatorDirective
+    PasswordValidatorDirective,
+    PostHeadingComponent,
+    FriendListPipe,
+    FriendslistComponent,
+    HeaderComponent,
+    AddpostComponent,
+    MypostsComponent,
+    EditpostComponent
   ],
   imports: [
     BrowserModule,
@@ -66,12 +84,17 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatFormFieldModule,
     MatInputModule,
     FlexLayoutModule,
-    MatDividerModule
+    MatDividerModule,
+    ParticlesModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatPaginatorModule,
+    MatBadgeModule,
+    MatIconModule
   ],
   providers: [
     LogInService,
     AuthGuardService,
-    TokenService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: MyHttpInterceptorService,

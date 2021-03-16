@@ -1,0 +1,59 @@
+.avatar {
+  vertical-align: middle;
+  width: 100px;
+  height: 100px;
+}
+
+#appSpinner {
+  display: none;
+}
+
+.Login_Page {
+  width: 100%;
+  height: 100%;
+  .Login_Wrapper {
+      .Login_Header {
+          padding: 2em;
+      }
+      width: 70%;
+      margin: 0 auto;
+      .Login_Box {
+          margin: 0 auto;
+          padding: 2em;
+          background-color: #efefef;
+          border-radius: 1em;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+          button {
+              text-align: center;
+          }
+          .Login_Body {
+              .Login_Body__Email_Wrapper{
+                 padding: 1em 0 1em 0;
+              }
+              .text_area{
+                height:40px;
+              }
+              .Login_Body_Submit_Button_Wrapper {
+                  padding: 1em 0 1em 0;
+                  div {
+                      color: #848282;
+                      padding-top: 0.35em;
+                      text-decoration: underline;
+                      cursor: pointer;
+                      font-size: 0.85em;
+                  }
+              }
+              .Login_Body__User_Avatar {
+                  text-align: center;
+              }
+              .Login_Body__Social_Buttons_Wrapper {
+                  text-align: center;
+                  padding: 1em;
+                  span {
+                      padding: 0.5em;
+                  }
+              }
+          }
+      }
+  }
+}

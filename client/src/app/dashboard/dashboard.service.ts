@@ -12,20 +12,6 @@ export class DashBoardService {
 
     /**
      * @memberof DashBoardService
-     * Logs out the current user
-     */
-    logoutUser(){
-        return this.http.get(`http://localhost:3000/logout`, { withCredentials: true }).pipe(
-            map((res: any) => {
-            console.log(res);
-            return res;
-        }),
-        catchError(this.handleError)
-        );
-    }
-
-    /**
-     * @memberof DashBoardService
      * Error handler for API calls
     */
     private handleError(error: HttpErrorResponse) {

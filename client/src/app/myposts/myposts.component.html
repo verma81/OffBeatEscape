@@ -1,0 +1,15 @@
+<app-header></app-header>
+<h1>All Posts</h1>
+<div class="wrapper" *ngFor="let post of posts">
+  <mat-card class="Individual_Post">
+    <mat-card-content>
+      <h2 class="Individual_Post_Title" (click)='showPost($event, post._id)'>{{post.title}}</h2>
+    </mat-card-content>
+    <mat-card-actions>
+      <img src="../../assets/edit.png" alt="Avatar" class="avatar" (click)="editPost($event, post._id)">
+      <!-- <button mat-button>SHARE</button> -->
+      <img src="../../assets/delete.png" alt="Avatar" class="avatar" (click)="deletePost($event, post._id)">
+    </mat-card-actions>
+  </mat-card>
+</div>
+<h1 *ngIf="posts.length == 0"> No Posts to display</h1>
