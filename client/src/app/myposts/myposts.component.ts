@@ -37,7 +37,7 @@ export class MypostsComponent implements OnInit {
   }
 
   editPost(event: any, _id: any){
-    this.router.navigate(['/editpost'])
+    this.router.navigate(['/editpost', _id])
   }
 
   showPost(event: any, _id: any){

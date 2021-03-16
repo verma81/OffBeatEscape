@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { AddPostService } from './addpost.service';
 import { Post } from './addpost.model';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 class ImageSnippet {

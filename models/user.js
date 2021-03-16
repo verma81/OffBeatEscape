@@ -9,8 +9,10 @@ const user = new mongoose.Schema({
   facebookId: {
     required: false,
     type: String
-  }
-
+  },
+  savedPosts:[{
+    postId: String
+  }],
 });
 
 module.exports = mongoose.model("User", user);

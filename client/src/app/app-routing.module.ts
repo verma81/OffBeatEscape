@@ -8,6 +8,7 @@ import { PostHeadingComponent } from './post-heading/post-heading.component';
 import { FriendslistComponent } from './friendslist/friendslist.component';
 import { AddpostComponent } from './addpost/addpost.component';
 import { MypostsComponent } from './myposts/myposts.component';
+import { EditpostComponent } from './editpost/editpost.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -18,6 +19,8 @@ const routes: Routes = [
   {path: 'friendslist', component: FriendslistComponent, canActivate: [AuthGuard]},
   {path: 'addpost', component: AddpostComponent, canActivate: [AuthGuard]},
   {path: 'myposts',component: MypostsComponent, canActivate: [AuthGuard]},
+  {path: 'editpost/:pid',component: EditpostComponent, canActivate: [AuthGuard]},
+
 
 ];
 

@@ -37,6 +37,8 @@ import { PostHeadingComponent } from './post-heading/post-heading.component';
 import { HeaderComponent } from './header/header.component';
 import { AddpostComponent } from './addpost/addpost.component';
 import { MypostsComponent } from './myposts/myposts.component';
+import { FriendslistComponent } from './friendslist/friendslist.component';
+import { EditpostComponent } from './editpost/editpost.component';
 
 /**
  * Services
@@ -51,10 +53,6 @@ import { FriendListPipe } from './friendslist/friendlist.pipe';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ParticlesModule } from 'angular-particle';
-import { FriendslistComponent } from './friendslist/friendslist.component';
-
-
-
 
 @NgModule({
   declarations: [
@@ -68,7 +66,8 @@ import { FriendslistComponent } from './friendslist/friendslist.component';
     FriendslistComponent,
     HeaderComponent,
     AddpostComponent,
-    MypostsComponent
+    MypostsComponent,
+    EditpostComponent
   ],
   imports: [
     BrowserModule,

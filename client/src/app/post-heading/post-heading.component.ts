@@ -53,20 +53,18 @@ export class PostHeadingComponent implements OnInit {
         'username': currentUser.username,
         'comment': this.comment
       }
-      if(this.comment.length > 0) {
-        this.postHeadingService.addCommentOnAPost(commentRequestData, this.postId).subscribe(data => {  
-          this.spinner.show();
-          if(data) {
-            setTimeout(() => {
-              this.spinner.hide();
-            }, 1000);
-          }
-        })
-      }
+      this.postHeadingService.addCommentOnAPost(commentRequestData, this.postId).subscribe(data => {
+        console.log(data);
+      });
       this.updateCommentList(commentRequestData);
-    }
+    };
+  
 
-  savePost(event: any){
+  savePost(event: any) {
+    const currentUser = JSON.parse(this.getLoggedInUser());
+    this.postHeadingService.savePost(this.postId, currentUser.username).subscribe(data => {
+
+    })
     var postToSave = {"title": this.post.title, "id": this.postId}
     this.savedPosts.push(postToSave)
     console.log(this.savedPosts)

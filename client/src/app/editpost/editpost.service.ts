@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
-export class PostHeadingService {
+export class EditPostService {
     
     constructor(private http: HttpClient) { }
     
-    getPostDetails(postId: string): Observable<any> {
+    getPost(postId: string): Observable<any> {
         return this.http.get('http://localhost:3000/post/posts/' + postId).pipe(
             map((res: any) => {
             console.log(res);
@@ -20,8 +20,9 @@ export class PostHeadingService {
         );
     }
 
-    addCommentOnAPost(commentRequestData: any, postId: string): Observable<any> {
-        return this.http.patch('http://localhost:3000/post/addComment/' + postId, commentRequestData).pipe(
+    editPost(postId: string, editPostPayLoad: { title?: any; description?: any }): Observable<any> {
+        console.log(postId);
+        return this.http.patch('http://localhost:3000/post/posts/' + postId, editPostPayLoad).pipe(
             map((res: any) => {
             console.log(res);
             return res;
@@ -29,16 +30,7 @@ export class PostHeadingService {
             catchError(this.handleError)
         );
     }
-
-    savePost(postId: string, userName: string) {
-        return this.http.patch('http://localhost:3000/users/savePost/' + postId, userName).pipe(
-            map((res: any) => {
-            console.log(res);
-            return res;
-        }),
-            catchError(this.handleError)
-        );
-      }
+    
    
     private handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
