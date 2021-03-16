@@ -1,8 +1,7 @@
-<app-header></app-header>
 <div class="Login_Page">
   <div class=Login_Wrapper>
     <div class="Login_Header" >
-      <h1 class="mb-5" style="text-align: center">Add Post</h1>
+      <h1 class="mb-5" style="text-align: center">Edit Post</h1>
     </div>
       <div class="Login_Box">
         <div class="Login_Header">
@@ -12,22 +11,22 @@
                 <div class="Login_Body__Email_Wrapper">
                     <mat-form-field appearance="standard" [style.width.%]="100">
                     <mat-label>Title</mat-label>
-                      <textarea name="title" [(ngModel)]="post.title" class = "text_area" matInput required></textarea>
+                      <textarea name="title" [(ngModel)]="post.title" class = "text_area" matInput required>{{post.title}}</textarea>
                     </mat-form-field>
                 </div>
               <div class="Login_Body__Email_Wrapper">
                 <mat-form-field appearance="standard" [style.width.%]="100">
                   <mat-label>Description</mat-label>
-                  <textarea name="description" [(ngModel)]="post.description" class = 'text_area' matInput required></textarea>
+                  <textarea name="description" [(ngModel)]="post.description" class = 'text_area' matInput required>{{post.description}}</textarea>
                 </mat-form-field>
               </div>
               <div class="Login_Body__Email_Wrapper">
-                <input #imageInput
+                <!-- <button name="image" id="imagepicker" accept = 'image/' mat-button color="primary">Add images</button> -->
+                <input
                   type="file"
                   name="image"
                   id="imagepicker"
                   accept="image/*"
-                  (change)="uploadFile(imageInput)"
                   multiple="{false}"
                   class="form-control-file"
                 />
@@ -37,7 +36,7 @@
       </div>
 
       <div class="Login_Body__Email_Wrapper" style="text-align: center; margin-top: 20px;">
-        <button (click)="addPost()" mat-raised-button [disabled]="!post.description || !post.title">Submit</button>
+        <button (click)="editPost($event)">Submit</button>
       </div>
 
   </div>

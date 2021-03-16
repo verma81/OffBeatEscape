@@ -1,5 +1,17 @@
 .Friends_List_Wrapper {
     .Friends_List {
+        .Search_Bar_Wrapper {
+            padding: 1em;
+            .Search_Bar {
+                width: 100%;
+                .mat-input-element {
+                    width: 98%;
+                }
+                .Search_Icon {
+                    font-size: 1.0em;
+                }
+            }
+        }
         width: 70%;
         margin: 0 auto;
         padding: 2em;
@@ -24,6 +36,7 @@
                 .mat-button-base {
                     width: 100%;
                     text-align: left;
+                    padding: 5px;
                 }
             }
         }
