@@ -30,8 +30,8 @@ export class PostHeadingService {
         );
     }
 
-    savePost(postId: string, userName: string) {
-        return this.http.patch('http://localhost:3000/users/savePost/' + postId, userName).pipe(
+    savePost(postId: string, savedPostRequestPayload: { user: any; }) {
+        return this.http.patch('http://localhost:3000/users/savePost/' + postId, savedPostRequestPayload).pipe(
             map((res: any) => {
             console.log(res);
             return res;
