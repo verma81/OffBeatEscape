@@ -43,9 +43,11 @@ export class AddpostComponent implements OnInit {
         .post('http://localhost:3000/post/addPost', formData)
         .subscribe(
           (res) => {
-            console.log(res);
-            this.spinner.hide();
-            this.router.navigate(['/myposts'])
+            setTimeout(()=> {
+              console.log(res);
+              this.spinner.hide();
+              this.router.navigate(['/myposts'])
+            }, 1000)
           },
           (err) => {
             this.spinner.hide();
