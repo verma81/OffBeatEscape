@@ -32,7 +32,7 @@ username: string = ''
       if(data){
         console.log(data)
       } else {
-        console.log('oops')
+        console.log('error')
       }
     })
   }

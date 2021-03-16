@@ -23,18 +23,6 @@ export class DashboardComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.http.get('http://localhost:3000/post/getAllPosts').subscribe((data) => {
-      if(data){
-        this.posts = Object.values(data)
-        console.log(this.posts)
-        for (p of this.posts){
-          console.log(p['savedBy'])
-        }
-      } else {
-        this.posts = []
-      }
-    })
-    var p
 
   }
 
