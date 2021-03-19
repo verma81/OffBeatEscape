@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { PostidService } from '../commonservices/postid.service';
-import { LogInService } from '../login/login.service';
-import { Router } from '@angular/router';
+import { PostHeadingService } from './post-heading.service';
+import { ActivatedRoute} from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-post-heading',
@@ -10,75 +9,88 @@ import { Router } from '@angular/router';
   styleUrls: ['./post-heading.component.scss']
 })
 export class PostHeadingComponent implements OnInit {
-  username = ''
-  public post : any={
-    title : '',
-    description: '',
-    comments : [],
-    imageurl : ''
-  }
-  public comment = ''
-  savedPosts: any = []
-  reportedPosts: any = []
-  constructor(
 
-    private postId: PostidService,
-    private http: HttpClient,
-    private loginservice: LogInService,
-    private router: Router,
+  username = '';
 
-  ) { }
+  post: any = [];
 
-  ngOnInit(): void {
+  comment = '';
 
-    // this.router.routeReuseStrategy.shouldReuseRoute = () => {
-    //   return false;
-    // }
+  savedPosts: any = [];
 
-    console.log(this.postId.postId)
-    this.http.get('http://localhost:3000/post/posts/' + this.postId.postId).subscribe((data) => {
-      if(data){
-        console.log(Object.values(data))
-        this.post.title = Object.values(data)[2]
-        this.post.description = Object.values(data)[3]
-        this.post.comments = Object.values(data)[1]
-        if(Object.values(data).length === 8){
-          this.post.imageurl = Object.values(data)[4]
+  reportedPosts: any = [];
+
+  postId: string = '';
+  userId: string = '';
+  commentsList: any = [];
+
+    constructor(
+      private postHeadingService: PostHeadingService,
+      private routeParams: ActivatedRoute,
+      private spinner: NgxSpinnerService
+    ) { }
+
+    ngOnInit(): void {
+      this.routeParams.params.forEach( (routeParam) => {
+        this.postId = routeParam.pid;
+        this.userId = routeParam.uid;
+      })
+      this.postHeadingService.getPostDetails(this.postId).subscribe(data => {
+        if (data) {
+          this.post = data;
+          this.commentsList = data.comments;
+          this.spinner.show();
+          setTimeout(() => {
+            this.spinner.hide();
+          }, 1000);
         }
-        console.log(this.post)
-
-      } else {
-        console.log('No post to display')
-        this.post = []
-      }
-    })
-  }
-  addComment(event: any){
-    this.username = this.loginservice.username
-    if(this.comment.length > 0){
-      this.http.patch('http://localhost:3000/post/addComment/'+this.postId.postId,{
-      username : this.username,
-      comment : this.comment,
-    }).subscribe((data) => {
-      if(data){
-        console.log(data)
-        this.router.navigate(['/postHeadingTitle'])
-      } else {
-        console.log('oops')
-      }
-    })
+      });
     }
-  }
 
-  savePost(event: any){
-    var postToSave = {"title": this.post.title, "id": this.postId.postId}
+    addComment(event: any) {
+      const currentUser = JSON.parse(this.getLoggedInUser());
+      const commentRequestData = {
+        'username': currentUser.username,
+        'comment': this.comment
+      }
+      this.postHeadingService.addCommentOnAPost(commentRequestData, this.postId).subscribe(data => {
+        if(data) {
+          this.spinner.show();
+          setTimeout(() => {
+            this.spinner.hide();
+          }, 1000);
+        }
+      });
+      this.updateCommentList(commentRequestData);
+    };
+
+  savePost(event: any) {
+    const currentUser = JSON.parse(this.getLoggedInUser());
+    console.log(currentUser);
+    const savePostRequestPayLoad = {
+      'user': currentUser.username,
+      'postId':this.postId
+    }
+    this.postHeadingService.savePost(this.postId, savePostRequestPayLoad).subscribe(data => {
+
+    })
+    var postToSave = {"title": this.post.title, "id": this.postId}
     this.savedPosts.push(postToSave)
     console.log(this.savedPosts)
   }
 
   reportPost(event: any){
-    var postToReport = {"id": this.postId.postId}
+    var postToReport = {"id": this.postId}
     this.reportedPosts.push(postToReport)
     console.log(this.reportedPosts)
   }
+
+  getLoggedInUser(): any {
+    return JSON.parse(JSON.stringify(localStorage.getItem('currentUser')));
+  }
+
+  updateCommentList(commentData: { username: any; comment: string; }): void {
+    this.commentsList.push(commentData);
+  }
+
 }

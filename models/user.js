@@ -10,7 +10,9 @@ const user = new mongoose.Schema({
     required: false,
     type: String,
   },
- 
+  savedPosts:[{
+    postId: String
+  }],
   friends: {
     type: [
       {

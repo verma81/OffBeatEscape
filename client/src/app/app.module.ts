@@ -24,6 +24,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatIconModule } from '@angular/material/icon';
 
 /**
  * Components
@@ -33,12 +34,18 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SignupComponent } from './signup/signup.component';
 import { PostHeadingComponent } from './post-heading/post-heading.component';
+import { HeaderComponent } from './header/header.component';
+import { AddpostComponent } from './addpost/addpost.component';
+import { MypostsComponent } from './myposts/myposts.component';
+import { FriendslistComponent } from './friendslist/friendslist.component';
+import { EditpostComponent } from './editpost/editpost.component';
 
 /**
  * Services
  */
 import { LogInService } from './login/login.service';
 import { PasswordValidatorDirective } from './signup/passwordvalidator.directive';
+import { FriendListPipe } from './friendslist/friendlist.pipe';
 
 /**
  * 3rd party modules
@@ -46,11 +53,6 @@ import { PasswordValidatorDirective } from './signup/passwordvalidator.directive
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ParticlesModule } from 'angular-particle';
-import { FriendslistComponent } from './friendslist/friendslist.component';
-import { HeaderComponent } from './header/header.component';
-import { AddpostComponent } from './addpost/addpost.component';
-import { PostidService } from './commonservices/postid.service';
-import { MypostsComponent } from './myposts/myposts.component';
 
 @NgModule({
   declarations: [
@@ -60,10 +62,12 @@ import { MypostsComponent } from './myposts/myposts.component';
     SignupComponent,
     PasswordValidatorDirective,
     PostHeadingComponent,
+    FriendListPipe,
     FriendslistComponent,
     HeaderComponent,
     AddpostComponent,
-    MypostsComponent
+    MypostsComponent,
+    EditpostComponent
   ],
   imports: [
     BrowserModule,
@@ -85,12 +89,12 @@ import { MypostsComponent } from './myposts/myposts.component';
     MatToolbarModule,
     MatMenuModule,
     MatPaginatorModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatIconModule
   ],
   providers: [
     LogInService,
     AuthGuardService,
-    PostidService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: MyHttpInterceptorService,
