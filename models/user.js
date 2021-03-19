@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const user = new mongoose.Schema({
   username: String,
-  password: String,
+  password: { type: String, select: false },
   googleId: {
     required: false,
     type: String,
@@ -10,9 +10,11 @@ const user = new mongoose.Schema({
     required: false,
     type: String,
   },
-  savedPosts:[{
-    postId: String
-  }],
+  savedPosts: [
+    {
+      postId: String,
+    },
+  ],
   friends: {
     type: [
       {

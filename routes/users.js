@@ -34,7 +34,7 @@ router.post("/register", (req, res) => {
       res.status(200).json({ success: true, success: "user created" });
       //res.send("User Created");
     }
-  });
+  }).select('+password');
 });
 
 router.patch('/savePost/:username', async (req, res) => {

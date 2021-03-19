@@ -19,7 +19,7 @@ module.exports = function (passport) {
               return done(null, false);
             }
           });
-        });
+        }).select('+password');
       })
     );
   
@@ -47,7 +47,7 @@ module.exports = function (passport) {
               done(null, newUser);
             }
             done(null, doc);
-          });
+          }).select('+password');
         }
       )
     );
@@ -75,7 +75,7 @@ module.exports = function (passport) {
               done(null, newUser);
             }
             done(null, doc);
-          });
+          }).select('+password');
         }
       )
     );
@@ -96,7 +96,7 @@ module.exports = function (passport) {
     passport.deserializeUser((id, done) => {
       User.findById(id, (err, doc) => {
         return done(null, doc); // return goes to the client and binds to the req.user property
-      });
+      }).select('+password');
     });
   
     passport.deserializeUser((user, done) => {
