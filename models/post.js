@@ -22,7 +22,11 @@ const postSchema = new mongoose.Schema({
   },
   comments:[{
     username: String,
-    comment: String
+    comment: String,
+    time: {
+      type:Date,
+      default:Date.now
+    }
   }],
   savedBy:[new mongoose.Schema({
     user:String,

@@ -9,21 +9,21 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./post-heading.component.scss']
 })
 export class PostHeadingComponent implements OnInit {
-  
+
   username = '';
-  
+
   post: any = [];
 
   comment = '';
-  
+
   savedPosts: any = [];
-  
+
   reportedPosts: any = [];
 
   postId: string = '';
   userId: string = '';
   commentsList: any = [];
-  
+
     constructor(
       private postHeadingService: PostHeadingService,
       private routeParams: ActivatedRoute,
@@ -63,12 +63,13 @@ export class PostHeadingComponent implements OnInit {
       });
       this.updateCommentList(commentRequestData);
     };
-  
+
   savePost(event: any) {
     const currentUser = JSON.parse(this.getLoggedInUser());
     console.log(currentUser);
     const savePostRequestPayLoad = {
-      'user': currentUser.username
+      'user': currentUser.username,
+      'postId':this.postId
     }
     this.postHeadingService.savePost(this.postId, savePostRequestPayLoad).subscribe(data => {
 
@@ -93,5 +94,3 @@ export class PostHeadingComponent implements OnInit {
   }
 
 }
-
-

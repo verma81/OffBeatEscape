@@ -43,9 +43,9 @@
                     </div>
                 </div>
                 <div class="Comments_Section">
-                    <h1 *ngIf="commentsList.length > 0">Top 3 Comments..</h1>
-                    <div class='Comments_Box' *ngFor="let comment of post.comments | slice:0:3; let i=index">  
-                        <mat-card *ngIf="i<4">User: {{comment.username}} Comment: {{comment.comment}}</mat-card>
+                    <h1 *ngIf="commentsList.length > 0">Recent comments</h1>
+                    <div class='Comments_Box' *ngFor="let comment of post.comments | slice:0:3; let i=index">
+                        <mat-card *ngIf="i<4">{{comment.username}} : {{comment.comment}}</mat-card>
                     </div>
                 </div>
             </div>
