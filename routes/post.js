@@ -3,7 +3,7 @@ const express = require('express')
 const Post = require('../models/post')
 const router = new express.Router()          //all the required apis
 const passport = require('passport');
-const multer = require('multer')        
+const multer = require('multer')
 const uuid = require('uuid/v4')
 
 const aws = require("aws-sdk");
@@ -23,7 +23,7 @@ const fileFilter = (req, file, cb) => {
         cb(new Error('Invalid Mime Type, only JPEG and PNG'), false);
     }
 }
- 
+
 const upload = multer({
   fileFilter,
   storage: multerS3({
@@ -38,39 +38,31 @@ const upload = multer({
     }
   })
 });
- 
+
 const singleUpload = upload.single('image')
 
 
 
 router.post('/addPost',singleUpload, async (req, res) => {            //adding a new post
     const post = new Post()
-    if(!req.file){
-        post.title = req.body.title, 
-        post.description  =  req.body.description
-        try{
-            await post.save()
-            res.status(201).send({post})
-        }catch(e){
-            res.status(400).send(e)
-        }
-    }else{
-        post.title = req.body.title, 
-        post.description  =  req.body.description
+    post.owner = req.user.username
+    post.title = req.body.title,
+    post.description  =  req.body.description
+    if(req.file){
         post.postImageUrl = req.file.location
-        try{
-            await post.save()
-            res.status(201).send({post})
-        }catch(e){
-            res.status(400).send(e)
-        }
     }
-    
+
+    try{
+        await post.save()
+        res.status(201).send({post})
+    }catch(e){
+        res.status(400).send(e)
+    }
 })
 
 router.patch('/addComment/:id', async(req,res) => {
     const post = await Post.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
-    var comments = {"username": req.body.username, "comment": req.body.comment}
+    var comments = {"username": req.user.username, "comment": req.body.comment}
     post.comments.push(comments)
     try{
         await post.save()
@@ -80,17 +72,26 @@ router.patch('/addComment/:id', async(req,res) => {
     }
 })
 
-// router.patch('/savePost/:id', async(req, res) => {
-//     const post = await Post.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
-//     var saved = {"title": req.body.title, 'id': req.body.id}
-//     post.savedPosts.push(saved)
-//     try{
-//         await post.save()
-//         res.status(201).send({post})
-//     }catch(e){
-//         res.status(400).send(e)
-//     }
-// })
+router.patch('/savepost/:id', async (req, res) => {
+    const post = await Post.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
+    var savedpost = {"user": req.body.username}
+    post.savedBy.push(savedpost)
+    try{
+        await post.save()
+        res.status(201).send({post})
+    }catch(e){
+        res.status(400).send(e)
+    }
+})
+
+router.get('/getMyPosts', async (req, res) => {                             //getting posts of logged in user
+    try {
+        const posts = await Post.find({"owner":req.user.username})
+        res.send(posts)
+    } catch (e) {
+        res.status(500).send()
+    }
+})
 
 router.get('/getAllPosts', async (req, res) => {                                        //getting all posts
     try {

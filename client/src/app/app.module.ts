@@ -24,6 +24,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatIconModule } from '@angular/material/icon';
 
 /**
  * Components
@@ -39,6 +40,7 @@ import { PostHeadingComponent } from './post-heading/post-heading.component';
  */
 import { LogInService } from './login/login.service';
 import { PasswordValidatorDirective } from './signup/passwordvalidator.directive';
+import { FriendListPipe } from './friendslist/friendlist.pipe';
 
 /**
  * 3rd party modules
@@ -51,6 +53,9 @@ import { HeaderComponent } from './header/header.component';
 import { AddpostComponent } from './addpost/addpost.component';
 import { PostidService } from './commonservices/postid.service';
 import { MypostsComponent } from './myposts/myposts.component';
+import { EditpostComponent } from './editpost/editpost.component';
+import { SavepostService } from './commonservices/savepost.service';
+
 
 @NgModule({
   declarations: [
@@ -60,10 +65,12 @@ import { MypostsComponent } from './myposts/myposts.component';
     SignupComponent,
     PasswordValidatorDirective,
     PostHeadingComponent,
+    FriendListPipe,
     FriendslistComponent,
     HeaderComponent,
     AddpostComponent,
-    MypostsComponent
+    MypostsComponent,
+    EditpostComponent
   ],
   imports: [
     BrowserModule,
@@ -85,12 +92,14 @@ import { MypostsComponent } from './myposts/myposts.component';
     MatToolbarModule,
     MatMenuModule,
     MatPaginatorModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatIconModule
   ],
   providers: [
     LogInService,
     AuthGuardService,
     PostidService,
+    SavepostService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: MyHttpInterceptorService,
