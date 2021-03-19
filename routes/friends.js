@@ -14,11 +14,13 @@ router.get("/usersList", async (req, res) => {
   });
   console.log("test data", userMap);
 
-  let userData = Object.keys(userMap).map((key) => {
-    return userMap[key];
-  });
+  // let userData = Object.keys(userMap).map((key) => { 
+  //   return userMap[key];
+  // });
+  const arrayOfUserObj = Object.entries(userMap).map((e) => ( { [e[0]]: e[1] } ));
 
-  res.status(200).send(userData);
+
+  res.status(200).send(arrayOfUserObj);
 });
 
 router.post("/sendFriendRequest/:id", (req, res) => {
