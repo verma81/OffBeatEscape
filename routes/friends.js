@@ -33,6 +33,27 @@ router.post("/sendFriendRequest/:id", (req, res) => {
       });
     } else {
       User.updateOne(
+        { _id: Object(friendReqId) },
+        {
+          $push: {
+            notifications: {
+              type: "friend_req",
+              content: user.username + " has send you a friend request",
+              profileImage: user.profileImage,
+              createdAt: new Date().getTime(),
+            },
+          },
+        },
+        (err, data) => {
+          if (err) {
+            res.json({
+              status: "error",
+              message: "Friend notification not updated",
+            });
+          }
+        }
+      );
+      User.updateOne(
         { _id: Object(id) },
         {
           $push: {
