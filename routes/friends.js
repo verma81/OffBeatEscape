@@ -8,11 +8,17 @@ router.get("/usersList", async (req, res) => {
   const users = await User.find({});
 
   const userMap = {};
+
   users.forEach((user) => {
     userMap[user.username] = user;
   });
+  console.log("test data", userMap);
 
-  res.send(userMap);
+  let userData = Object.keys(userMap).map((key) => {
+    return userMap[key];
+  });
+
+  res.status(200).send(userData);
 });
 
 router.post("/sendFriendRequest/:id", (req, res) => {
