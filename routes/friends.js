@@ -40,6 +40,8 @@ router.post("/sendFriendRequest/:id", (req, res) => {
               type: "friend_req",
               content: user.username + " has send you a friend request",
               profileImage: user.profileImage,
+              currentUserId: friendReqId,
+              friendUserId: user._id,
               createdAt: new Date().getTime(),
             },
           },
