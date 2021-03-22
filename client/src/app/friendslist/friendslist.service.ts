@@ -1,38 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { map, catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
-
-export class DashBoardService {
+export class EditPostService {
+    
     constructor(private http: HttpClient) { }
-
-    getUsersList(): Observable<any> {
-
-        return this.http.get(`http://localhost:3000/users/usersList`).pipe(
-            map((res: any) => {
-            return res;
-        }),
-        catchError(this.handleError)
-        );
-    }
-
-    sendFriendRequest(currentUser: any, sendFriendRequestPayLoad: any): Observable<any> {
-        return this.http.post(`http://localhost:3000/users/sendFriendRequest/` + currentUser._id, sendFriendRequestPayLoad).pipe(
-            map((res: any) => {
-            return res;
-        }),
-        catchError(this.handleError)
-        );
-    }
-
-    /**
-     * @memberof DashBoardService
-     * Error handler for API calls
-    */
+    
+    
+    
+   
     private handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
         // A client-side or network error occurred. Handle it accordingly.

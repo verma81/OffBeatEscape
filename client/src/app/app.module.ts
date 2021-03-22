@@ -34,6 +34,11 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SignupComponent } from './signup/signup.component';
 import { PostHeadingComponent } from './post-heading/post-heading.component';
+import { HeaderComponent } from './header/header.component';
+import { AddpostComponent } from './addpost/addpost.component';
+import { MypostsComponent } from './myposts/myposts.component';
+import { FriendslistComponent } from './friendslist/friendslist.component';
+import { EditpostComponent } from './editpost/editpost.component';
 
 /**
  * Services
@@ -41,6 +46,8 @@ import { PostHeadingComponent } from './post-heading/post-heading.component';
 import { LogInService } from './login/login.service';
 import { PasswordValidatorDirective } from './signup/passwordvalidator.directive';
 import { FriendListPipe } from './friendslist/friendlist.pipe';
+import { DashBoardService } from './dashboard/dashboard.service';
+import { PostHeadingService } from './post-heading/post-heading.service';
 
 /**
  * 3rd party modules
@@ -48,13 +55,8 @@ import { FriendListPipe } from './friendslist/friendlist.pipe';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ParticlesModule } from 'angular-particle';
-import { FriendslistComponent } from './friendslist/friendslist.component';
-import { HeaderComponent } from './header/header.component';
-import { AddpostComponent } from './addpost/addpost.component';
-import { PostidService } from './commonservices/postid.service';
-import { MypostsComponent } from './myposts/myposts.component';
-import { EditpostComponent } from './editpost/editpost.component';
-import { SavepostService } from './commonservices/savepost.service';
+import { CommonModule } from '@angular/common';
+
 
 
 @NgModule({
@@ -93,18 +95,19 @@ import { SavepostService } from './commonservices/savepost.service';
     MatMenuModule,
     MatPaginatorModule,
     MatBadgeModule,
-    MatIconModule
+    MatIconModule,
+    CommonModule
   ],
   providers: [
     LogInService,
     AuthGuardService,
-    PostidService,
-    SavepostService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: MyHttpInterceptorService,
       multi: true
-    }
+    },
+    DashBoardService,
+    PostHeadingService
   ],
   bootstrap: [AppComponent]
 })

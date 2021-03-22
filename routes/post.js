@@ -63,7 +63,10 @@ router.post('/addPost',singleUpload, async (req, res) => {            //adding a
 router.patch('/addComment/:id', async(req,res) => {
     const post = await Post.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
     var comments = {"username": req.user.username, "comment": req.body.comment}
-    post.comments.push(comments)
+    post.comments.push({
+      $each: [comments],
+      $position: 0
+    })
     try{
         await post.save()
         res.status(201).send({post})

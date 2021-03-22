@@ -34,13 +34,13 @@ router.post("/register", (req, res) => {
       res.status(200).json({ success: true, success: "user created" });
       //res.send("User Created");
     }
-  });
+  }).select('+password');
 });
 
 router.patch('/savePost/:username', async (req, res) => {
-  const user = await User.findOneAndUpdate({username: req.body.username, new: true, runValidators: true})
+  const user = await User.findOneAndUpdate({username: req.body.user, new: true, runValidators: true})
   console.log(user)
-  console.log('username is' + req.body.username)
+  console.log('username is' + req.body.user)
   // var saved = {"postId": req.body.postId}
   user.savedPosts.push(req.body.postId)
   try{

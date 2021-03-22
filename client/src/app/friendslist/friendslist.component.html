@@ -14,11 +14,10 @@
             <mat-card class="example-card">
               <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
                 <mat-card-content>
-                  <mat-card-title>{{friend.friendName}}</mat-card-title>
-                  <mat-card-subtitle>{{friend.friendName}}</mat-card-subtitle>
+                  <mat-card-title>{{friend.username}}</mat-card-title>
                 </mat-card-content>
                 <mat-card-actions>
-                  <button mat-button>Add Friend</button>
+                  <button (click)="sendFriendRequestToUser(friend)" mat-button>Add Friend</button>
                 </mat-card-actions>
             </mat-card>
         </div> 
