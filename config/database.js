@@ -6,7 +6,7 @@ require('dotenv').config();
  * DATABASE 
  */
 
-const devConnection = process.env.DB_STRING;
+const devConnection = "mongodb://localhost:27017/offbeatEscape";
 const prodConnection = process.env.DB_STRING_PROD;
 
 // Connect to the correct environment database

@@ -1,8 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Post } from '../addpost/addpost.model';
-import { PostidService } from '../commonservices/postid.service';
 
 
 @Component({
@@ -14,28 +12,23 @@ export class MypostsComponent implements OnInit {
   public posts : any = [];
   constructor(
     private http: HttpClient,
-    private router: Router,
-    private postId : PostidService
+    private router: Router
   ) { }
 
   ngOnInit(): void {
-
     this.http.get('http://localhost:3000/post/getMyPosts').subscribe((data) => {
       if(data){
         this.posts = Object.values(data)
-        console.log(this.posts)
       } else {
         this.posts = []
       }
     })
   }
 
-  deletePost(event: any, _id: any) {
-    this.updatePostsArray(this.posts);
-    console.log(this.posts);
-    this.http.delete("http://localhost:3000/post/posts/" + _id).subscribe((data) => {
+  deletePost(event: any, currentPostId: string) {
+    this.updatePostsArray(currentPostId.toString(), this.posts);
+    this.http.delete("http://localhost:3000/post/posts/" + currentPostId).subscribe((data) => {
       if(data){
-        console.log(data)
         this.router.navigate(['/myposts'])
       } else {
         console.log("OOPS")
@@ -44,25 +37,26 @@ export class MypostsComponent implements OnInit {
   }
 
   editPost(event: any, _id: any){
-    console.log(_id)
-    this.postId.postId = _id
-    this.router.navigate(['/editpost'])
+    this.router.navigate(['/editpost', _id])
   }
 
   showPost(event: any, _id: any){
-    console.log(_id)
-    this.postId.postId = _id
-    this.router.navigate(['/postHeadingTitle'])
+    const loggedInUser = JSON.parse(this.getLoggedInUser());
+    this.router.navigate(['/postHeadingTitle', loggedInUser._id, _id]);
   }
 
-  updatePostsArray(allPosts: any): void {
-    let postToDeleteIndex;
-    for(let i = 0 ; i < allPosts.length; i++) {
-      postToDeleteIndex = allPosts.findIndex((post: { _id: any; }) => {
-        post._id = allPosts[i]._id
-      });
-    }
+  updatePostsArray(currentPostId: string, allPosts: any): void {
+    console.log(currentPostId.toString());
+    console.log(allPosts);
+    const postToDeleteIndex = allPosts.findIndex((post: { _id: string; }) => {
+        return currentPostId === post._id 
+    })
+    console.log(postToDeleteIndex);
     allPosts.splice(postToDeleteIndex, 1);
+  }
+
+  getLoggedInUser(): any {
+    return JSON.parse(JSON.stringify(localStorage.getItem('currentUser')));
   }
 
 }

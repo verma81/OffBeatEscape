@@ -42,10 +42,16 @@
                         </div>
                     </div>
                 </div>
-                <div class='commentBox' *ngFor="let comment of post.comments | slice:0:3; let i=index">
-                  <mat-card *ngIf="i<4">{{comment.username}}: {{comment.comment}}</mat-card>
+                <div class="Comments_Section">
+                    <h1 *ngIf="commentsList.length > 0">Recent comments</h1>
+                    <div class='Comments_Box' *ngFor="let comment of post.comments | slice:0:3; let i=index">
+                        <mat-card *ngIf="i<4">{{comment.username}} : {{comment.comment}}</mat-card>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<ngx-spinner type="line-scale-pulse-out-rapid">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

@@ -6,35 +6,41 @@ import { Observable, throwError } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class HeaderService {
-
-    constructor(private http: HttpClient) {}
-
-    logOutUser(): Observable<any> {
-        return this.http.get(`http://localhost:3000/logout`).pipe(
+export class PostHeadingService {
+    
+    constructor(private http: HttpClient) { }
+    
+    getPostDetails(postId: string): Observable<any> {
+        return this.http.get('http://localhost:3000/post/posts/' + postId).pipe(
             map((res: any) => {
             console.log(res);
             return res;
         }),
-        catchError(this.handleError)
+            catchError(this.handleError)
         );
     }
 
-    acceptFriendRequest(currentUserId: string, acceptFriendRequestPayLoad: any):Observable<any> {
-        return this.http.post(`http://localhost:3000/users/acceptFriendRequest/` + currentUserId, acceptFriendRequestPayLoad).pipe(
+    addCommentOnAPost(commentRequestData: any, postId: string): Observable<any> {
+        return this.http.patch('http://localhost:3000/post/addComment/' + postId, commentRequestData).pipe(
             map((res: any) => {
             console.log(res);
             return res;
         }),
-        catchError(this.handleError)
+            catchError(this.handleError)
         );
     }
 
-    /**
-     * @memberof DashBoardService
-     * Error handler for API calls
-    */
-     private handleError(error: HttpErrorResponse) {
+    savePost(postId: string, savedPostRequestPayload: { user: any; }) {
+        return this.http.patch('http://localhost:3000/users/savePost/' + postId, savedPostRequestPayload).pipe(
+            map((res: any) => {
+            console.log(res);
+            return res;
+        }),
+            catchError(this.handleError)
+        );
+      }
+   
+    private handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
         // A client-side or network error occurred. Handle it accordingly.
         console.error('An error occurred:', error.error.message);

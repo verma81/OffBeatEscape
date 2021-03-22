@@ -3,9 +3,6 @@
     background-size: cover;
 }
 
-.commentBox{
-  padding: 1em;
-}
 .Post_Heading_Box {
     width: 60%;
     height: 100%;
@@ -51,6 +48,14 @@
                             cursor: pointer;
                         }
                     }
+                }
+            }
+            .Comments_Section {
+                margin-top: 1em;
+                .Comments_Box {
+                    background-color: #ffffff;
+                    border-radius: 0.2em;
+                    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); 
                 }
             }
         }
