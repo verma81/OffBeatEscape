@@ -20,6 +20,16 @@ export class HeaderService {
         );
     }
 
+    acceptFriendRequest(currentUserId: string, acceptFriendRequestPayLoad: any):Observable<any> {
+        return this.http.post(`http://localhost:3000/users/acceptFriendRequest/` + currentUserId, acceptFriendRequestPayLoad).pipe(
+            map((res: any) => {
+            console.log(res);
+            return res;
+        }),
+        catchError(this.handleError)
+        );
+    }
+
     /**
      * @memberof DashBoardService
      * Error handler for API calls
