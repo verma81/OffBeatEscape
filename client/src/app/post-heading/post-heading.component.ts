@@ -24,6 +24,8 @@ export class PostHeadingComponent implements OnInit {
   userId: string = '';
   commentsList: any = [];
 
+  inspirerList: any = [];
+
     constructor(
       private postHeadingService: PostHeadingService,
       private routeParams: ActivatedRoute,
@@ -45,6 +47,21 @@ export class PostHeadingComponent implements OnInit {
           }, 1000);
         }
       });
+
+      this.inspirerList = [
+        {
+          imageUrl: '../../assets/user.png',
+          inspirerName: 'User1'
+        },
+        {
+          imageUrl: '../../assets/user.png',
+          inspirerName: 'User2'
+        },
+        {
+          imageUrl: '../../assets/user.png',
+          inspirerName: 'User3'
+        }
+      ]
     }
 
     addComment(event: any) {
