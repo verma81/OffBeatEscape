@@ -47,6 +47,7 @@ const user = new mongoose.Schema({
         currentUserId: {type: String},
         friendUserId: {type: String},
         createdAt: { type: Date },
+        postId:{type:mongoose.Schema.Types.ObjectId},
       },
     ],
   },
