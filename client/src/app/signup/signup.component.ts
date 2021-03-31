@@ -4,6 +4,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { UserCredentials } from '../login/login.model';
 import { SignUpService } from './signup.service';
 import { SignUpResponseModel } from './signupresponse.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-signup',
@@ -26,7 +27,8 @@ export class SignupComponent implements OnInit {
   constructor(
     private router: Router,
     private spinner: NgxSpinnerService,
-    private signUpService: SignUpService
+    private signUpService: SignUpService,
+    private snackBar: MatSnackBar
   ) { }
 
   /**
@@ -36,7 +38,8 @@ export class SignupComponent implements OnInit {
   credentials: UserCredentials = {
     password: '',
     username: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    email: ''  
   };
 
   myStyle: object = {};
@@ -116,7 +119,7 @@ export class SignupComponent implements OnInit {
         this.spinner.show();
         setTimeout(() => {
           this.spinner.hide();
-          this.signedUpSuccessfully = true;
+          this.snackBar.open("User signed up successfully", void 0, {duration: 3000});
         }, 3000);
       }
     });
