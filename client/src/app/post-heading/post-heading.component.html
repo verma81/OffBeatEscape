@@ -55,6 +55,18 @@
                         <mat-card *ngIf="i<4">{{comment.username}} : {{comment.comment}}</mat-card>
                     </div>
                 </div>
+                <div class="Inspirer_Section">
+                    <h1>Inspirer History</h1>
+                    <div class="Inspirer_Wrapper">
+                        <div  *ngFor="let inspirer of inspirerList; index as i" class="Inspirer">
+                            <div class="Inspirer_Content">
+                                <img src="{{inspirer.imageUrl}}">
+                                <h3>{{inspirer.inspirerName}}</h3>
+                            </div>
+                            <div *ngIf="i < inspirerList.length - 1" class="horizontal_line" id="line1"></div>  
+                        </div> 
+                    </div>
+                </div>
             </div>
         </div>
     </div>

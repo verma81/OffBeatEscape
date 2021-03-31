@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { DashBoardService } from '../dashboard/dashboard.service';
 
 @Component({
@@ -13,7 +14,8 @@ export class FriendslistComponent implements OnInit {
   friendsList: Array<any> = [];
 
   constructor(
-    private dashboardService: DashBoardService
+    private dashboardService: DashBoardService,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -61,7 +63,10 @@ export class FriendslistComponent implements OnInit {
       _id: friend._id
     };
     this.dashboardService.sendFriendRequest(currentUser, friendRequestPayLoad).subscribe(data => {
-
+      this.snackBar.open("Friend Reuquest Sent", void 0, {
+        duration: 3000,
+        horizontalPosition: 'center',
+      });
     });
   }
 

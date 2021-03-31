@@ -26,6 +26,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 /**
  * Components
@@ -99,6 +100,7 @@ import { CommonModule } from '@angular/common';
     MatIconModule,
     CommonModule,
     MatTooltipModule
+    MatSnackBarModule
   ],
   providers: [
     LogInService,
