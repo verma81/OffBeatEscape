@@ -38,7 +38,8 @@ export class SignupComponent implements OnInit {
   credentials: UserCredentials = {
     password: '',
     username: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    email: ''  
   };
 
   myStyle: object = {};
