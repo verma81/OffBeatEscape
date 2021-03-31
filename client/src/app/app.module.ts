@@ -99,7 +99,7 @@ import { CommonModule } from '@angular/common';
     MatBadgeModule,
     MatIconModule,
     CommonModule,
-    MatTooltipModule
+    MatTooltipModule,
     MatSnackBarModule
   ],
   providers: [
