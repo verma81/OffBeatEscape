@@ -20,8 +20,8 @@ export class PostHeadingComponent implements OnInit {
 
   reportedPosts: any = [];
 
-  postId: string = '';
-  userId: string = '';
+  postId = '';
+  userId = '';
   commentsList: any = [];
 
   inspirerList: any = [];
@@ -36,7 +36,7 @@ export class PostHeadingComponent implements OnInit {
       this.routeParams.params.forEach( (routeParam) => {
         this.postId = routeParam.pid;
         this.userId = routeParam.uid;
-      })
+      });
       this.postHeadingService.getPostDetails(this.postId).subscribe(data => {
         if (data) {
           this.post = data;
@@ -67,11 +67,11 @@ export class PostHeadingComponent implements OnInit {
     addComment(event: any) {
       const currentUser = JSON.parse(this.getLoggedInUser());
       const commentRequestData = {
-        'username': currentUser.username,
-        'comment': this.comment
-      }
+        username: currentUser.username,
+        comment: this.comment
+      };
       this.postHeadingService.addCommentOnAPost(commentRequestData, this.postId).subscribe(data => {
-        if(data) {
+        if (data) {
           this.spinner.show();
           setTimeout(() => {
             this.spinner.hide();
@@ -79,27 +79,27 @@ export class PostHeadingComponent implements OnInit {
         }
       });
       this.updateCommentList(commentRequestData);
-    };
+    }
 
   savePost(event: any) {
     const currentUser = JSON.parse(this.getLoggedInUser());
     console.log(currentUser);
     const savePostRequestPayLoad = {
-      'user': currentUser.username,
-      'postId':this.postId
-    }
+      user: currentUser.username,
+      postId: this.postId
+    };
     this.postHeadingService.savePost(this.postId, savePostRequestPayLoad).subscribe(data => {
 
-    })
-    var postToSave = {"title": this.post.title, "id": this.postId}
-    this.savedPosts.push(postToSave)
-    console.log(this.savedPosts)
+    });
+    let postToSave = {title: this.post.title, id: this.postId};
+    this.savedPosts.push(postToSave);
+    console.log(this.savedPosts);
   }
 
   reportPost(event: any){
-    var postToReport = {"id": this.postId}
-    this.reportedPosts.push(postToReport)
-    console.log(this.reportedPosts)
+    let postToReport = {id: this.postId};
+    this.reportedPosts.push(postToReport);
+    console.log(this.reportedPosts);
   }
 
   getLoggedInUser(): any {

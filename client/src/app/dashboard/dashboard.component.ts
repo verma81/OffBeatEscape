@@ -9,7 +9,7 @@ import { DashBoardService } from './dashboard.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  public posts : any = [];
+  public posts: any = [];
   public savedPosts = [];
 
   usersList: any = [];
@@ -24,7 +24,7 @@ export class DashboardComponent implements OnInit {
     this.getUsersList();
   }
 
-  showFriendsList():void {
+  showFriendsList(): void {
     this.router.navigate(['/friendslist']);
   }
 
@@ -33,7 +33,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getUsersList(): void {
-    console.log("will fetch users list");
+    console.log('will fetch users list');
     this.dashboardService.getUsersList().subscribe(data => {
       this.usersList = data;
       this.filterFriendsList(data);
@@ -43,31 +43,31 @@ export class DashboardComponent implements OnInit {
   filterFriendsList(usersList: any): void {
     const alreadySentFriendRequestList: any = [];
     const currentUser = JSON.parse(this.getLoggedInUser());
-    
-    if(currentUser.friends && currentUser.friends.length > 0) {
+
+    if (currentUser.friends && currentUser.friends.length > 0) {
       currentUser.friends.map((friendRequestSent: any) => {
         alreadySentFriendRequestList.push(friendRequestSent);
       });
     }
-    
-    if(alreadySentFriendRequestList && alreadySentFriendRequestList.length > 0) {
-      for(var i = 0; i < usersList.length; i++) {
-        for(var j = 0 ; j < alreadySentFriendRequestList.length; j++) {
-          if(usersList[i]._id == alreadySentFriendRequestList[j]._id) {
-            usersList[i]['friendRequestSent'] = true;
+
+    if (alreadySentFriendRequestList && alreadySentFriendRequestList.length > 0) {
+      for (let i = 0; i < usersList.length; i++) {
+        for (let j = 0 ; j < alreadySentFriendRequestList.length; j++) {
+          if (usersList[i]._id == alreadySentFriendRequestList[j]._id) {
+            usersList[i].friendRequestSent = true;
           }
         }
       }
     }
 
     const tempUserList = usersList.filter((user: any) => {
-      return (!user.friendRequestSent === true)
+      return (!user.friendRequestSent === true);
     });
 
-    if(tempUserList && tempUserList.length > 0) {
+    if (tempUserList && tempUserList.length > 0) {
       this.usersList = tempUserList;
     }
-    
+
   }
 
   sendFriendRequestToUser(user: any): void {
@@ -75,8 +75,8 @@ export class DashboardComponent implements OnInit {
     console.log(user);
     console.log(currentUser);
     const sendFriendRequestPayLoad = {
-      '_id': user._id
-    }
+      _id: user._id
+    };
 
     this.dashboardService.sendFriendRequest(currentUser, sendFriendRequestPayLoad).subscribe((data) => {
       if(data) {
@@ -85,7 +85,7 @@ export class DashboardComponent implements OnInit {
           horizontalPosition: 'center',
         });
       }
-    })
+    });
   }
 
   getLoggedInUser(): any {
