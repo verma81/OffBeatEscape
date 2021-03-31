@@ -44,8 +44,10 @@
                     }
                     .Save_Comment_Section {
                         div {
+                            display: flex;
                             padding-top: 2.3em;
                             cursor: pointer;
+                            width: 20%
                         }
                     }
                 }
