@@ -41,63 +41,63 @@ export class SignupComponent implements OnInit {
 
   myStyle: object = {};
   myParams: object = {};
-  
+
   ngOnInit(): void {
     this.myStyle = {
-      'position': 'fixed',
-      'width': '100%',
-      'height': '100%',
+      position: 'fixed',
+      width: '100%',
+      height: '100%',
       'z-index': -1,
-      'top': 0,
-      'left': 0,
-      'right': 0,
-      'bottom': 0,
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
     };
     this.myParams = {
       particles: {
         number: {
-          "value": 30,
-          "density": {
-            "enable": true,
-            "value_area": 800
+          value: 30,
+          density: {
+            enable: true,
+            value_area: 800
           }
         },
-        "color": {
-          "value": "#000000"
+        color: {
+          value: '#000000'
         },
-        "shape": {
-          "type": "circle",
-          "stroke": {
-            "width": 0,
-            "color": "#000000"
+        shape: {
+          type: 'circle',
+          stroke: {
+            width: 0,
+            color: '#000000'
           },
-          "polygon": {
-            "nb_sides": 3
+          polygon: {
+            nb_sides: 3
           },
         },
-        "opacity": {
-          "value": 0.5,
-          "random": false,
-          "anim": {
-            "enable": false,
-            "speed": 1,
-            "opacity_min": 0.1,
-            "sync": false
+        opacity: {
+          value: 0.5,
+          random: false,
+          anim: {
+            enable: false,
+            speed: 1,
+            opacity_min: 0.1,
+            sync: false
           }
         },
-        "size": {
-          "value": 3,
-          "random": true,
+        size: {
+          value: 3,
+          random: true,
         },
-        "line_linked": {
-          "enable": true,
-          "distance": 150,
-          "color": "#000000",
-          "opacity": 0.4,
-          "width": 1
+        line_linked: {
+          enable: true,
+          distance: 150,
+          color: '#000000',
+          opacity: 0.4,
+          width: 1
         },
       },
-      "retina_detect": true
+      retina_detect: true
     };
     this.spinner.show();
     setTimeout(() => {
@@ -135,7 +135,7 @@ export class SignupComponent implements OnInit {
    * sign in with Facebook
    */
   signInWithFB(): void {
-    window.open("http://localhost:3000/auth/facebook", "_self");
+    window.open('http://localhost:3000/auth/facebook', '_self');
     // this.signUpService.validateLoginFB().subscribe(data => {
     //   console.log(data);
     // });
@@ -146,7 +146,7 @@ export class SignupComponent implements OnInit {
    * sign in with Google
    */
   signInWithGoogle(): void {
-    window.open("http://localhost:3000/auth/google", "_self");
+    window.open('http://localhost:3000/auth/google', '_self');
     // this.signUpService.validateLoginGoogle().subscribe(data => {
     //   console.log(data);
     // });

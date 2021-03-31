@@ -24,7 +24,7 @@ export class AuthGuardService implements CanActivate {
           (active) => {
               if (active) {
                   res(true);
-                  localStorage.setItem("currentUser", JSON.stringify(active));
+                  localStorage.setItem('currentUser', JSON.stringify(active));
               } else {
                   this.router.navigate(['/login']);
                   res(false);

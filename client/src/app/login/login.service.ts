@@ -8,7 +8,7 @@ import { LoginModel, UserCredentials } from './login.model';
   providedIn: 'root',
 })
 export class LogInService {
-  
+
   constructor(private http: HttpClient) { }
 
   /**

@@ -3,11 +3,11 @@ export class Post {
 		this.id = '';
 		this.title = '';
 		this.description = '';
-    this.image = null
+  this.image = null;
 	}
 	public id;
 	public title;
 	public description;
   // @ts-ignore
-  public image
+  public image;
 }
