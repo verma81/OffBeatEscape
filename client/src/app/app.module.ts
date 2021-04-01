@@ -25,6 +25,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 /**
  * Components
@@ -39,6 +41,7 @@ import { AddpostComponent } from './addpost/addpost.component';
 import { MypostsComponent } from './myposts/myposts.component';
 import { FriendslistComponent } from './friendslist/friendslist.component';
 import { EditpostComponent } from './editpost/editpost.component';
+import { SettingsComponent } from './settings/settings.component';
 
 /**
  * Services
@@ -57,8 +60,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ParticlesModule } from 'angular-particle';
 import { CommonModule } from '@angular/common';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,7 +73,8 @@ import { CommonModule } from '@angular/common';
     HeaderComponent,
     AddpostComponent,
     MypostsComponent,
-    EditpostComponent
+    EditpostComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -96,7 +98,9 @@ import { CommonModule } from '@angular/common';
     MatPaginatorModule,
     MatBadgeModule,
     MatIconModule,
-    CommonModule
+    CommonModule,
+    MatTooltipModule,
+    MatSnackBarModule
   ],
   providers: [
     LogInService,
