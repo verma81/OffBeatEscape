@@ -1,7 +1,9 @@
 const mongoose = require("mongoose");
 const user = new mongoose.Schema({
+  email: String,
   username: String,
   password: { type: String, select: false },
+  profileImage: { type: String },
   googleId: {
     required: false,
     type: String,
@@ -43,11 +45,11 @@ const user = new mongoose.Schema({
         type: { type: String },
         content: { type: String },
         profileImage: { type: String },
-        friendId: {type: String},
-        currentUserId: {type: String},
-        friendUserId: {type: String},
+        friendId: { type: String },
+        currentUserId: { type: String },
+        friendUserId: { type: String },
         createdAt: { type: Date },
-        postId:{type:mongoose.Schema.Types.ObjectId},
+        postId: { type: mongoose.Schema.Types.ObjectId },
       },
     ],
   },
