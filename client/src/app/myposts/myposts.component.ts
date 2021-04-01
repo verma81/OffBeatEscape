@@ -42,7 +42,7 @@ export class MypostsComponent implements OnInit {
 
   showPost(event: any, _id: any){
     const loggedInUser = JSON.parse(this.getLoggedInUser());
-    this.router.navigate(['/postHeadingTitle', loggedInUser._id, _id]);
+    this.router.navigate(['/postHeadingTitle', _id]);
   }
 
   updatePostsArray(currentPostId: string, allPosts: any): void {
