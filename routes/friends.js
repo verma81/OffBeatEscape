@@ -25,6 +25,7 @@ router.get("/usersList", async (req, res) => {
 router.post("/sendFriendRequest/:id", (req, res) => {
   let id = req.params.id;
   let friendReqId = req.body._id;
+
   User.findOne({ _id: Object(id) }, (err, user) => {
     if (user == null) {
       res.json({
@@ -153,6 +154,7 @@ router.post("/acceptFriendRequest/:id", (req, res) => {
             {
               $set: {
                 "friends.$.status": "Accepted",
+                "friends.$.username" : me.username
               },
             },
             { upsert: true },
