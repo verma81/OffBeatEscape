@@ -1,9 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthGuardService } from '../commonservices/AuthGuardService';
-import { LogInService } from '../login/login.service';
-import { SignUpService } from '../signup/signup.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { DashBoardService } from './dashboard.service';
 @Component({
   selector: 'app-dashboard',
@@ -11,29 +9,87 @@ import { DashBoardService } from './dashboard.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  public posts : any = [];
-  public savedPosts = []
+  public posts: any = [];
+  public savedPosts = [];
+
+  usersList: any = [];
+
   constructor(
     private router: Router,
     private dashboardService: DashBoardService,
-    private userService : SignUpService,
-    private http: HttpClient,
-    private loginservice: LogInService
-
+    private snackBar: MatSnackBar
     ) { }
 
   ngOnInit(): void {
-
+    this.getUsersList();
   }
 
-
-
-  showFriendsList():void {
+  showFriendsList(): void {
     this.router.navigate(['/friendslist']);
   }
 
   handlePage(e: any): void {
-    console.log("call API" + e);
+    console.log("call API" + e.pageIndex);
+  }
+
+  getUsersList(): void {
+    console.log('will fetch users list');
+    this.dashboardService.getUsersList().subscribe(data => {
+      this.usersList = data;
+      this.filterFriendsList(data);
+    });
+  }
+
+  filterFriendsList(usersList: any): void {
+    const alreadySentFriendRequestList: any = [];
+    const currentUser = JSON.parse(this.getLoggedInUser());
+
+    if (currentUser.friends && currentUser.friends.length > 0) {
+      currentUser.friends.map((friendRequestSent: any) => {
+        alreadySentFriendRequestList.push(friendRequestSent);
+      });
+    }
+
+    if (alreadySentFriendRequestList && alreadySentFriendRequestList.length > 0) {
+      for (let i = 0; i < usersList.length; i++) {
+        for (let j = 0 ; j < alreadySentFriendRequestList.length; j++) {
+          if (usersList[i]._id == alreadySentFriendRequestList[j]._id) {
+            usersList[i].friendRequestSent = true;
+          }
+        }
+      }
+    }
+
+    const tempUserList = usersList.filter((user: any) => {
+      return (!user.friendRequestSent === true);
+    });
+
+    if (tempUserList && tempUserList.length > 0) {
+      this.usersList = tempUserList;
+    }
+
+  }
+
+  sendFriendRequestToUser(user: any): void {
+    const currentUser = JSON.parse(this.getLoggedInUser());
+    console.log(user);
+    console.log(currentUser);
+    const sendFriendRequestPayLoad = {
+      _id: user._id
+    };
+
+    this.dashboardService.sendFriendRequest(currentUser, sendFriendRequestPayLoad).subscribe((data) => {
+      if(data) {
+        this.snackBar.open("Friend Reuquest Sent", void 0, {
+          duration: 3000,
+          horizontalPosition: 'center',
+        });
+      }
+    });
+  }
+
+  getLoggedInUser(): any {
+    return JSON.parse(JSON.stringify(localStorage.getItem('currentUser')));
   }
 
 }

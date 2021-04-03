@@ -7,8 +7,8 @@ const User = require("../models/user");
 
 module.exports = function (passport) {
     passport.use(
-      new localStrategy((username, password, done) => {
-        User.findOne({ username: username }, (err, user) => {
+      new localStrategy((email, password, done) => {
+        User.findOne({ email: email }, (err, user) => {
           if (err) throw err;
           if (!user) return done(null, false);
           bcrypt.compare(password, user.password, (err, result) => {
@@ -19,7 +19,7 @@ module.exports = function (passport) {
               return done(null, false);
             }
           });
-        });
+        }).select('+password');
       })
     );
   
@@ -47,7 +47,7 @@ module.exports = function (passport) {
               done(null, newUser);
             }
             done(null, doc);
-          });
+          }).select('+password');
         }
       )
     );
@@ -75,7 +75,7 @@ module.exports = function (passport) {
               done(null, newUser);
             }
             done(null, doc);
-          });
+          }).select('+password');
         }
       )
     );
@@ -96,7 +96,7 @@ module.exports = function (passport) {
     passport.deserializeUser((id, done) => {
       User.findById(id, (err, doc) => {
         return done(null, doc); // return goes to the client and binds to the req.user property
-      });
+      }).select('+password');
     });
   
     passport.deserializeUser((user, done) => {

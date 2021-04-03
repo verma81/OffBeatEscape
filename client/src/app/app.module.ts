@@ -25,6 +25,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 /**
  * Components
@@ -39,6 +41,7 @@ import { AddpostComponent } from './addpost/addpost.component';
 import { MypostsComponent } from './myposts/myposts.component';
 import { FriendslistComponent } from './friendslist/friendslist.component';
 import { EditpostComponent } from './editpost/editpost.component';
+import { SettingsComponent } from './settings/settings.component';
 
 /**
  * Services
@@ -46,6 +49,8 @@ import { EditpostComponent } from './editpost/editpost.component';
 import { LogInService } from './login/login.service';
 import { PasswordValidatorDirective } from './signup/passwordvalidator.directive';
 import { FriendListPipe } from './friendslist/friendlist.pipe';
+import { DashBoardService } from './dashboard/dashboard.service';
+import { PostHeadingService } from './post-heading/post-heading.service';
 
 /**
  * 3rd party modules
@@ -53,6 +58,7 @@ import { FriendListPipe } from './friendslist/friendlist.pipe';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ParticlesModule } from 'angular-particle';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -67,7 +73,8 @@ import { ParticlesModule } from 'angular-particle';
     HeaderComponent,
     AddpostComponent,
     MypostsComponent,
-    EditpostComponent
+    EditpostComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -90,7 +97,10 @@ import { ParticlesModule } from 'angular-particle';
     MatMenuModule,
     MatPaginatorModule,
     MatBadgeModule,
-    MatIconModule
+    MatIconModule,
+    CommonModule,
+    MatTooltipModule,
+    MatSnackBarModule
   ],
   providers: [
     LogInService,
@@ -99,7 +109,9 @@ import { ParticlesModule } from 'angular-particle';
       provide: HTTP_INTERCEPTORS,
       useClass: MyHttpInterceptorService,
       multi: true
-    }
+    },
+    DashBoardService,
+    PostHeadingService
   ],
   bootstrap: [AppComponent]
 })

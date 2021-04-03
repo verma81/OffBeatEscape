@@ -6,13 +6,13 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 
 export class FriendListPipe implements PipeTransform {
-    transform(friendList: any, friendName: string): any {
-        if(friendName) {
-            return friendList.filter((friend: { friendName: string; }) => {
-                return friend.friendName.toLowerCase() === friendName.toLowerCase();
-            })
+    transform(friendsList: any, friendName: string): any {
+        if (!friendName || !friendsList) {
+            return friendsList;
         } else {
-            return friendList;
-        }
+            return friendsList.filter((friend: any ) => {
+                return friend.username.toLowerCase().includes(friendName.toLowerCase());
+            }); 
+        } 
     }    
 }

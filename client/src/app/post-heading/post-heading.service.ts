@@ -7,9 +7,9 @@ import { Observable, throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class PostHeadingService {
-    
+
     constructor(private http: HttpClient) { }
-    
+
     getPostDetails(postId: string): Observable<any> {
         return this.http.get('http://localhost:3000/post/posts/' + postId).pipe(
             map((res: any) => {
@@ -39,7 +39,7 @@ export class PostHeadingService {
             catchError(this.handleError)
         );
       }
-   
+
     private handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
         // A client-side or network error occurred. Handle it accordingly.

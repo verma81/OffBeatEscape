@@ -54,6 +54,14 @@
     .example-card {
         box-shadow: none;
         border-bottom: 0.5px solid rgb(238, 238, 238);
+    }
+}
+
+.Friend_Requests_Notification_Zero {
+    padding: 0.5em;
+    .example-card {
+        box-shadow: none;
+        border-bottom: 0.5px solid rgb(238, 238, 238);
         .Notifications_Title {
             font-weight: 500;
             font-size: 1.5em;

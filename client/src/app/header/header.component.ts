@@ -14,8 +14,13 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private headerService: HeaderService
   ) { }
+  
+  notificationsList: any = [];
 
   ngOnInit(): void {
+    const currentUser = JSON.parse(this.getLoggedInUser());
+    this.notificationsList = currentUser.notifications;
+    console.log(this.notificationsList);
   }
 
   logoutFromApplication(): void {
@@ -32,8 +37,37 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/myposts'])
   }
 
+  goToSettings(): void {
+    this.router.navigate(['/settings'])
+  }
+
+  goToPost(postId: any): void {
+    this.router.navigate(['/postHeadingTitle', postId])
+  }
+
   routeToDashboard(): void {
     this.router.navigate(['/dashboard'])
+  }
+
+  getLoggedInUser(): any {
+    return JSON.parse(JSON.stringify(localStorage.getItem('currentUser')));
+  }
+
+  acceptFriendRequest(notification: any): void {
+    const acceptFriendRequestPayLoad = {
+      '_id': notification.friendUserId
+    }
+    this.headerService.acceptFriendRequest(notification.currentUserId, acceptFriendRequestPayLoad).subscribe(data => {
+
+    });
+    this.updateNotificationsList(this.notificationsList, notification);
+  }
+
+  updateNotificationsList(notificationsList: any, notification: any): void {
+    const notificationToDeleteIndex = notificationsList.findIndex((notification: any) => {
+      return notificationsList.friendUserId === notification.friendUserId
+    });
+    notificationsList.splice(notificationToDeleteIndex, 1);
   }
 
 }
