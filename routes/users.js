@@ -61,6 +61,7 @@ router.patch('/savePost/:username', async (req, res) => {
               notifications: {
                 type: "post_saved",
                 content: user.username + " saved a post.",
+                notifier: user.username,
                 postId: req.body.postId,
                 profileImage: user.profileImage,
                 createdAt: new Date().getTime(),

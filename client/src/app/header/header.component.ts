@@ -41,8 +41,8 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/settings'])
   }
 
-  goToPost(postId: any): void {
-    this.router.navigate(['/postHeadingTitle', postId])
+  goToPost(notification: any): void {
+    this.router.navigate(['/postHeadingTitle', notification.postId, notification.notifier])
   }
 
   routeToDashboard(): void {
