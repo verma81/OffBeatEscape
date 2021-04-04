@@ -12,7 +12,7 @@ export class DashBoardService {
     constructor(private http: HttpClient) { }
 
     getFriendsPost(): Observable<any>{
-      return this.http.get('http://localhost:3000/post/getPostsOfAUser/' + this.friendName).pipe(
+      return this.http.get('http://localhost:3000/dashboard/generalFeed/').pipe(
         map((res: any) => {
           return res;
         }),

@@ -12,7 +12,7 @@ router.get("/usersList", async (req, res) => {
   users.forEach((user) => {
     userMap[user.username] = user;
   });
-  console.log("test data", userMap);
+  //console.log("test data", userMap);
 
   let userData = Object.keys(userMap).map((key) => {
     return userMap[key];
