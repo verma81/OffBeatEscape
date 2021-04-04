@@ -106,7 +106,7 @@ export class DashboardComponent implements OnInit {
 
     this.dashboardService.sendFriendRequest(currentUser, sendFriendRequestPayLoad).subscribe((data) => {
       if(data) {
-        this.snackBar.open("Friend Reuquest Sent", void 0, {
+        this.snackBar.open("Friend Request Sent", void 0, {
           duration: 3000,
           horizontalPosition: 'center',
         });

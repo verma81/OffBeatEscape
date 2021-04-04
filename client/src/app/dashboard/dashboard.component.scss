@@ -2,8 +2,12 @@
     overflow-x: hidden;
     height: 100%;
     .Dashboard_Wrapper_Posts_Wrapper {
+        div {
+            width: 100%;
+        }
         .Dashboard_Wrapper_Posts_Wrapper_TopPosts_Wrapper {
             border-bottom: 1px solid #e8e8e8;
+            box-sizing: border-box;
             padding: 1em;
             .Dashboard_Wrapper_Posts_Wrapper_TopPosts_Header {
                 margin-bottom: 0.5em;

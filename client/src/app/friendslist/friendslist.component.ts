@@ -63,7 +63,7 @@ export class FriendslistComponent implements OnInit {
       _id: friend._id
     };
     this.dashboardService.sendFriendRequest(currentUser, friendRequestPayLoad).subscribe(data => {
-      this.snackBar.open("Friend Reuquest Sent", void 0, {
+      this.snackBar.open("Friend Request Sent", void 0, {
         duration: 3000,
         horizontalPosition: 'center',
       });
