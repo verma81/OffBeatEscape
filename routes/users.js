@@ -84,7 +84,7 @@ router.patch('/savePost/:username', async (req, res) => {
 
   let userData = await User.findOneAndUpdate({username: req.body.user}, {new: true, runValidators: true})
 
-  console.log('username is' + req.body.user)
+  //console.log('username is' + req.body.user)
   userData.savedPosts.push(req.body.postId)
   try{
     await userData.save()

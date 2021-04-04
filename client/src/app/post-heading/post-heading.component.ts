@@ -96,6 +96,10 @@ export class PostHeadingComponent implements OnInit {
     let postToSave = {title: this.post.title, id: this.postId};
     this.savedPosts.push(postToSave);
     console.log(this.savedPosts);
+
+    this.postHeadingService.savePostForGraph(this.postId, savePostRequestPayLoad).subscribe(data => {
+
+    });
   }
 
   reportPost(event: any){
