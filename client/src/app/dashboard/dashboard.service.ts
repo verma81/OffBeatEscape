@@ -8,7 +8,17 @@ import { Observable, throwError } from 'rxjs';
 })
 
 export class DashBoardService {
+  friendName = ''
     constructor(private http: HttpClient) { }
+
+    getFriendsPost(): Observable<any>{
+      return this.http.get('http://localhost:3000/post/getPostsOfAUser/' + this.friendName).pipe(
+        map((res: any) => {
+          return res;
+        }),
+        catchError(this.handleError)
+      )
+    }
 
     getUsersList(): Observable<any> {
 
