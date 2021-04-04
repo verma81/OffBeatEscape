@@ -11,7 +11,7 @@ import { DashBoardService } from './dashboard.service';
 export class DashboardComponent implements OnInit {
   public posts: any = [];
   public savedPosts = [];
-
+  friendsList:any = [];
   usersList: any = [];
 
   constructor(
@@ -22,6 +22,8 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUsersList();
+    this.getFriendsList();
+    this.getFriendsPosts();
   }
 
   showFriendsList(): void {
@@ -68,6 +70,23 @@ export class DashboardComponent implements OnInit {
       this.usersList = tempUserList;
     }
 
+  }
+
+  getFriendsList(){
+    const currentUser = JSON.parse(this.getLoggedInUser());
+    for(var i=0; i<currentUser['friends'].length; i++ ){
+      this.friendsList.push(currentUser['friends'][i]['username'])
+    }
+    console.log('friend list is ' + this.friendsList)
+  }
+
+  getFriendsPosts(){
+    for (var friend of this.friendsList){
+      this.dashboardService.friendName = friend
+      this.dashboardService.getFriendsPost().subscribe(data => {
+        console.log(data) // data contains the posts of all the friends of the logged in user(General Feed)
+      })
+    }
   }
 
   sendFriendRequestToUser(user: any): void {

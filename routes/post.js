@@ -96,6 +96,18 @@ router.get('/getMyPosts', async (req, res) => {                             //ge
     }
 })
 
+router.get('/getPostsOfAUser/:username', async (req, res) => {                             //getting posts of a particular user
+    try {
+        console.log(req.params)
+
+        const posts = await Post.find({"owner":req.params.username})
+        res.send(posts)
+    } catch (e) {
+        res.status(500).send()
+    }
+})
+
+
 router.get('/getAllPosts', async (req, res) => {                                        //getting all posts
     try {
         const posts = await Post.find({})
