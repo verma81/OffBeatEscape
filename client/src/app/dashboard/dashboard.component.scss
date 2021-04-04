@@ -1,8 +1,13 @@
 .Dashboard_Wrapper {
     overflow-x: hidden;
+    height: 100%;
     .Dashboard_Wrapper_Posts_Wrapper {
+        div {
+            width: 100%;
+        }
         .Dashboard_Wrapper_Posts_Wrapper_TopPosts_Wrapper {
             border-bottom: 1px solid #e8e8e8;
+            box-sizing: border-box;
             padding: 1em;
             .Dashboard_Wrapper_Posts_Wrapper_TopPosts_Header {
                 margin-bottom: 0.5em;
@@ -38,11 +43,14 @@
             margin: 0 auto;
             .Dashboard_Wrapper_Posts_Wrapper_Individual_Post {
                 padding: 2em;
-                
+                cursor: pointer;
                 .Dashboard_Wrapper_Posts_Wrapper_Individual_Post_Text {
                     padding: 0.5em;
                     .header {
-                        font-size: 1em;
+                        h3 {
+                            font-size: 1.5em;
+                            font-weight: 700;
+                        }
                     }
                     .content {
                         color:  0 0 0 0.87;

@@ -24,6 +24,7 @@ const fileFilter = (req, file, cb) => {
     }
 }
 
+
 const upload = multer({
   fileFilter,
   storage: multerS3({
@@ -51,6 +52,8 @@ router.post('/addPost',singleUpload, async (req, res) => {            //adding a
     if(req.file){
         post.postImageUrl = req.file.location
     }
+    var savedPost = {"user":req.user.username,"inspired":[]}
+    post.savedBy.push(savedPost);
 
     try{
         await post.save()
@@ -76,15 +79,12 @@ router.patch('/addComment/:id', async(req,res) => {
 })
 
 router.patch('/savepost/:id', async (req, res) => {
-    const post = await Post.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
-    var savedpost = {"user": req.body.username}
-    post.savedBy.push(savedpost)
-    try{
-        await post.save()
-        res.status(201).send({post})
-    }catch(e){
-        res.status(400).send(e)
-    }
+  //console.log("Post save called for " + req.params.id + " notifier : " + req.body.notifier)
+
+  let post = await Post.updateOne({_id:req.body.postId,"savedBy.user":req.body.notifier},{$push:{"savedBy.$.inspired":req.body.user}})
+
+  post = await Post.updateOne({_id:req.body.postId},{$push:{savedBy:{"user":req.body.user,"inspired":[]}}})
+
 })
 
 router.get('/getMyPosts', async (req, res) => {                             //getting posts of logged in user
@@ -95,6 +95,18 @@ router.get('/getMyPosts', async (req, res) => {                             //ge
         res.status(500).send()
     }
 })
+
+router.get('/getPostsOfAUser/:username', async (req, res) => {                             //getting posts of a particular user
+    try {
+        console.log(req.params)
+
+        const posts = await Post.find({"owner":req.params.username})
+        res.send(posts)
+    } catch (e) {
+        res.status(500).send()
+    }
+})
+
 
 router.get('/getAllPosts', async (req, res) => {                                        //getting all posts
     try {

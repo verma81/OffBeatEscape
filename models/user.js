@@ -50,6 +50,7 @@ const user = new mongoose.Schema({
         friendUserId: { type: String },
         createdAt: { type: Date },
         postId: { type: mongoose.Schema.Types.ObjectId },
+        notifier: {type:String},
       },
     ],
   },

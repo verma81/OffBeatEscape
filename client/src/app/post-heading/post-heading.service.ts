@@ -31,15 +31,25 @@ export class PostHeadingService {
     }
 
     savePost(postId: string, savedPostRequestPayload: { user: any; }) {
-        return this.http.patch('http://localhost:3000/users/savePost/' + postId, savedPostRequestPayload).pipe(
-            map((res: any) => {
-            console.log(res);
-            return res;
+      return this.http.patch('http://localhost:3000/users/savePost/' + postId, savedPostRequestPayload).pipe(
+        map((res: any) => {
+          console.log(res);
+          return res;
         }),
-            catchError(this.handleError)
-        );
-      }
+        catchError(this.handleError)
+      );
+    }
 
+    savePostForGraph(postId: string, savedPostRequestPayload: { user: any; }){
+      return this.http.patch('http://localhost:3000/post/savepost/' + postId, savedPostRequestPayload).pipe(
+        map((res: any) => {
+          console.log(res);
+          return res;
+        }),
+        catchError(this.handleError)
+      );
+    }
+    
     private handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
         // A client-side or network error occurred. Handle it accordingly.

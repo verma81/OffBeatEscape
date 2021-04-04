@@ -25,6 +25,7 @@ export class PostHeadingComponent implements OnInit {
   commentsList: any = [];
 
   inspirerList: any = [];
+  postNotifier: any;
 
     constructor(
       private postHeadingService: PostHeadingService,
@@ -35,7 +36,7 @@ export class PostHeadingComponent implements OnInit {
     ngOnInit(): void {
       this.routeParams.params.forEach( (routeParam) => {
         this.postId = routeParam.pid;
-        this.userId = routeParam.uid;
+        this.postNotifier = routeParam.notifier;
       });
       this.postHeadingService.getPostDetails(this.postId).subscribe(data => {
         if (data) {
@@ -86,7 +87,8 @@ export class PostHeadingComponent implements OnInit {
     console.log(currentUser);
     const savePostRequestPayLoad = {
       user: currentUser.username,
-      postId: this.postId
+      postId: this.postId,
+      notifier: this.postNotifier
     };
     this.postHeadingService.savePost(this.postId, savePostRequestPayLoad).subscribe(data => {
 
@@ -94,6 +96,10 @@ export class PostHeadingComponent implements OnInit {
     let postToSave = {title: this.post.title, id: this.postId};
     this.savedPosts.push(postToSave);
     console.log(this.savedPosts);
+
+    this.postHeadingService.savePostForGraph(this.postId, savePostRequestPayLoad).subscribe(data => {
+
+    });
   }
 
   reportPost(event: any){

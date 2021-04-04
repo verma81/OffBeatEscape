@@ -11,8 +11,10 @@ import { DashBoardService } from './dashboard.service';
 export class DashboardComponent implements OnInit {
   public posts: any = [];
   public savedPosts = [];
-
+  friendsList:any = [];
   usersList: any = [];
+
+  generalFeedPosts: any = [];
 
   constructor(
     private router: Router,
@@ -22,6 +24,8 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUsersList();
+    this.getFriendsList();
+    this.getFriendsPosts();
   }
 
   showFriendsList(): void {
@@ -70,6 +74,28 @@ export class DashboardComponent implements OnInit {
 
   }
 
+  getFriendsList(){
+    const currentUser = JSON.parse(this.getLoggedInUser());
+    for(var i=0; i<currentUser['friends'].length; i++ ){
+      this.friendsList.push(currentUser['friends'][i]['username'])
+    }
+    console.log('friend list is ' + this.friendsList)
+  }
+
+  getFriendsPosts(){
+    for (var friend of this.friendsList){
+      this.dashboardService.friendName = friend
+      this.dashboardService.getFriendsPost().subscribe(data => {
+        console.log(data)
+        this.generalFeedPosts = data;
+      })
+    }
+  }
+
+  gotToDetailedPost(eachPost: any) {
+    this.router.navigate(['postHeadingTitle', eachPost._id]);
+  }
+
   sendFriendRequestToUser(user: any): void {
     const currentUser = JSON.parse(this.getLoggedInUser());
     console.log(user);
@@ -80,7 +106,7 @@ export class DashboardComponent implements OnInit {
 
     this.dashboardService.sendFriendRequest(currentUser, sendFriendRequestPayLoad).subscribe((data) => {
       if(data) {
-        this.snackBar.open("Friend Reuquest Sent", void 0, {
+        this.snackBar.open("Friend Request Sent", void 0, {
           duration: 3000,
           horizontalPosition: 'center',
         });

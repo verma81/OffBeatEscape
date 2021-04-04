@@ -7,6 +7,7 @@ const passport = require('passport');
 
 router.get('/generalFeed', async (req, res) => {         //get posts of all friends in general feed.
 
+console.log("General feed api called for " + req.user.username)
   const generalFeedPipeline = [
     {
       '$match' : {
@@ -16,7 +17,7 @@ router.get('/generalFeed', async (req, res) => {         //get posts of all frie
     {
       '$lookup' : {
         from:"posts",
-        localField:"friends",
+        localField:"friends.username",
         foreignField:"owner",
         as:"feed"
       }
@@ -26,6 +27,7 @@ router.get('/generalFeed', async (req, res) => {         //get posts of all frie
   try {
     User.aggregate(generalFeedPipeline).then(
       function (queryRes) {
+        //console.log(queryRes);
         const feedobj  = queryRes[0].feed;
         console.log(feedobj)
         res.send(feedobj);
