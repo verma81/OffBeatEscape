@@ -14,6 +14,8 @@ export class DashboardComponent implements OnInit {
   friendsList:any = [];
   usersList: any = [];
 
+  generalFeedPosts: any = [];
+
   constructor(
     private router: Router,
     private dashboardService: DashBoardService,
@@ -84,9 +86,14 @@ export class DashboardComponent implements OnInit {
     for (var friend of this.friendsList){
       this.dashboardService.friendName = friend
       this.dashboardService.getFriendsPost().subscribe(data => {
-        console.log(data) // data contains the posts of all the friends of the logged in user(General Feed)
+        console.log(data)
+        this.generalFeedPosts = data;
       })
     }
+  }
+
+  gotToDetailedPost(eachPost: any) {
+    this.router.navigate(['postHeadingTitle', eachPost._id]);
   }
 
   sendFriendRequestToUser(user: any): void {
