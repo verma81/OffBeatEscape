@@ -4,6 +4,8 @@
             <div class="Signup_Header">
             </div>
             <div class="Signup_Body">
+                <h1 style="text-align:center" class="NXVPg Szr5J  coreSpriteLoggedOutWordmark">OFFBEAT ESCAPE</h1>
+                <br>
                 <form>
                     <div class="Signup_Body__User_Avatar">
                         <img src="../../assets/user.png" alt="Avatar" class="avatar">
@@ -11,9 +13,16 @@
                     <div class="Signup_Body__Email_Wrapper">
                         <mat-form-field appearance="standard" [style.width.%]="100">
                             <mat-label>Enter your email</mat-label>
-                            <input matInput placeholder="johndoe@example.com" [(ngModel)]="credentials.username" #username="ngModel" name="username" id="username" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
-                            <mat-error *ngIf="(username.invalid && (username.dirty || username.touched) && (username.errors.required))">Please enter email</mat-error>
-                            <mat-error *ngIf="(username.invalid && (username.dirty || username.touched) && (username.errors.pattern))">Please enter valid email</mat-error>
+                            <input matInput placeholder="johndoe@example.com" [(ngModel)]="credentials.email" #email="ngModel" name="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
+                            <mat-error *ngIf="(email.invalid && (email.dirty || email.touched) && (email.errors.required))">Please enter email</mat-error>
+                            <mat-error *ngIf="(email.invalid && (email.dirty || email.touched) && (email.errors.pattern))">Please enter valid email</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="Signup_Body__Email_Wrapper">
+                        <mat-form-field appearance="standard" [style.width.%]="100">
+                            <mat-label>Enter your username</mat-label>
+                            <input matInput placeholder="john doe" [(ngModel)]="credentials.username" #username="ngModel" name="username" id="username" required>
+                            <mat-error *ngIf="(username.invalid && (username.dirty || username.touched))">Please enter valid username</mat-error>
                         </mat-form-field>
                     </div>
                     <div class="Signup_Body__Password_Wrapper">
@@ -22,16 +31,16 @@
                             <input matInput type="password" minlength="8" [(ngModel)]="credentials.password" #password="ngModel" name="password" id="password" required>
                             <mat-error *ngIf="(password.invalid && (password.dirty || password.touched) && password.errors.minlength)">Please enter password with atleast 8 characters</mat-error>
                             <mat-error *ngIf="(password.invalid && (password.dirty || password.touched) && password.errors.required)">Please enter password</mat-error>
-                        </mat-form-field> 
+                        </mat-form-field>
                     </div>
                     <div class="Signup_Body__Password_Wrapper">
                         <mat-form-field appearance="standard" [style.width.%]="100">
                             <mat-label>Confirm Password</mat-label>
                             <input matInput type="password" minlength="8" [(ngModel)]="credentials.confirmPassword" #confirmPassword="ngModel" name="confirmpassword" id="confirmpassword" appPasswordvalidator="password" required>
-                            <mat-error *ngIf="(confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched) && confirmPassword.errors.required)">Please enter password</mat-error>    
+                            <mat-error *ngIf="(confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched) && confirmPassword.errors.required)">Please enter password</mat-error>
                             <mat-error *ngIf="(password.invalid && (password.dirty || password.touched) && password.errors.minlength)">Please enter password with atleast 8 characters</mat-error>
                             <mat-error *ngIf="confirmPassword.hasError('passwordMatchError') && !confirmPassword.errors.required">Passwords do not match</mat-error>
-                        </mat-form-field> 
+                        </mat-form-field>
                     </div>
                     <div class="Signup_Body_Submit_Button_Wrapper">
                         <button mat-raised-button [disabled]="username.invalid || password.invalid || confirmPassword.invalid" (click)="onSignUpClick()">Submit</button>
@@ -49,7 +58,7 @@
                         <span (click)="signInWithGoogle()">
                             <i class="fa fa-google fa-3x" aria-hidden="true"> </i>
                         </span>
-                    </div>  
+                    </div>
                 </form>
             </div>
         </div>

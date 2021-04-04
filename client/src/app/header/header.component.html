@@ -6,10 +6,13 @@
                     <span (click)="routeToDashboard()" class="Navbar_Application_Title">OFFBEAT ESCAPE</span>
                 </div>
                 <div fxDirection="row" fxFlex="20" class="Logout_Button">
-                    <span [matMenuTriggerFor]="clickMenu" #clickMenuTrigger="matMenuTrigger" class="Navbar_Image_Wrapper">
+                    <span [matMenuTriggerFor]="clickMenu" #clickMenuTrigger="matMenuTrigger"
+                        class="Navbar_Image_Wrapper">
                         <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                     </span>
-                    <span [matMenuTriggerFor]="notificationMenu" #clickMenuTrigger="matMenuTrigger" matBadge="{{notificationsList.length}}" matBadgeSize="medium" matBadgeColor="warn" class="Navbar_Notification_Icon">
+                    <span [matMenuTriggerFor]="notificationMenu" #clickMenuTrigger="matMenuTrigger"
+                        matBadge="{{notificationsList.length}}" matBadgeSize="medium" matBadgeColor="warn"
+                        class="Navbar_Notification_Icon">
                         <i class="fa fa-bell-o" aria-hidden="true"></i>
                     </span>
                     <span (click)="logoutFromApplication()" class="Log_Off">
@@ -24,42 +27,43 @@
 </div>
 
 <mat-menu #clickMenu="matMenu">
-    <button mat-menu-item>Settings</button>
+    <button mat-menu-item (click)="goToSettings()">Settings</button>
     <button mat-menu-item (click)="goToAddPost()">Add Posts</button>
     <button mat-menu-item (click)="goToMyPosts()">My Posts</button>
 </mat-menu>
 
-<div> 
+<div>
     <mat-menu #notificationMenu="matMenu" class="Notifications_Menu">
         <div *ngIf="notificationsList.length > 0">
             <div *ngFor="let notification of notificationsList" class="Friend_Requests_Notification">
                 <div *ngIf="notification.type === 'friend_req'">
                     <mat-card class="example-card">
                         <mat-card-content>
-                          <p>
                             {{notification.content}}
-                          </p>
                         </mat-card-content>
-                        <mat-card-actions>
-                          <button (click)="acceptFriendRequest(notification)" mat-button>ACCEPT</button>
-                          <button mat-button>REJECT</button>
-                        </mat-card-actions>
+                        <button (click)="acceptFriendRequest(notification)" mat-button>ACCEPT</button>
+                        <button mat-button>REJECT</button>
                     </mat-card>
                 </div>
-                <div *ngIf="notification.type !== 'friend_req'">
+                <div *ngIf="notification.type !== 'friend_req' && notification.type !== 'post_saved'">
                     <mat-card class="example-card">
                         <mat-card-content>
-                          <p>
                             {{notification.content}}
-                          </p>
                         </mat-card-content>
+                    </mat-card>
+                </div>
+                <div *ngIf="notification.type === 'post_saved'">
+                    <mat-card class="example-card">
+                        <mat-card-content>
+                            {{notification.content}}
+                        </mat-card-content>
+                        <button (click)="goToPost(notification)" mat-button>SEE POST</button>
                     </mat-card>
                 </div>
             </div>
         </div>
         <div *ngIf="notificationsList.length == 0" class="Friend_Requests_Notification_Zero">
             <p>No new notifications</p>
-        </div>  
+        </div>
     </mat-menu>
 </div>
-

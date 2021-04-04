@@ -6,25 +6,26 @@
                 <div>
                     <mat-card class="example-card">
                         <mat-card-header>
-                          <div mat-card-avatar class="example-header-image"></div>
-                          <mat-card-title>{{post.title}}</mat-card-title>
-                          <mat-card-subtitle>Location</mat-card-subtitle>
+                            <div mat-card-avatar class="example-header-image"></div>
+                            <mat-card-title>{{post.title}}</mat-card-title>
+                            <mat-card-subtitle>Location</mat-card-subtitle>
                         </mat-card-header>
                         <img *ngIf="post.imageurl" src={{post.imageurl}} alt="Photo of a Shiba Inu">
                         <mat-card-content>
-                          <p>
-                            {{post.description}}
-                          </p>
+                            <p>
+                                {{post.description}}
+                            </p>
                         </mat-card-content>
 
-                      </mat-card>
+                    </mat-card>
                 </div>
                 <div class="Post_Heading_Actions">
                     <div fxLayout="row" class="Post_Heading_Actions_Panel">
-                        <div fxLayout="row" fxFlex="70" class="Add_Comment_Section">
+                        <div fxLayout="row" fxFlex="60" class="Add_Comment_Section">
                             <mat-form-field [style.width.%]="100">
                                 <mat-label>Add a comment..</mat-label>
-                                <textarea name="comment" [(ngModel)]="comment" matInput placeholder="Tell us about the post.." matInput></textarea>
+                                <textarea name="comment" [(ngModel)]="comment" matInput
+                                    placeholder="Tell us about the post.." matInput></textarea>
                             </mat-form-field>
                         </div>
                         <div fxLayout="row" fxFlex="20" class="Submit_Comment_Section">
@@ -32,13 +33,15 @@
                                 <button mat-raised-button (click)="addComment($event)">Submit..</button>
                             </div>
                         </div>
-                        <div fxLayout="row" fxFlex="10" class="Save_Comment_Section">
+                        <div fxLayout="row" fxFlex="20" class="Save_Comment_Section">
                             <div>
-                                <i class="fa fa-bookmark fa-2x" aria-hidden="true" (click)="savePost($event)"></i>
+                                <i class="fa fa-bookmark fa-2x" aria-hidden="true" (click)="savePost($event)"
+                                    matTooltip="Save this post"></i>
                             </div>
-                            <div class=icons>
-                              <i class="fa fa-exclamation-circle fa-2x" aria-hidden="true" (click)="reportPost($event)"></i>
-                          </div>
+                            <div>
+                                <i class="fa fa-exclamation-circle fa-2x" aria-hidden="true"
+                                    (click)="reportPost($event)" matTooltip="Report this post"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -46,6 +49,18 @@
                     <h1 *ngIf="commentsList.length > 0">Recent comments</h1>
                     <div class='Comments_Box' *ngFor="let comment of post.comments | slice:0:3; let i=index">
                         <mat-card *ngIf="i<4">{{comment.username}} : {{comment.comment}}</mat-card>
+                    </div>
+                </div>
+                <div class="Inspirer_Section">
+                    <h1>Inspirer History</h1>
+                    <div class="Inspirer_Wrapper">
+                        <div  *ngFor="let inspirer of inspirerList; index as i" class="Inspirer">
+                            <div class="Inspirer_Content">
+                                <img src="{{inspirer.imageUrl}}">
+                                <h3>{{inspirer.inspirerName}}</h3>
+                            </div>
+                            <div *ngIf="i < inspirerList.length - 1" class="horizontal_line" id="line1"></div>  
+                        </div> 
                     </div>
                 </div>
             </div>

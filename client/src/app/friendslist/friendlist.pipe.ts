@@ -7,12 +7,12 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 export class FriendListPipe implements PipeTransform {
     transform(friendsList: any, friendName: string): any {
-        if(friendName) {
-            return friendsList.filter((friend: { username: string; }) => {
-                return friend.username === friendName;
-            })
-        } else {
+        if (!friendName || !friendsList) {
             return friendsList;
-        }
+        } else {
+            return friendsList.filter((friend: any ) => {
+                return friend.username.toLowerCase().includes(friendName.toLowerCase());
+            }); 
+        } 
     }    
 }

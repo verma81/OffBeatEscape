@@ -44,8 +44,11 @@
                     }
                     .Save_Comment_Section {
                         div {
+                            display: flex;
                             padding-top: 2.3em;
                             cursor: pointer;
+                            width: 30%;
+                            margin-right: 10px;
                         }
                     }
                 }
@@ -58,10 +61,38 @@
                     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); 
                 }
             }
+            .Inspirer_Section {
+                margin-top: 2em;
+                .Inspirer_Wrapper {
+                    display: flex;
+                    flex-direction: row;
+                    .Inspirer {
+                        display: flex;
+                        flex-direction: row;
+                        text-align: center;
+                        img {
+                            height: 60px;
+                            width: 60px;
+                            border-radius: 50%;
+                        }
+                        h3 {
+                            text-align: center;
+                        }
+                        .Inspirer_Content {
+                            margin: 0 1em 0 1em;
+                        }
+                    }
+                    .horizontal_line {
+                        width: 80px;
+                        height: 1px;
+                        background-color: #c1c1c1;
+                        position: relative;
+                        top: 2em;
+                    } 
+                }
+            }
         }
     }
 }
 
-.icons {
-  padding-left: 1em;
-}
+
