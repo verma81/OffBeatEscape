@@ -54,6 +54,11 @@ router.patch('/savePost/:username', async (req, res) => {
       let friendsList = user.friends;
       for(const friend of friendsList)
       {
+        if(req.body.owner == friend.username)
+        {
+          continue
+        }
+        //console.log("sending notification to " + friend)
         User.findOneAndUpdate(
           { _id: Object(friend._id) },
           {

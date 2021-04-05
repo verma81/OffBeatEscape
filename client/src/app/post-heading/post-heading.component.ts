@@ -26,6 +26,7 @@ export class PostHeadingComponent implements OnInit {
 
   inspirerList: any = [];
   postNotifier: any;
+  owner = '';
 
     constructor(
       private postHeadingService: PostHeadingService,
@@ -87,7 +88,8 @@ export class PostHeadingComponent implements OnInit {
     const savePostRequestPayLoad = {
       user: currentUser.username,
       postId: this.postId,
-      notifier: this.postNotifier
+      notifier: this.postNotifier,
+      owner: this.post.owner
     };
     this.postHeadingService.savePost(this.postId, savePostRequestPayLoad).subscribe(data => {
 
