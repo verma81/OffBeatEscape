@@ -13,6 +13,8 @@ export class DashboardComponent implements OnInit {
   public savedPosts = [];
   friendsList:any = [];
   usersList: any = [];
+  savedPostsId: any = [];
+  readingList: any = [];
 
   generalFeedPosts: any = [];
 
@@ -26,6 +28,8 @@ export class DashboardComponent implements OnInit {
     this.getUsersList();
     this.getFriendsList();
     this.getFriendsPosts();
+    this.getSavedPostsId();
+    this.getSavedPostsContent();
   }
 
   showFriendsList(): void {
@@ -112,6 +116,24 @@ export class DashboardComponent implements OnInit {
         });
       }
     });
+  }
+
+  getSavedPostsId(){
+    const currentUser = JSON.parse(this.getLoggedInUser());
+    for (var i=0; i<currentUser.savedPosts.length; i++){
+      this.savedPostsId.push(currentUser.savedPosts[i]['_id'])
+    }
+    console.log('saved posts are ' + this.savedPostsId)
+  }
+
+  getSavedPostsContent(){
+    for (var postid of this.savedPostsId){
+      this.dashboardService.postId = postid
+      this.dashboardService.getSavedPosts().subscribe(data => {
+        console.log(data)
+        this.readingList.push(data)
+      })
+    }
   }
 
   getLoggedInUser(): any {

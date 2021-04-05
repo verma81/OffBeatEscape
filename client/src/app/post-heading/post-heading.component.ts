@@ -84,7 +84,6 @@ export class PostHeadingComponent implements OnInit {
 
   savePost(event: any) {
     const currentUser = JSON.parse(this.getLoggedInUser());
-    console.log(currentUser);
     const savePostRequestPayLoad = {
       user: currentUser.username,
       postId: this.postId,
