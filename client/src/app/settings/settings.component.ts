@@ -8,11 +8,14 @@ import { Component, OnInit } from '@angular/core';
 export class SettingsComponent implements OnInit {
 
   constructor() { }
-
+  user: any;
+  
   ngOnInit(): void {
     this.user = this.getLoggedInUser();
   }
+  
   getLoggedInUser(): any {
-    return JSON.parse(localStorage.getItem('currentUser'));
+    return JSON.parse(JSON.stringify(localStorage.getItem('currentUser')));
   }
+  
 }
