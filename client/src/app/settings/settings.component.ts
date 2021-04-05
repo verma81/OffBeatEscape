@@ -10,6 +10,9 @@ export class SettingsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.user = this.getLoggedInUser();
   }
-
+  getLoggedInUser(): any {
+    return JSON.parse(localStorage.getItem('currentUser'));
+  }
 }
