@@ -117,9 +117,12 @@
             .Reading_List {
                 font-size: 1em;
                 font-weight: bold;
-                padding: 0.75em 0.75em 0.75em 0.75em; 
                 span {
                     padding: 0.5em;
+                }
+                .Reading_List_Item {
+                    padding: 0.75em;
+                    cursor: pointer;
                 }
             }
         }
