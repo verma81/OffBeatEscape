@@ -6,13 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
-
-  constructor() { }
+public user;
+  constructor() {this.user=''; }
 
   ngOnInit(): void {
     this.user = this.getLoggedInUser();
+    this.getLoggedInUser();
   }
   getLoggedInUser(): any {
-    return JSON.parse(localStorage.getItem('currentUser'));
+    var user = JSON.parse(JSON.stringify(localStorage.getItem('currentUser')));
+    return JSON.parse(user).username;
+
   }
 }
