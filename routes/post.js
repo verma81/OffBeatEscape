@@ -79,11 +79,12 @@ router.patch('/addComment/:id', async(req,res) => {
 })
 
 router.patch('/savepost/:id', async (req, res) => {
-  //console.log("Post save called for " + req.params.id + " notifier : " + req.body.notifier)
 
-  let post = await Post.updateOne({_id:req.body.postId,"savedBy.user":req.body.notifier},{$push:{"savedBy.$.inspired":req.body.user}})
+  let post = await Post.updateOne({_id:req.body.postId,"savedBy.user":req.body.notifier},
+  {$push:{"savedBy.$.inspired":req.body.user}})
 
-  post = await Post.updateOne({_id:req.body.postId},{$push:{savedBy:{"user":req.body.user,"inspired":[]}}})
+  post = await Post.updateOne({_id:req.body.postId},
+    {$push:{savedBy:{"user":req.body.user,"inspired":[]}}})
 
 })
 
@@ -169,4 +170,74 @@ router.delete('/posts/:id', async (req, res) => {                   //deleting a
     }
 })
 
+// This api shall return inspiration cycle for a post saved by user.
+// For eg,
+// User A created post - 1
+// User B saved it.
+//        Now if user B opens the post, inspiration cycle shown will be B->A i.e. B was inspired by A
+// User C is notified "B saved a Post" and he clicks the notification and saves the post too.
+//        Now if user C opens the post, inspiration cycle shown will be C->B->A i.e. C was inspired by B and so on.
+//
+// For api to work, following payload is needed :
+//   user : for which cycle is to be fetched.
+//   owner : post owner
+//   title : post title
+//
+// If user C is logged in, and has saved this post, he shall always see the cycle for himself.
+router.get('/inspirationCycle', async (req, res) => {                   //getting cycle for a saved post
+  //console.log("cycle logic called")
+  var cycle = []
+  var isCycleComplete = 0;
+  var temp = req.body.user
+
+  try{
+    while(isCycleComplete != 1)
+    {
+      console.log("in while : " + id)
+      //isCycleComplete = 1
+      await Post.aggregate(
+        [
+          {
+            $match : {
+              $and:[{"title": req.body.title},{"owner":req.body.owner}]
+            }
+          },
+          {
+            $unwind : "$savedBy"
+          },
+          {
+            $match : {
+              "savedBy.inspired" : temp
+            }
+          },
+          {
+            $project : {
+              "inspirer" : "$savedBy.user", _id:0
+            }
+          }
+        ]
+
+      ).then(
+        function(queryRes) {
+          if(queryRes.length > 0)
+          {
+            cycle.push(queryRes[0].inspirer)
+            if(queryRes[0].inspirer === req.body.owner)
+            {
+              isCycleComplete = 1;
+            }
+            temp = queryRes[0].inspirer
+          }
+          else {
+            isCycleComplete = 1;
+          }
+        }
+      )
+    }
+    //console.log("Cycle : " + cycle)
+    res.send(cycle)
+  }catch(e){
+    res.status(500).send()
+  }
+})
 module.exports = router
