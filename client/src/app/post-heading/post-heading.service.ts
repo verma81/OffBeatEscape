@@ -50,6 +50,16 @@ export class PostHeadingService {
       );
     }
     
+    getInspirerHistory(inspirerHistoryPayLoad: any): Observable<any>  {
+      return this.http.post('http://localhost:3000/post/inspirationCycle', inspirerHistoryPayLoad).pipe(
+        map((res: any) => {
+          console.log(res);
+          return res;
+        }),
+        catchError(this.handleError)
+      );
+    }
+
     private handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
         // A client-side or network error occurred. Handle it accordingly.

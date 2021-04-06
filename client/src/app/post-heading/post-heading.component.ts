@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PostHeadingService } from './post-heading.service';
 import { ActivatedRoute} from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { async } from 'rxjs';
 
 @Component({
   selector: 'app-post-heading',
@@ -31,7 +33,8 @@ export class PostHeadingComponent implements OnInit {
     constructor(
       private postHeadingService: PostHeadingService,
       private routeParams: ActivatedRoute,
-      private spinner: NgxSpinnerService
+      private spinner: NgxSpinnerService,
+      private snackBar: MatSnackBar
     ) { }
 
     ngOnInit(): void {
@@ -49,21 +52,8 @@ export class PostHeadingComponent implements OnInit {
           }, 1000);
         }
       });
-
-      this.inspirerList = [
-        {
-          imageUrl: '../../assets/user.png',
-          inspirerName: 'User1'
-        },
-        {
-          imageUrl: '../../assets/user.png',
-          inspirerName: 'User2'
-        },
-        {
-          imageUrl: '../../assets/user.png',
-          inspirerName: 'User3'
-        }
-      ]
+      this.inspirerList = [];
+      this.getInspirerHistory();
     }
 
     addComment(event: any) {
@@ -92,14 +82,18 @@ export class PostHeadingComponent implements OnInit {
       owner: this.post.owner
     };
     this.postHeadingService.savePost(this.postId, savePostRequestPayLoad).subscribe(data => {
-
+      if(data) {
+        this.snackBar.open("Saved Post Successfully", void 0, {
+          duration: 3000,
+          horizontalPosition: 'center',
+        });
+      }
     });
     let postToSave = {title: this.post.title, id: this.postId};
     this.savedPosts.push(postToSave);
     console.log(this.savedPosts);
 
     this.postHeadingService.savePostForGraph(this.postId, savePostRequestPayLoad).subscribe(data => {
-
     });
   }
 
@@ -115,6 +109,20 @@ export class PostHeadingComponent implements OnInit {
 
   updateCommentList(commentData: { username: any; comment: string; }): void {
     this.commentsList.push(commentData);
+  }
+
+  getInspirerHistory(): void {
+    const user = JSON.parse(this.getLoggedInUser());
+    console.log(user);
+    console.log("post data", this.post);
+    const inspirerHistoryPayLoad = {
+      'user': user.username,
+      'postId': this.postId
+    }
+    this.postHeadingService.getInspirerHistory(inspirerHistoryPayLoad).subscribe( (data: any) => {
+      console.log("inspirer history", data);
+      this.inspirerList = data;
+    })
   }
 
 }

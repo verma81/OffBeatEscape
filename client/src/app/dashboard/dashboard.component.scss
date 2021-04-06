@@ -2,6 +2,7 @@
     overflow-x: hidden;
     height: 100%;
     .Dashboard_Wrapper_Posts_Wrapper {
+        width: 100%;
         div {
             width: 100%;
         }
@@ -19,6 +20,7 @@
             .Dashboard_Wrapper_Posts_Wrapper_TopPosts_Individual_Post {
                 width: 45%;
                 display: inline-block;
+                cursor: pointer;
                 padding: 0.5em;
                 border: 1px solid rgb(216, 216, 216);
                 margin: 0.5em;
@@ -117,9 +119,12 @@
             .Reading_List {
                 font-size: 1em;
                 font-weight: bold;
-                padding: 0.75em 0.75em 0.75em 0.75em; 
+                cursor: pointer;
+                .Reading_List_Item {
+                    padding: 0.75em;
+                }
                 span {
-                    padding: 0.5em;
+                    margin-right: 0.5em;
                 }
             }
         }
@@ -128,4 +133,10 @@
 
 .example-card {
     padding: 0;
+}
+
+.Dashboard_No_Post_Display {
+    font-size: 3em;
+    text-align: center;
+    margin-top: 2em;
 }

@@ -11,11 +11,11 @@ export class SettingsComponent implements OnInit {
   user: any;
   
   ngOnInit(): void {
-    this.user = this.getLoggedInUser();
+    this.getLoggedInUser();
   }
   
   getLoggedInUser(): any {
-    return JSON.parse(JSON.stringify(localStorage.getItem('currentUser')));
+    this.user = (JSON.parse(JSON.parse(JSON.stringify(localStorage.getItem('currentUser')))));
   }
   
 }
