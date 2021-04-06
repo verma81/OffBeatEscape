@@ -184,22 +184,29 @@ router.delete('/posts/:id', async (req, res) => {                   //deleting a
 //   title : post title
 //
 // If user C is logged in, and has saved this post, he shall always see the cycle for himself.
-router.get('/inspirationCycle', async (req, res) => {                   //getting cycle for a saved post
-  //console.log("cycle logic called")
+router.post('/inspirationCycle', async (req, res) => {                   //getting cycle for a saved post
+//  console.log("cycle logic called")
   var cycle = []
   var isCycleComplete = 0;
   var temp = req.body.user
-
+  const id = req.body.postId
   try{
+
+    const post = await Post.findById(id)
+
+    if(!post){
+        return res.status(404).send()
+    }
+    //console.log(post)
     while(isCycleComplete != 1)
     {
-      console.log("in while : " + id)
-      //isCycleComplete = 1
+      //console.log("Fetching inspirer for " + temp)
+
       await Post.aggregate(
         [
           {
             $match : {
-              $and:[{"title": req.body.title},{"owner":req.body.owner}]
+              $and:[{"title": post.title},{"owner": post.owner}]
             }
           },
           {
@@ -221,9 +228,10 @@ router.get('/inspirationCycle', async (req, res) => {                   //gettin
         function(queryRes) {
           if(queryRes.length > 0)
           {
-            cycle.push(queryRes[0].inspirer)
+            cycle.push(temp)
             if(queryRes[0].inspirer === req.body.owner)
             {
+              cycle.push(queryRes[0].inspirer)
               isCycleComplete = 1;
             }
             temp = queryRes[0].inspirer
@@ -234,7 +242,7 @@ router.get('/inspirationCycle', async (req, res) => {                   //gettin
         }
       )
     }
-    //console.log("Cycle : " + cycle)
+    console.log("Cycle : " + cycle)
     res.send(cycle)
   }catch(e){
     res.status(500).send()
