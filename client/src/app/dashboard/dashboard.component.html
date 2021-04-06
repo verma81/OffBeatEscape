@@ -34,7 +34,8 @@
                                 </div>
                             </div>
                             <div fxLayout="row" fxFlex="20" class="Dashboard_Wrapper_Posts_Wrapper_Individual_Post_Image">
-                                <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+                                <img *ngIf="eachPost.postImageUrl" src="{{eachPost.imageurl}}">
+                                <img *ngIf="!eachPost.postImageUrl" src="../../assets/post.jpeg">
                             </div>
                         </div>
                       </mat-card>
@@ -52,8 +53,8 @@
     <div fxLayout="row" fxFlex="25" class="Dashboard_Wrapper_Friends_Reading_List_Wrapper">
         <div>
             <div class="Dashboard_Add_Friends_Wrapper">
-                <h1>Friends</h1>
-                <div *ngFor="let user of usersList; index as i" class="Friends_List">
+                <h1>Users</h1>
+                <div *ngFor="let user of usersList | slice:0:5; index as i" class="Friends_List">
                     <div class="Friend_Wrapper">
                         <span class="Friends_Image_Wrapper">
                             <img src="../../assets/user.png">
@@ -65,9 +66,9 @@
                             <button (click)="sendFriendRequestToUser(user)" mat-raised-button>Add Friend</button>
                         </span>
                     </div>
-                    <mat-divider *ngIf="i < usersList.length - 1"></mat-divider>
+                    <mat-divider *ngIf="i < 4"></mat-divider>
                 </div>
-                <div class="Friends_List_See_More" *ngIf="usersList.length > 1" (click)="showFriendsList()"><mat-hint>See more</mat-hint></div>
+                <div class="Friends_List_See_More" *ngIf="usersList.length > 5" (click)="showFriendsList()"><mat-hint>See more</mat-hint></div>
             </div>
             <mat-divider></mat-divider>
             <div class="Dashboard_Reading_Lists_Wrapper">
