@@ -10,8 +10,8 @@
                             <mat-card-title>{{post.title}}</mat-card-title>
                             <mat-card-subtitle>{{post.owner}}</mat-card-subtitle>
                         </mat-card-header>
-                        <img *ngIf="post.imageurl" src={{post.imageurl}} alt="Photo of a Shiba Inu">
-                        <img *ngIf="!post.imageurl" src="../../assets/post.jpeg">
+                        <img *ngIf="post.postImageUrl" src={{post.postImageUrl}} alt="Photo of a Shiba Inu">
+                        <img *ngIf="!post.postImageUrl" src="../../assets/post.jpeg">
                         <mat-card-content>
                             <p>
                                 {{post.description}}
