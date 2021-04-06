@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit {
   usersList: any = [];
   savedPostsId: any = [];
   readingList: any = [];
+  topTrendingPosts: any = [];
 
   generalFeedPosts: any = [];
 
@@ -30,6 +31,7 @@ export class DashboardComponent implements OnInit {
     this.getFriendsPosts();
     this.getSavedPostsId();
     this.getSavedPostsContent();
+    this.getTopTrendingPosts();
   }
 
   showFriendsList(): void {
@@ -67,15 +69,10 @@ export class DashboardComponent implements OnInit {
         }
       }
     }
-
     const tempUserList = usersList.filter((user: any) => {
-      return (!user.friendRequestSent === true);
+      return (user.friendRequestSent !== true);
     });
-
-    if (tempUserList && tempUserList.length > 0) {
-      this.usersList = tempUserList;
-    }
-
+    this.usersList = tempUserList;
   }
 
   getFriendsList(){
@@ -138,6 +135,12 @@ export class DashboardComponent implements OnInit {
 
   getLoggedInUser(): any {
     return JSON.parse(JSON.stringify(localStorage.getItem('currentUser')));
+  }
+
+  getTopTrendingPosts(): void {
+    this.dashboardService.getTopTrendingPosts().subscribe(data => {
+      this.topTrendingPosts = data;
+    })
   }
 
 }

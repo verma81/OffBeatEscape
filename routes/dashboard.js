@@ -63,6 +63,7 @@ router.get('/trendingPosts', async (req, res) => {         //get trending posts 
         "description":"$feed.description",
         "postImageUrl":"$feed.postImageUrl",
         "comments":"$feed.comments",
+        "_id":"$feed._id",
         "count": {
           '$size':"$feed.savedBy"
         }

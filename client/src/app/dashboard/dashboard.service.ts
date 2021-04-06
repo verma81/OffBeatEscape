@@ -49,6 +49,15 @@ export class DashBoardService {
         );
     }
 
+    getTopTrendingPosts(): Observable<any> {
+      return this.http.get(`http://localhost:3000/dashboard/trendingPosts`).pipe(
+            map((res: any) => {
+            return res;
+        }),
+        catchError(this.handleError)
+        );
+    }
+
     /**
      * @memberof DashBoardService
      * Error handler for API calls
