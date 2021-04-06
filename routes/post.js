@@ -197,7 +197,6 @@ router.post('/inspirationCycle', async (req, res) => {                   //getti
     if(!post){
         return res.status(404).send()
     }
-    console.log(post)
     while(isCycleComplete != 1)
     {
     //  console.log("Fetching inspirer for " + temp)
@@ -242,7 +241,7 @@ router.post('/inspirationCycle', async (req, res) => {                   //getti
         }
       )
     }
-    console.log("Cycle : " + cycle)
+    // console.log("Cycle : " + cycle)
     res.send(cycle)
   }catch(e){
     res.status(500).send()
