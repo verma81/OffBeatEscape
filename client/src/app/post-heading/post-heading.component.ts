@@ -3,7 +3,6 @@ import { PostHeadingService } from './post-heading.service';
 import { ActivatedRoute} from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { async } from 'rxjs';
 
 @Component({
   selector: 'app-post-heading',
@@ -120,7 +119,6 @@ export class PostHeadingComponent implements OnInit {
       'postId': this.postId
     }
     this.postHeadingService.getInspirerHistory(inspirerHistoryPayLoad).subscribe( (data: any) => {
-      console.log("inspirer history", data);
       this.inspirerList = data;
     })
   }
