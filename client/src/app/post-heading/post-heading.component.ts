@@ -64,6 +64,7 @@ export class PostHeadingComponent implements OnInit {
       this.postHeadingService.addCommentOnAPost(commentRequestData, this.postId).subscribe(data => {
         if (data) {
           this.spinner.show();
+          this.comment = '';
           setTimeout(() => {
             this.spinner.hide();
           }, 1000);

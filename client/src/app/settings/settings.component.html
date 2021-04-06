@@ -12,11 +12,23 @@
             <div class="Form_Field_Update_Profile_Picture">
                 <div class="Form_Field_Input">
                     <div class="Current_User_Image_Wrapper">
-                        <img src="../../assets/user.png">
+                        <img *ngIf="!user.profileImage" src="../../assets/user.png">
+                        <img *ngIf="user.profileImage" src="{{user.profileImage}}">
+                        <div class="uploadProfilePicture">
+                            <input #imageInput
+                                type="file"
+                                name="image"
+                                id="imagepicker"
+                                accept="image/*"
+                                (change)="uploadFile(imageInput)"
+                                multiple="{false}"
+                                class="form-control-file"
+                            />
+                        </div>
                     </div>
                 </div>
                 <div class="Form_Field_Action">
-                    <button  mat-raised-button>Update Profile Picture</button>
+                    <button (click)="addProfileImage()" mat-raised-button>Update Profile Picture</button>
                 </div>
             </div>
         </div>
