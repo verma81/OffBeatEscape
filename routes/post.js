@@ -80,8 +80,14 @@ router.patch('/addComment/:id', async(req,res) => {
 
 router.patch('/savepost/:id', async (req, res) => {
 
-  let post = await Post.updateOne({_id:req.body.postId,"savedBy.user":req.body.notifier},
+  var notifier = req.body.notifier
+  if(notifier === undefined)
+  {
+    notifier = req.body.owner
+  }
+  let post = await Post.updateOne({_id:req.body.postId,"savedBy.user":notifier},
   {$push:{"savedBy.$.inspired":req.body.user}})
+  //console.log(post)
 
   post = await Post.updateOne({_id:req.body.postId},
     {$push:{savedBy:{"user":req.body.user,"inspired":[]}}})
