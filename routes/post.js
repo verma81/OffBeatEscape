@@ -197,10 +197,10 @@ router.post('/inspirationCycle', async (req, res) => {                   //getti
     if(!post){
         return res.status(404).send()
     }
-    //console.log(post)
+    console.log(post)
     while(isCycleComplete != 1)
     {
-      //console.log("Fetching inspirer for " + temp)
+    //  console.log("Fetching inspirer for " + temp)
 
       await Post.aggregate(
         [
@@ -229,7 +229,7 @@ router.post('/inspirationCycle', async (req, res) => {                   //getti
           if(queryRes.length > 0)
           {
             cycle.push(temp)
-            if(queryRes[0].inspirer === req.body.owner)
+            if(queryRes[0].inspirer === post.owner)
             {
               cycle.push(queryRes[0].inspirer)
               isCycleComplete = 1;
