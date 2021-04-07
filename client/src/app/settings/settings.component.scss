@@ -30,6 +30,13 @@
                 .Form_Field_Input {
                     width: 70%;
                     margin-left: 2em;
+                    .Current_User_Image_Wrapper {
+                        img {
+                            width: 150px;
+                            height: 150px;
+                            object-fit: contain;
+                        }
+                    }
                 }
                 .Form_Field_Action {
                     width: 30%;
