@@ -30,6 +30,15 @@ export class PostHeadingService {
         );
     }
 
+    reportPost(postId: String): Observable<any> {
+      return this.http.patch('http://localhost:3000/post/reportPost/' + postId, postId).pipe(
+            map((res: any) => {
+            return res;
+        }),
+            catchError(this.handleError)
+        );
+    }
+
     savePost(postId: string, savedPostRequestPayload: { user: any; }) {
       return this.http.patch('http://localhost:3000/users/savePost/' + postId, savedPostRequestPayload).pipe(
         map((res: any) => {
@@ -38,6 +47,15 @@ export class PostHeadingService {
         }),
         catchError(this.handleError)
       );
+    }
+
+    delete(postId: String): Observable<any>{
+      return this.http.delete("http://localhost:3000/post/posts/" + postId).pipe(
+        map((res: any) => {
+          return res;
+        }),
+          catchError(this.handleError)
+      )
     }
 
     savePostForGraph(postId: string, savedPostRequestPayload: { user: any; }){
@@ -49,7 +67,7 @@ export class PostHeadingService {
         catchError(this.handleError)
       );
     }
-    
+
     getInspirerHistory(inspirerHistoryPayLoad: any): Observable<any>  {
       return this.http.post('http://localhost:3000/post/inspirationCycle', inspirerHistoryPayLoad).pipe(
         map((res: any) => {
