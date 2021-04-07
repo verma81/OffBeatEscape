@@ -3,7 +3,7 @@ import { PostHeadingService } from './post-heading.service';
 import { ActivatedRoute} from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-post-heading',
   templateUrl: './post-heading.component.html',
@@ -19,7 +19,7 @@ export class PostHeadingComponent implements OnInit {
 
   savedPosts: any = [];
 
-  reportedPosts: any = [];
+  // reportedPosts: any = [];
 
   postId = '';
   userId = '';
@@ -33,7 +33,8 @@ export class PostHeadingComponent implements OnInit {
       private postHeadingService: PostHeadingService,
       private routeParams: ActivatedRoute,
       private spinner: NgxSpinnerService,
-      private snackBar: MatSnackBar
+      private snackBar: MatSnackBar,
+      private router: Router
     ) { }
 
     ngOnInit(): void {
@@ -98,9 +99,22 @@ export class PostHeadingComponent implements OnInit {
   }
 
   reportPost(event: any){
-    let postToReport = {id: this.postId};
-    this.reportedPosts.push(postToReport);
-    console.log(this.reportedPosts);
+    // let postToReport = {id: this.postId};
+    // this.reportedPosts.push(postToReport);
+    this.postHeadingService.reportPost(this.postId).subscribe(data => {
+      const postAfterReport = data
+      console.log(postAfterReport.post.timesReported)
+      const timesReported = postAfterReport.post.timesReported
+      if (timesReported >= 10){
+        this.postHeadingService.delete(this.postId).subscribe(data => {
+          console.log(data)
+          this.router.navigate(['/myposts'])
+        })
+      }
+    })
+
+
+    // console.log(this.reportedPosts);
   }
 
   getLoggedInUser(): any {
