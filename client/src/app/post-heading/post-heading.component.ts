@@ -103,12 +103,22 @@ export class PostHeadingComponent implements OnInit {
     // this.reportedPosts.push(postToReport);
     this.postHeadingService.reportPost(this.postId).subscribe(data => {
       const postAfterReport = data
-      console.log(postAfterReport.post.timesReported)
+      if(data) {
+        this.snackBar.open("Post has been reported", void 0, {
+          duration: 3000,
+          horizontalPosition: 'center',
+        });
+      }
       const timesReported = postAfterReport.post.timesReported
       if (timesReported >= 10){
         this.postHeadingService.delete(this.postId).subscribe(data => {
-          console.log(data)
-          this.router.navigate(['/myposts'])
+          if(data) {
+            this.snackBar.open("Post has been reported too many times. Post has been deleted for violating terms and conditions", void 0, {
+              duration: 3000,
+              horizontalPosition: 'center',
+            });
+            this.router.navigate(['/myposts'])
+          }
         })
       }
     })
