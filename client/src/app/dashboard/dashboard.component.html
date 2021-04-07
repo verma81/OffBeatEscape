@@ -4,149 +4,48 @@
 <div class="Dashboard_Wrapper" fxLayoutAlign="space-between">
     <div fxLayout="row" fxFlex="75" class="Dashboard_Wrapper_Posts_Wrapper">
         <div>
-            <div class="Dashboard_Wrapper_Posts_Wrapper_TopPosts_Wrapper">
+            <div *ngIf="topTrendingPosts.length > 0" class="Dashboard_Wrapper_Posts_Wrapper_TopPosts_Wrapper">
                 <div class="Dashboard_Wrapper_Posts_Wrapper_TopPosts_Header">
                     <i class="fa fa-star fa-1x" aria-hidden="true"></i><span style="font-size: 1.0em;">Trending Posts</span>
                 </div>
                 <div class="Dashboard_Wrapper_Posts_Wrapper_TopPosts">
-                    <div class="Dashboard_Wrapper_Posts_Wrapper_TopPosts_Individual_Post">
+                    <div (click)="gotToDetailedPost(topTrendingPost)" *ngFor="let topTrendingPost of topTrendingPosts; index as i" class="Dashboard_Wrapper_Posts_Wrapper_TopPosts_Individual_Post">
                         <div class="Dashboard_Wrapper_Posts_Wrapper_TopPosts_Individual_Post_Button">
-                            <button mat-mini-fab color="basic" aria-label="Example icon button with a menu icon">1</button>
+                            <button mat-mini-fab color="basic" aria-label="Example icon button with a menu icon">{{i + 1}}</button>
                         </div>
                         <div class="Dashboard_Wrapper_Posts_Wrapper_TopPosts_Individual_Post_Text">
-                            <div>Trending Post 1..</div>
-                        </div>
-                    </div>
-                    <div class="Dashboard_Wrapper_Posts_Wrapper_TopPosts_Individual_Post">
-                        <div class="Dashboard_Wrapper_Posts_Wrapper_TopPosts_Individual_Post_Button">
-                            <button mat-mini-fab color="basic" aria-label="Example icon button with a menu icon">2</button>
-                        </div>
-                        <div class="Dashboard_Wrapper_Posts_Wrapper_TopPosts_Individual_Post_Text">
-                            <div>Trending Post 1..</div>
-                        </div>
-                    </div>
-                    <div class="Dashboard_Wrapper_Posts_Wrapper_TopPosts_Individual_Post">
-                        <div class="Dashboard_Wrapper_Posts_Wrapper_TopPosts_Individual_Post_Button">
-                            <button mat-mini-fab color="basic" aria-label="Example icon button with a menu icon">3</button>
-                        </div>
-                        <div class="Dashboard_Wrapper_Posts_Wrapper_TopPosts_Individual_Post_Text">
-                            <div>Trending Post 1..</div>
-                        </div>
-                    </div>
-                    <div class="Dashboard_Wrapper_Posts_Wrapper_TopPosts_Individual_Post">
-                        <div class="Dashboard_Wrapper_Posts_Wrapper_TopPosts_Individual_Post_Button">
-                            <button mat-mini-fab color="basic" aria-label="Example icon button with a menu icon">4</button>
-                        </div>
-                        <div class="Dashboard_Wrapper_Posts_Wrapper_TopPosts_Individual_Post_Text">
-                            <div>Trending Post 1..</div>
-                        </div>
-                    </div>
-                    <div class="Dashboard_Wrapper_Posts_Wrapper_TopPosts_Individual_Post">
-                        <div class="Dashboard_Wrapper_Posts_Wrapper_TopPosts_Individual_Post_Button">
-                            <button mat-mini-fab color="basic" aria-label="Example icon button with a menu icon">5</button>
-                        </div>
-                        <div class="Dashboard_Wrapper_Posts_Wrapper_TopPosts_Individual_Post_Text">
-                            <div>Trending Post 1..</div>
-                        </div>
-                    </div>
-                    <div class="Dashboard_Wrapper_Posts_Wrapper_TopPosts_Individual_Post">
-                        <div class="Dashboard_Wrapper_Posts_Wrapper_TopPosts_Individual_Post_Button">
-                            <button mat-mini-fab color="basic" aria-label="Example icon button with a menu icon">6</button>
-                        </div>
-                        <div class="Dashboard_Wrapper_Posts_Wrapper_TopPosts_Individual_Post_Text">
-                            <div>Trending Post 1..</div>
+                            <div>{{topTrendingPost.title}}</div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="Dashboard_Wrapper_Posts_Wrapper_Posts">
-                <div class="Dashboard_Wrapper_Posts_Wrapper_Individual_Post">
+                <div (click)="gotToDetailedPost(eachPost)" *ngFor="let eachPost of generalFeedPosts" class="Dashboard_Wrapper_Posts_Wrapper_Individual_Post">
                     <mat-card class="example-card">
                         <div>
                             <div fxLayout="row" fxFlex="80" class="Dashboard_Wrapper_Posts_Wrapper_Individual_Post_Text">
                                 <div fxFlex="100" fxLayout="column">
-                                    <div class="header"><h3>Header</h3></div>
+                                    <div class="header"><h3>{{eachPost.title}}</h3></div>
                                     <div class="content">
                                         <p>
-                                            The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-                                            A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-                                            bred for hunting.
+                                            {{eachPost.description}}
                                         </p>
                                     </div>
                                 </div>
                             </div>
                             <div fxLayout="row" fxFlex="20" class="Dashboard_Wrapper_Posts_Wrapper_Individual_Post_Image">
-                                <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-                            </div>
-                        </div>
-                      </mat-card>
-                </div>
-                <div class="Dashboard_Wrapper_Posts_Wrapper_Individual_Post">
-                    <mat-card class="example-card">
-                        <div>
-                            <div fxLayout="row" fxFlex="80" class="Dashboard_Wrapper_Posts_Wrapper_Individual_Post_Text">
-                                <div fxFlex="100" fxLayout="column">
-                                    <div class="header"><h3>Header</h3></div>
-                                    <div class="content">
-                                        <p>
-                                            The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-                                            A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-                                            bred for hunting.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div fxLayout="row" fxFlex="20" class="Dashboard_Wrapper_Posts_Wrapper_Individual_Post_Image">
-                                <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-                            </div>
-                        </div>
-                      </mat-card>
-                </div>
-                <div class="Dashboard_Wrapper_Posts_Wrapper_Individual_Post">
-                    <mat-card class="example-card">
-                        <div>
-                            <div fxLayout="row" fxFlex="80" class="Dashboard_Wrapper_Posts_Wrapper_Individual_Post_Text">
-                                <div fxFlex="100" fxLayout="column">
-                                    <div class="header"><h3>Header</h3></div>
-                                    <div class="content">
-                                        <p>
-                                            The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-                                            A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-                                            bred for hunting.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div fxLayout="row" fxFlex="20" class="Dashboard_Wrapper_Posts_Wrapper_Individual_Post_Image">
-                                <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-                            </div>
-                        </div>
-                      </mat-card>
-                </div>
-                <div class="Dashboard_Wrapper_Posts_Wrapper_Individual_Post">
-                    <mat-card class="example-card">
-                        <div>
-                            <div fxLayout="row" fxFlex="80" class="Dashboard_Wrapper_Posts_Wrapper_Individual_Post_Text">
-                                <div fxFlex="100" fxLayout="column">
-                                    <div class="header"><h3>Header</h3></div>
-                                    <div class="content">
-                                        <p>
-                                            The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-                                            A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-                                            bred for hunting.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div fxLayout="row" fxFlex="20" class="Dashboard_Wrapper_Posts_Wrapper_Individual_Post_Image">
-                                <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+                                <img *ngIf="eachPost.postImageUrl" src="{{eachPost.postImageUrl}}">
+                                <img *ngIf="!eachPost.postImageUrl" src="../../assets/post.jpeg">
                             </div>
                         </div>
                       </mat-card>
                 </div>
             </div>
-            <div class="Dashboard_Paginator">
+            <div *ngIf="generalFeedPosts.length > 0" class="Dashboard_Paginator">
                 <mat-paginator [length]="100" (page)="handlePage($event)" [pageSize]="5" [pageSizeOptions]="[5]"></mat-paginator>
+            </div>
+            <div *ngIf="topTrendingPosts.length ===0 && generalFeedPosts.length === 0" class="Dashboard_No_Post_Display">
+                No posts to display
             </div>
         </div>
     </div>
@@ -154,8 +53,8 @@
     <div fxLayout="row" fxFlex="25" class="Dashboard_Wrapper_Friends_Reading_List_Wrapper">
         <div>
             <div class="Dashboard_Add_Friends_Wrapper">
-                <h1>Friends</h1>
-                <div *ngFor="let user of usersList; index as i" class="Friends_List">
+                <h1>Users</h1>
+                <div *ngFor="let user of usersList | slice:0:5; index as i" class="Friends_List">
                     <div class="Friend_Wrapper">
                         <span class="Friends_Image_Wrapper">
                             <img src="../../assets/user.png">
@@ -167,92 +66,27 @@
                             <button (click)="sendFriendRequestToUser(user)" mat-raised-button>Add Friend</button>
                         </span>
                     </div>
-                    <mat-divider *ngIf="i < usersList.length - 1"></mat-divider>
+                    <mat-divider *ngIf="i < 4"></mat-divider>
                 </div>
-                <div class="Friends_List_See_More" (click)="showFriendsList()"><mat-hint>See more</mat-hint></div>
+                <div class="Friends_List_See_More" *ngIf="usersList.length > 5" (click)="showFriendsList()"><mat-hint>See more</mat-hint></div>
             </div>
             <mat-divider></mat-divider>
             <div class="Dashboard_Reading_Lists_Wrapper">
                 <h1> Reading List </h1>
-                <div class="Reading_List">
+                <div (click)="gotToDetailedPost(eachPost)" *ngFor="let eachPost of readingList; index as i" class="Reading_List">
                     <div class="Reading_List_Item">
                         <div class="Friend_Wrapper">
                             <span>
                                 <i class="fa fa-book" aria-hidden="true"></i>
                             </span>
                             <span>
-                                List Item
+                                {{eachPost.title}}
                             </span>
                         </div>
                     </div>
-                </div>
-                <mat-divider></mat-divider>
-                <div class="Reading_List">
-                    <div class="Reading_List_Item">
-                        <div class="Friend_Wrapper">
-                            <span>
-                                <i class="fa fa-book" aria-hidden="true"></i>
-                            </span>
-                            <span>
-                                List Item
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <mat-divider></mat-divider>
-                <div class="Reading_List">
-                    <div class="Reading_List_Item">
-                        <div class="Friend_Wrapper">
-                            <span>
-                                <i class="fa fa-book" aria-hidden="true"></i>
-                            </span>
-                            <span>
-                                List Item
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <mat-divider></mat-divider>
-                <div class="Reading_List">
-                    <div class="Reading_List_Item">
-                        <div class="Friend_Wrapper">
-                            <span>
-                                <i class="fa fa-book" aria-hidden="true"></i>
-                            </span>
-                            <span>
-                                List Item
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <mat-divider></mat-divider>
-                <div class="Reading_List">
-                    <div class="Reading_List_Item">
-                        <div class="Friend_Wrapper">
-                            <span>
-                                <i class="fa fa-book fa-1x" aria-hidden="true"></i>
-                            </span>
-                            <span>
-                                List Item
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <mat-divider></mat-divider>
-                <div class="Reading_List">
-                    <div class="Reading_List_Item">
-                        <div class="Friend_Wrapper">
-                            <span>
-                                <i class="fa fa-book" aria-hidden="true"></i>
-                            </span>
-                            <span>
-                                List Item
-                            </span>
-                        </div>
-                    </div>
+                    <mat-divider *ngIf="i < readingList.length - 1"></mat-divider>
                 </div>
             </div>
         </div>
-
     </div>
 </div>

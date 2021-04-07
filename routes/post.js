@@ -24,6 +24,7 @@ const fileFilter = (req, file, cb) => {
     }
 }
 
+
 const upload = multer({
   fileFilter,
   storage: multerS3({
@@ -51,6 +52,8 @@ router.post('/addPost',singleUpload, async (req, res) => {            //adding a
     if(req.file){
         post.postImageUrl = req.file.location
     }
+    var savedPost = {"user":req.user.username,"inspired":[]}
+    post.savedBy.push(savedPost);
 
     try{
         await post.save()
@@ -75,16 +78,31 @@ router.patch('/addComment/:id', async(req,res) => {
     }
 })
 
+router.patch('/reportPost/:id', async (req, res) => {
+  post = await Post.findOneAndUpdate({ _id: req.params.id }, { $inc: { timesReported: 1 } }, {new: true })
+  console.log(post)
+  try{
+     await post.save()
+    res.status(201).send({post})
+  }catch(e){
+      res.status(400).send(e)
+  }
+})
+
 router.patch('/savepost/:id', async (req, res) => {
-    const post = await Post.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true })
-    var savedpost = {"user": req.body.username}
-    post.savedBy.push(savedpost)
-    try{
-        await post.save()
-        res.status(201).send({post})
-    }catch(e){
-        res.status(400).send(e)
-    }
+
+  var notifier = req.body.notifier
+  if(notifier === undefined)
+  {
+    notifier = req.body.owner
+  }
+  let post = await Post.updateOne({_id:req.body.postId,"savedBy.user":notifier},
+  {$push:{"savedBy.$.inspired":req.body.user}})
+  //console.log(post)
+
+  post = await Post.updateOne({_id:req.body.postId},
+    {$push:{savedBy:{"user":req.body.user,"inspired":[]}}})
+
 })
 
 router.get('/getMyPosts', async (req, res) => {                             //getting posts of logged in user
@@ -169,4 +187,81 @@ router.delete('/posts/:id', async (req, res) => {                   //deleting a
     }
 })
 
+// This api shall return inspiration cycle for a post saved by user.
+// For eg,
+// User A created post - 1
+// User B saved it.
+//        Now if user B opens the post, inspiration cycle shown will be B->A i.e. B was inspired by A
+// User C is notified "B saved a Post" and he clicks the notification and saves the post too.
+//        Now if user C opens the post, inspiration cycle shown will be C->B->A i.e. C was inspired by B and so on.
+//
+// For api to work, following payload is needed :
+//   user : for which cycle is to be fetched.
+//   owner : post owner
+//   title : post title
+//
+// If user C is logged in, and has saved this post, he shall always see the cycle for himself.
+router.post('/inspirationCycle', async (req, res) => {                   //getting cycle for a saved post
+//  console.log("cycle logic called")
+  var cycle = []
+  var isCycleComplete = 0;
+  var temp = req.body.user
+  const id = req.body.postId
+  try{
+
+    const post = await Post.findById(id)
+
+    if(!post){
+        return res.status(404).send()
+    }
+    while(isCycleComplete != 1)
+    {
+    //  console.log("Fetching inspirer for " + temp)
+
+      await Post.aggregate(
+        [
+          {
+            $match : {
+              $and:[{"title": post.title},{"owner": post.owner}]
+            }
+          },
+          {
+            $unwind : "$savedBy"
+          },
+          {
+            $match : {
+              "savedBy.inspired" : temp
+            }
+          },
+          {
+            $project : {
+              "inspirer" : "$savedBy.user", _id:0
+            }
+          }
+        ]
+
+      ).then(
+        function(queryRes) {
+          if(queryRes.length > 0)
+          {
+            cycle.push(temp)
+            if(queryRes[0].inspirer === post.owner)
+            {
+              cycle.push(queryRes[0].inspirer)
+              isCycleComplete = 1;
+            }
+            temp = queryRes[0].inspirer
+          }
+          else {
+            isCycleComplete = 1;
+          }
+        }
+      )
+    }
+    // console.log("Cycle : " + cycle)
+    res.send(cycle)
+  }catch(e){
+    res.status(500).send()
+  }
+})
 module.exports = router

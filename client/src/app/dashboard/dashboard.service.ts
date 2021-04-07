@@ -8,11 +8,21 @@ import { Observable, throwError } from 'rxjs';
 })
 
 export class DashBoardService {
+  postId = ''
   friendName = ''
     constructor(private http: HttpClient) { }
 
     getFriendsPost(): Observable<any>{
       return this.http.get('http://localhost:3000/dashboard/generalFeed/').pipe(
+        map((res: any) => {
+          return res;
+        }),
+        catchError(this.handleError)
+      )
+    }
+
+    getSavedPosts(){
+      return this.http.get('http://localhost:3000/post/posts/' + this.postId).pipe(
         map((res: any) => {
           return res;
         }),
@@ -32,6 +42,15 @@ export class DashBoardService {
 
     sendFriendRequest(currentUser: any, sendFriendRequestPayLoad: any): Observable<any> {
         return this.http.post(`http://localhost:3000/users/sendFriendRequest/` + currentUser._id, sendFriendRequestPayLoad).pipe(
+            map((res: any) => {
+            return res;
+        }),
+        catchError(this.handleError)
+        );
+    }
+
+    getTopTrendingPosts(): Observable<any> {
+      return this.http.get(`http://localhost:3000/dashboard/trendingPosts`).pipe(
             map((res: any) => {
             return res;
         }),

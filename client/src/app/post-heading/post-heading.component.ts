@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PostHeadingService } from './post-heading.service';
 import { ActivatedRoute} from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-post-heading',
   templateUrl: './post-heading.component.html',
@@ -18,7 +19,7 @@ export class PostHeadingComponent implements OnInit {
 
   savedPosts: any = [];
 
-  reportedPosts: any = [];
+  // reportedPosts: any = [];
 
   postId = '';
   userId = '';
@@ -26,11 +27,14 @@ export class PostHeadingComponent implements OnInit {
 
   inspirerList: any = [];
   postNotifier: any;
+  owner = '';
 
     constructor(
       private postHeadingService: PostHeadingService,
       private routeParams: ActivatedRoute,
-      private spinner: NgxSpinnerService
+      private spinner: NgxSpinnerService,
+      private snackBar: MatSnackBar,
+      private router: Router
     ) { }
 
     ngOnInit(): void {
@@ -48,21 +52,8 @@ export class PostHeadingComponent implements OnInit {
           }, 1000);
         }
       });
-
-      this.inspirerList = [
-        {
-          imageUrl: '../../assets/user.png',
-          inspirerName: 'User1'
-        },
-        {
-          imageUrl: '../../assets/user.png',
-          inspirerName: 'User2'
-        },
-        {
-          imageUrl: '../../assets/user.png',
-          inspirerName: 'User3'
-        }
-      ]
+      this.inspirerList = [];
+      this.getInspirerHistory();
     }
 
     addComment(event: any) {
@@ -74,6 +65,7 @@ export class PostHeadingComponent implements OnInit {
       this.postHeadingService.addCommentOnAPost(commentRequestData, this.postId).subscribe(data => {
         if (data) {
           this.spinner.show();
+          this.comment = '';
           setTimeout(() => {
             this.spinner.hide();
           }, 1000);
@@ -84,24 +76,55 @@ export class PostHeadingComponent implements OnInit {
 
   savePost(event: any) {
     const currentUser = JSON.parse(this.getLoggedInUser());
-    console.log(currentUser);
     const savePostRequestPayLoad = {
       user: currentUser.username,
       postId: this.postId,
-      notifier: this.postNotifier
+      notifier: this.postNotifier,
+      owner: this.post.owner
     };
     this.postHeadingService.savePost(this.postId, savePostRequestPayLoad).subscribe(data => {
-
+      if(data) {
+        this.snackBar.open("Saved Post Successfully", void 0, {
+          duration: 3000,
+          horizontalPosition: 'center',
+        });
+      }
     });
     let postToSave = {title: this.post.title, id: this.postId};
     this.savedPosts.push(postToSave);
     console.log(this.savedPosts);
+
+    this.postHeadingService.savePostForGraph(this.postId, savePostRequestPayLoad).subscribe(data => {
+    });
   }
 
   reportPost(event: any){
-    let postToReport = {id: this.postId};
-    this.reportedPosts.push(postToReport);
-    console.log(this.reportedPosts);
+    // let postToReport = {id: this.postId};
+    // this.reportedPosts.push(postToReport);
+    this.postHeadingService.reportPost(this.postId).subscribe(data => {
+      const postAfterReport = data
+      if(data) {
+        this.snackBar.open("Post has been reported", void 0, {
+          duration: 3000,
+          horizontalPosition: 'center',
+        });
+      }
+      const timesReported = postAfterReport.post.timesReported
+      if (timesReported >= 10){
+        this.postHeadingService.delete(this.postId).subscribe(data => {
+          if(data) {
+            this.snackBar.open("Post has been reported too many times. Post has been deleted for violating terms and conditions", void 0, {
+              duration: 3000,
+              horizontalPosition: 'center',
+            });
+            this.router.navigate(['/myposts'])
+          }
+        })
+      }
+    })
+
+
+    // console.log(this.reportedPosts);
   }
 
   getLoggedInUser(): any {
@@ -110,6 +133,19 @@ export class PostHeadingComponent implements OnInit {
 
   updateCommentList(commentData: { username: any; comment: string; }): void {
     this.commentsList.push(commentData);
+  }
+
+  getInspirerHistory(): void {
+    const user = JSON.parse(this.getLoggedInUser());
+    console.log(user);
+    console.log("post data", this.post);
+    const inspirerHistoryPayLoad = {
+      'user': user.username,
+      'postId': this.postId
+    }
+    this.postHeadingService.getInspirerHistory(inspirerHistoryPayLoad).subscribe( (data: any) => {
+      this.inspirerList = data;
+    })
   }
 
 }

@@ -39,22 +39,15 @@ export class FriendslistComponent implements OnInit {
       for (let i = 0; i < usersList.length; i++) {
         for (let j = 0 ; j < alreadySentFriendRequestList.length; j++) {
           if (usersList[i]._id == alreadySentFriendRequestList[j]._id) {
-            console.log('foud', usersList[i]._id, i);
             usersList[i].friendRequestSent = true;
           }
         }
       }
     }
-
     const tempUserList = usersList.filter((user: any) => {
-      return (!user.friendRequestSent === true);
+      return (user.friendRequestSent !== true);
     });
-
-
-    if (tempUserList && tempUserList.length > 0) {
-      this.friendsList = tempUserList;
-    }
-
+    this.friendsList = tempUserList;
   }
 
   sendFriendRequestToUser(friend: any): void {
@@ -63,7 +56,7 @@ export class FriendslistComponent implements OnInit {
       _id: friend._id
     };
     this.dashboardService.sendFriendRequest(currentUser, friendRequestPayLoad).subscribe(data => {
-      this.snackBar.open("Friend Reuquest Sent", void 0, {
+      this.snackBar.open("Friend Request Sent", void 0, {
         duration: 3000,
         horizontalPosition: 'center',
       });
