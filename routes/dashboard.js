@@ -7,7 +7,6 @@ const passport = require('passport');
 
 router.get('/generalFeed', async (req, res) => {         //get posts of all friends in general feed.
 
-console.log("General feed api called for " + req.user.username)
   const generalFeedPipeline = [
     {
       '$match' : {
@@ -29,7 +28,7 @@ console.log("General feed api called for " + req.user.username)
       function (queryRes) {
         //console.log(queryRes);
         const feedobj  = queryRes[0].feed;
-        console.log(feedobj)
+        //console.log(feedobj)
         res.send(feedobj);
       }
     )
@@ -37,5 +36,59 @@ console.log("General feed api called for " + req.user.username)
     res.status(500).send()
   }
 })
+
+router.get('/trendingPosts', async (req, res) => {         //get trending posts from friends
+
+  const trendingPostsPipeline = [
+    {
+      '$match' : {
+        "username": req.user.username
+      }
+    },
+    {
+      '$lookup' : {
+        from: "posts",
+        localField: "friends.username",
+        foreignField: "owner",
+        as: "feed"
+      }
+    },
+    {
+      '$unwind' : "$feed"
+    },
+    {
+      '$project' : {
+        "owner":"$feed.owner",
+        "title":"$feed.title",
+        "description":"$feed.description",
+        "postImageUrl":"$feed.postImageUrl",
+        "comments":"$feed.comments",
+        "_id":"$feed._id",
+        "count": {
+          '$size':"$feed.savedBy"
+        }
+      }
+    },
+    {
+      '$sort' : {
+        "count":-1
+      }
+    },
+    {
+      '$limit' : 6
+    }
+  ]
+
+  try {
+    User.aggregate(trendingPostsPipeline).then(
+      function (queryRes) {
+        //console.log(queryRes);
+        res.send(queryRes);
+      }
+    )
+  } catch (e) {
+    res.status(500).send()
+  }
+});
 
 module.exports = router;

@@ -13,6 +13,11 @@ export class DashboardComponent implements OnInit {
   public savedPosts = [];
   friendsList:any = [];
   usersList: any = [];
+  savedPostsId: any = [];
+  readingList: any = [];
+  topTrendingPosts: any = [];
+
+  generalFeedPosts: any = [];
 
   constructor(
     private router: Router,
@@ -24,6 +29,9 @@ export class DashboardComponent implements OnInit {
     this.getUsersList();
     this.getFriendsList();
     this.getFriendsPosts();
+    this.getSavedPostsId();
+    this.getSavedPostsContent();
+    this.getTopTrendingPosts();
   }
 
   showFriendsList(): void {
@@ -61,15 +69,10 @@ export class DashboardComponent implements OnInit {
         }
       }
     }
-
     const tempUserList = usersList.filter((user: any) => {
-      return (!user.friendRequestSent === true);
+      return (user.friendRequestSent !== true);
     });
-
-    if (tempUserList && tempUserList.length > 0) {
-      this.usersList = tempUserList;
-    }
-
+    this.usersList = tempUserList;
   }
 
   getFriendsList(){
@@ -84,9 +87,14 @@ export class DashboardComponent implements OnInit {
     for (var friend of this.friendsList){
       this.dashboardService.friendName = friend
       this.dashboardService.getFriendsPost().subscribe(data => {
-        console.log(data) // data contains the posts of all the friends of the logged in user(General Feed)
+        console.log(data)
+        this.generalFeedPosts = data;
       })
     }
+  }
+
+  gotToDetailedPost(eachPost: any) {
+    this.router.navigate(['postHeadingTitle', eachPost._id]);
   }
 
   sendFriendRequestToUser(user: any): void {
@@ -99,7 +107,7 @@ export class DashboardComponent implements OnInit {
 
     this.dashboardService.sendFriendRequest(currentUser, sendFriendRequestPayLoad).subscribe((data) => {
       if(data) {
-        this.snackBar.open("Friend Reuquest Sent", void 0, {
+        this.snackBar.open("Friend Request Sent", void 0, {
           duration: 3000,
           horizontalPosition: 'center',
         });
@@ -107,8 +115,32 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  getSavedPostsId(){
+    const currentUser = JSON.parse(this.getLoggedInUser());
+    for (var i=0; i<currentUser.savedPosts.length; i++){
+      this.savedPostsId.push(currentUser.savedPosts[i]['_id'])
+    }
+    console.log('saved posts are ' + this.savedPostsId)
+  }
+
+  getSavedPostsContent(){
+    for (var postid of this.savedPostsId){
+      this.dashboardService.postId = postid
+      this.dashboardService.getSavedPosts().subscribe(data => {
+        console.log(data)
+        this.readingList.push(data)
+      })
+    }
+  }
+
   getLoggedInUser(): any {
     return JSON.parse(JSON.stringify(localStorage.getItem('currentUser')));
+  }
+
+  getTopTrendingPosts(): void {
+    this.dashboardService.getTopTrendingPosts().subscribe(data => {
+      this.topTrendingPosts = data;
+    })
   }
 
 }

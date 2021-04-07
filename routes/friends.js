@@ -5,12 +5,16 @@ const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 
 router.get("/usersList", async (req, res) => {
+
   const users = await User.find({});
 
   const userMap = {};
 
   users.forEach((user) => {
-    userMap[user.username] = user;
+    if(req.user.username != user.username)
+    {
+      userMap[user.username] = user;
+    }
   });
   //console.log("test data", userMap);
 

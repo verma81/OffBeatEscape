@@ -12,7 +12,8 @@
         </div>
         <div class="Friend_Wrapper" *ngFor="let friend of friendsList | friendList: friendName">
             <mat-card class="example-card">
-              <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+              <img *ngIf="friend.profileImage" src="{{friend.profileImage}}">
+              <img *ngIf="!friend.profileImage" src="../../assets/post.jpeg">
                 <mat-card-content>
                   <mat-card-title>{{friend.username}}</mat-card-title>
                 </mat-card-content>

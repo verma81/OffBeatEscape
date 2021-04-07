@@ -1,28 +1,34 @@
-<app-header></app-header>
+<app-header>
+
+</app-header>
 <div class="Settings_Page_Wrapper">
     <div class="Settings_Wrapper">
         <div><h1>User Settings</h1></div>
         <div class="Settings_Form">
             <div class="Form_Field_Update_Name">
-                <div class="Form_Field_Input">
-                    <mat-form-field appearance="outline" [style.width.%]="100">
-                        <mat-label>Update username</mat-label>
-                        <input matInput placeholder="Enter a new name to update">
-                    </mat-form-field>
-                </div>
-                <div class="Form_Field_Action">
-                    <button  mat-raised-button>Update Name</button>
-                </div>
+                 <h2>{{user.username}}</h2>
             </div>
             <mat-divider></mat-divider>
             <div class="Form_Field_Update_Profile_Picture">
                 <div class="Form_Field_Input">
                     <div class="Current_User_Image_Wrapper">
-                        <img src="../../assets/user.png">
+                        <img *ngIf="!user.profileImage" src="../../assets/user.png">
+                        <img *ngIf="user.profileImage" src="{{user.profileImage}}">
+                        <div class="uploadProfilePicture">
+                            <input #imageInput
+                                type="file"
+                                name="image"
+                                id="imagepicker"
+                                accept="image/*"
+                                (change)="uploadFile(imageInput)"
+                                multiple="{false}"
+                                class="form-control-file"
+                            />
+                        </div>
                     </div>
                 </div>
                 <div class="Form_Field_Action">
-                    <button  mat-raised-button>Update Profile Picture</button>
+                    <button (click)="addProfileImage()" mat-raised-button>Update Profile Picture</button>
                 </div>
             </div>
         </div>
