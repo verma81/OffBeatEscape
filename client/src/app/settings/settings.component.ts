@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 class ImageSnippet {
   constructor(public src: string, public file: File) {}
@@ -11,7 +13,10 @@ class ImageSnippet {
 })
 export class SettingsComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    ) { }
   user: any;
   // @ts-ignore
   selectedFile: ImageSnippet;
@@ -19,7 +24,7 @@ export class SettingsComponent implements OnInit {
   ngOnInit(): void {
     this.getLoggedInUser();
   }
-  
+
   getLoggedInUser(): any {
     this.user = (JSON.parse(JSON.parse(JSON.stringify(localStorage.getItem('currentUser')))));
   }
@@ -37,7 +42,18 @@ export class SettingsComponent implements OnInit {
   }
 
   addProfileImage() {
-
+    const formData = new FormData();
+    formData.append('profileImage', this.selectedFile.file);
+    return this.http
+        .patch('http://localhost:3000/users/addProfileImage/' + this.user.username, formData)
+        .subscribe(
+          (res) => {
+            console.log(res);
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
   }
-  
+
 }

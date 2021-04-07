@@ -80,7 +80,7 @@ router.patch('/addComment/:id', async(req,res) => {
 
 router.patch('/reportPost/:id', async (req, res) => {
   post = await Post.findOneAndUpdate({ _id: req.params.id }, { $inc: { timesReported: 1 } }, {new: true })
-
+  console.log(post)
   try{
      await post.save()
     res.status(201).send({post})
