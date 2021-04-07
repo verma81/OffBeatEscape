@@ -3,6 +3,42 @@ const router = require("express").Router();
 const passport = require("passport");
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
+const user = require("../models/user");
+const multer = require('multer')
+const aws = require("aws-sdk");
+const multerS3 = require("multer-s3-v2");
+
+aws.config.update({
+  accessKeyId: process.env.AWS_ACCESS_ID,
+  secretAccessKey: process.env.AWS_SECRET_KEY
+})
+
+const s3 = new aws.S3();
+
+const fileFilter = (req, file, cb) => {
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+      cb(null, true)
+  } else {
+      cb(new Error('Invalid Mime Type, only JPEG and PNG'), false);
+  }
+}
+
+const upload = multer({
+  fileFilter,
+  storage: multerS3({
+    s3,
+    bucket: "imageblobs",
+    acl: "public-read",
+    metadata: function(req, file, cb) {
+      cb(null, { fieldName: 'TESTING_META_DATA'});
+    },
+    key: function(req, file, cb) {
+      cb(null, Date.now().toString());
+    }
+  })
+});
+
+const singleUpload = upload.single('profileImage')
 
 
 router.post("/login", (req, res, next) => {
@@ -37,6 +73,17 @@ router.post("/register", (req, res) => {
     }
   }).select('+password');
 });
+
+router.patch('/addProfileImage/:username', singleUpload, async (req, res) => {
+  const user = await User.findOne({ username: req.params.username }, {new: true, runValidators: true})
+  user.profileImage = req.file.location
+  try{
+    await user.save()
+    res.status(201).send(user)
+  }catch(e){
+    res.status(400).send(e)
+  }
+})
 
 router.patch('/savePost/:username', async (req, res) => {
 
