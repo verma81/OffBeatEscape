@@ -5,6 +5,10 @@ import { Pipe, PipeTransform } from '@angular/core';
   pure: false
 })
 
+/**
+* @memberof FriendListPipe
+* filter the users list based on search input
+*/
 export class FriendListPipe implements PipeTransform {
     transform(friendsList: any, friendName: string): any {
         if (!friendName || !friendsList) {

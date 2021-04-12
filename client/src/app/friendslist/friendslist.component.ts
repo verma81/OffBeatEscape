@@ -8,9 +8,15 @@ import { DashBoardService } from '../dashboard/dashboard.service';
   styleUrls: ['./friendslist.component.scss']
 })
 export class FriendslistComponent implements OnInit {
-
+  /**
+   * @memberof FriendslistComponent
+   * used for storing  user's name to filter based on search
+   */
   friendName = '';
-
+  /**
+   * @memberof FriendslistComponent
+   * used for storing users list
+   */
   friendsList: Array<any> = [];
 
   constructor(
@@ -25,6 +31,11 @@ export class FriendslistComponent implements OnInit {
     });
   }
 
+  /**
+   * @memberof FriendslistComponent
+   * used for filtering users list to show only users to whom the logged in user has 
+   * not sent a friend request
+   */
   filterFriendsList(usersList: any): void {
     const alreadySentFriendRequestList: any = [];
     const currentUser = JSON.parse(this.getLoggedInUser());
@@ -50,6 +61,10 @@ export class FriendslistComponent implements OnInit {
     this.friendsList = tempUserList;
   }
 
+  /**
+   * @memberof FriendslistComponent
+   * used to send friend request to a user
+   */
   sendFriendRequestToUser(friend: any): void {
     const currentUser = JSON.parse(this.getLoggedInUser());
     const friendRequestPayLoad = {
@@ -63,8 +78,11 @@ export class FriendslistComponent implements OnInit {
     });
   }
 
+  /**
+   * @memberof FriendslistComponent
+   * used to get current logged in user from local storage
+   */
   getLoggedInUser(): any {
     return JSON.parse(JSON.stringify(localStorage.getItem('currentUser')));
   }
-
 }
