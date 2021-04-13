@@ -11,6 +11,10 @@ import { MypostsComponent } from './myposts/myposts.component';
 import { EditpostComponent } from './editpost/editpost.component';
 import { SettingsComponent } from './settings/settings.component';
 
+/**
+ * Contains routing paths for all components of the application
+ * Conatins activated routes where data has been passed and retrieved in components
+ */
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
@@ -23,8 +27,6 @@ const routes: Routes = [
   {path: 'myposts', component: MypostsComponent, canActivate: [AuthGuard]},
   {path: 'editpost/:pid',component: EditpostComponent, canActivate: [AuthGuard]},
   {path: 'settings', component: SettingsComponent, canActivate: [AuthGuard]}
-
-
 ];
 
 @NgModule({

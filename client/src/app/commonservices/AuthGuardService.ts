@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { map, catchError } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { LogInService } from '../login/login.service';
 
 @Injectable()
@@ -10,7 +8,6 @@ export class AuthGuardService implements CanActivate {
 
   constructor(
     private router: Router,
-    private http: HttpClient,
     private loginService: LogInService
   ) {}
 

@@ -11,6 +11,11 @@ import { NG_VALIDATORS, Validator, FormControl } from '@angular/forms';
     }
   ]
 })
+
+/**
+  * @memberof SettingsComponent
+  * directive to compare password with confrim passwrord field
+*/
 export class PasswordValidatorDirective implements Validator {
 
   constructor(@Attribute('appPasswordvalidator') public PasswordControl: string) { }
