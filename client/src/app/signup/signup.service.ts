@@ -9,6 +9,7 @@ import { UserCredentials } from '../login/login.model';
   providedIn: 'root',
 })
 export class SignUpService {
+    nodeServiceURL: string = '/api';
     constructor(private http: HttpClient) { }
     /**
      * @memberof SignUpService
@@ -16,7 +17,7 @@ export class SignUpService {
      * @param clientCredentials
      */
     registerUser(clientCredentials: UserCredentials): Observable<SignUpResponseModel> {
-      return this.http.post<SignUpResponseModel>(`http://localhost:3000/users/register`, clientCredentials, {withCredentials: true}).pipe(
+      return this.http.post<SignUpResponseModel>(this.nodeServiceURL + `/users/register`, clientCredentials, {withCredentials: true}).pipe(
       map((res: any) => {
         console.log(res);
         return res;

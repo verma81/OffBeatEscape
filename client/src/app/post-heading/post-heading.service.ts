@@ -7,7 +7,7 @@ import { Observable, throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class PostHeadingService {
-
+  nodeServiceURL: string = '/api';
   constructor(private http: HttpClient) { }
 
   /**
@@ -15,7 +15,7 @@ export class PostHeadingService {
    * API call for getting post details
    */
   getPostDetails(postId: string): Observable<any> {
-    return this.http.get('http://localhost:3000/post/posts/' + postId).pipe(
+    return this.http.get(this.nodeServiceURL + '/post/posts/' + postId).pipe(
       map((res: any) => {
         console.log(res);
         return res;
@@ -29,7 +29,7 @@ export class PostHeadingService {
    * API call for adding comment on a post
    */
   addCommentOnAPost(commentRequestData: any, postId: string): Observable<any> {
-    return this.http.patch('http://localhost:3000/post/addComment/' + postId, commentRequestData).pipe(
+    return this.http.patch(this.nodeServiceURL + '/post/addComment/' + postId, commentRequestData).pipe(
       map((res: any) => {
         console.log(res);
         return res;
@@ -43,7 +43,7 @@ export class PostHeadingService {
    * API call for reporting a post
    */
   reportPost(postId: String): Observable<any> {
-    return this.http.patch('http://localhost:3000/post/reportPost/' + postId, postId).pipe(
+    return this.http.patch(this.nodeServiceURL + '/post/reportPost/' + postId, postId).pipe(
       map((res: any) => {
         return res;
       }),
@@ -56,7 +56,7 @@ export class PostHeadingService {
  * API call for saving a post
  */
   savePost(postId: string, savedPostRequestPayload: { user: any; }) {
-    return this.http.patch('http://localhost:3000/users/savePost/' + postId, savedPostRequestPayload).pipe(
+    return this.http.patch(this.nodeServiceURL + '/users/savePost/' + postId, savedPostRequestPayload).pipe(
       map((res: any) => {
         console.log(res);
         return res;
@@ -70,7 +70,7 @@ export class PostHeadingService {
    * API call for deleting a post
    */
   delete(postId: String): Observable<any> {
-    return this.http.delete("http://localhost:3000/post/posts/" + postId).pipe(
+    return this.http.delete(this.nodeServiceURL + '/post/posts/' + postId).pipe(
       map((res: any) => {
         return res;
       }),
@@ -83,7 +83,7 @@ export class PostHeadingService {
    * API call for saving post to a graph
    */
   savePostForGraph(postId: string, savedPostRequestPayload: { user: any; }) {
-    return this.http.patch('http://localhost:3000/post/savepost/' + postId, savedPostRequestPayload).pipe(
+    return this.http.patch(this.nodeServiceURL + '/post/savepost/' + postId, savedPostRequestPayload).pipe(
       map((res: any) => {
         console.log(res);
         return res;
@@ -97,7 +97,7 @@ export class PostHeadingService {
    * API call for getting inspirer history
    */
   getInspirerHistory(inspirerHistoryPayLoad: any): Observable<any> {
-    return this.http.post('http://localhost:3000/post/inspirationCycle', inspirerHistoryPayLoad).pipe(
+    return this.http.post(this.nodeServiceURL + '/post/inspirationCycle', inspirerHistoryPayLoad).pipe(
       map((res: any) => {
         console.log(res);
         return res;

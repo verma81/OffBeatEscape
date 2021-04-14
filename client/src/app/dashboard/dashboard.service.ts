@@ -11,6 +11,7 @@ export class DashBoardService {
   
   postId = ''
   friendName = ''
+  nodeServiceURL = '/api';
   constructor(private http: HttpClient) { }
 
   /**
@@ -18,7 +19,7 @@ export class DashBoardService {
    * API call to get friends posts
    */
     getFriendsPost(): Observable<any>{
-      return this.http.get('http://localhost:3000/dashboard/generalFeed/').pipe(
+      return this.http.get(this.nodeServiceURL + '/dashboard/generalFeed/').pipe(
         map((res: any) => {
           return res;
         }),
@@ -31,7 +32,7 @@ export class DashBoardService {
    * API call to get saved posts
    */
     getSavedPosts(){
-      return this.http.get('http://localhost:3000/post/posts/' + this.postId).pipe(
+      return this.http.get(this.nodeServiceURL + '/post/posts/' + this.postId).pipe(
         map((res: any) => {
           return res;
         }),
@@ -44,7 +45,7 @@ export class DashBoardService {
    * API call to get users list
    */
     getUsersList(): Observable<any> {
-        return this.http.get(`http://localhost:3000/users/usersList`).pipe(
+        return this.http.get(this.nodeServiceURL + `/users/usersList`).pipe(
             map((res: any) => {
             return res;
         }),
@@ -57,7 +58,7 @@ export class DashBoardService {
    * API call to send friend request
    */
     sendFriendRequest(currentUser: any, sendFriendRequestPayLoad: any): Observable<any> {
-        return this.http.post(`http://localhost:3000/users/sendFriendRequest/` + currentUser._id, sendFriendRequestPayLoad).pipe(
+        return this.http.post(this.nodeServiceURL + `/users/sendFriendRequest/` + currentUser._id, sendFriendRequestPayLoad).pipe(
             map((res: any) => {
             return res;
         }),
@@ -70,7 +71,7 @@ export class DashBoardService {
    * API call to get top trending posts
    */
     getTopTrendingPosts(): Observable<any> {
-      return this.http.get(`http://localhost:3000/dashboard/trendingPosts`).pipe(
+      return this.http.get(this.nodeServiceURL + `/dashboard/trendingPosts`).pipe(
             map((res: any) => {
             return res;
         }),

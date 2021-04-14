@@ -9,7 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   providedIn: 'root',
 })
 export class LogInService {
-  
+  nodeServiceURL: string = '/api';
   constructor(
     private http: HttpClient
     ) { }
@@ -20,7 +20,7 @@ export class LogInService {
    * Used to call login API
    */
   validateLogin(userCredentials: UserCredentials): Observable<LoginModel> {
-    return this.http.post<LoginModel>(`http://localhost:3000/users/login`, userCredentials, {withCredentials: true}).pipe(
+    return this.http.post<LoginModel>(this.nodeServiceURL + `/users/login`, userCredentials, {withCredentials: true}).pipe(
       map((res: any) => {
         console.log(res);
         return res;
@@ -30,7 +30,7 @@ export class LogInService {
   }
 
   getUser(): Observable<any> {
-    return this.http.get(`http://localhost:3000/getuser`, { withCredentials: true }).pipe(
+    return this.http.get(this.nodeServiceURL + `/getuser`, { withCredentials: true }).pipe(
         map((res: any) => {
         console.log(res);
         return res;

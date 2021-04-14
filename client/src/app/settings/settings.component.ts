@@ -12,7 +12,7 @@ class ImageSnippet {
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
-
+  nodeServiceURL: string = '/api';
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -62,7 +62,7 @@ export class SettingsComponent implements OnInit {
     const formData = new FormData();
     formData.append('profileImage', this.selectedFile.file);
     return this.http
-      .patch('http://localhost:3000/users/addProfileImage/' + this.user.username, formData)
+      .patch(this.nodeServiceURL + '/users/addProfileImage/' + this.user.username, formData)
       .subscribe(
         (res) => {
           console.log(res);

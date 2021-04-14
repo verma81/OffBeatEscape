@@ -12,7 +12,7 @@ class ImageSnippet{
 export class AddPostService {
   // @ts-ignore
   selectedFile : ImageSnippet;
-
+  nodeServiceURL = '/api'
     constructor(private http: HttpClient){
 
 	}
@@ -33,7 +33,7 @@ export class AddPostService {
     console.log(this.selectedFile);
     formData.append('description', post.description);
     formData.append('title', post.title);
-    return this.http.post('http://localhost:3000/post/addPost', formData);
+    return this.http.post(this.nodeServiceURL + '/post/addPost', formData);
   }
 
 }

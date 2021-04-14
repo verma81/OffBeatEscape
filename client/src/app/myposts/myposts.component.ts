@@ -10,13 +10,14 @@ import { Router } from '@angular/router';
 })
 export class MypostsComponent implements OnInit {
   public posts : any = [];
+  nodeServiceURL : string = '/api';
   constructor(
     private http: HttpClient,
     private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.http.get('http://localhost:3000/post/getMyPosts').subscribe((data) => {
+    this.http.get(this.nodeServiceURL + '/post/getMyPosts').subscribe((data) => {
       if(data){
         this.posts = Object.values(data)
       } else {
@@ -27,7 +28,7 @@ export class MypostsComponent implements OnInit {
 
   deletePost(event: any, currentPostId: string) {
     this.updatePostsArray(currentPostId.toString(), this.posts);
-    this.http.delete("http://localhost:3000/post/posts/" + currentPostId).subscribe((data) => {
+    this.http.delete(this.nodeServiceURL + "/post/posts/" + currentPostId).subscribe((data) => {
       if(data){
         this.router.navigate(['/myposts'])
       } else {

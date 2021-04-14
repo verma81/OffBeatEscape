@@ -7,7 +7,7 @@ import { Observable, throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class HeaderService {
-
+    nodeServiceURL: string = '/api';
     constructor(private http: HttpClient) {}
 
    /**
@@ -15,7 +15,7 @@ export class HeaderService {
    * API call to logout user and revoke his/her authentication token
    */
     logOutUser(): Observable<any> {
-        return this.http.get(`http://localhost:3000/logout`).pipe(
+        return this.http.get(this.nodeServiceURL + `/logout`).pipe(
             map((res: any) => {
             return res;
         }),
@@ -28,7 +28,7 @@ export class HeaderService {
    * API call to accept friend request from another user
    */
     acceptFriendRequest(currentUserId: string, acceptFriendRequestPayLoad: any):Observable<any> {
-        return this.http.post(`http://localhost:3000/users/acceptFriendRequest/` + currentUserId, acceptFriendRequestPayLoad).pipe(
+        return this.http.post(this.nodeServiceURL + `/users/acceptFriendRequest/` + currentUserId, acceptFriendRequestPayLoad).pipe(
             map((res: any) => {
             return res;
         }),

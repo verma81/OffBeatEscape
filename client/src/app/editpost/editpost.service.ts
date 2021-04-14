@@ -7,11 +7,11 @@ import { map, catchError } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class EditPostService {
-    
+    nodeServiceURL: string = '/api';
     constructor(private http: HttpClient) { }
     
     getPost(postId: string): Observable<any> {
-        return this.http.get('http://localhost:3000/post/posts/' + postId).pipe(
+        return this.http.get(this.nodeServiceURL + '/post/posts/' + postId).pipe(
             map((res: any) => {
             console.log(res);
             return res;
@@ -22,7 +22,7 @@ export class EditPostService {
 
     editPost(postId: string, editPostPayLoad: { title?: any; description?: any }): Observable<any> {
         console.log(postId);
-        return this.http.patch('http://localhost:3000/post/posts/' + postId, editPostPayLoad).pipe(
+        return this.http.patch(this.nodeServiceURL + '/post/posts/' + postId, editPostPayLoad).pipe(
             map((res: any) => {
             console.log(res);
             return res;
